@@ -10,8 +10,8 @@ mongoose.Promise = global.Promise;
 
 
 // MIDDLEWARES
-// app.use(bodyParser.json())
-//app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:true}));
 
 // Not yet connected to mongodb mlab
 // mongoose.connect(mongodbUri, {useNewUrlParser:true}).then(()=>{
@@ -20,12 +20,10 @@ mongoose.Promise = global.Promise;
 //     console.log("Couldn't connect to db",err)
 // })
  
-//ROUTES
-//app.use("/apis", routes);
+// ROUTES
 app.use(express.static(__dirname+'/dist/lifthub'))
-app.get("/*", (req,res)=>{
-    res.sendFile(path.join(__dirname))
-})
+app.use("/",express.static(__dirname+'/dist/lifthub'))
+app.use("/apis", routes);
 
 
 const normalizePort = (val)=> {
