@@ -2,7 +2,15 @@ const mongoose = require("mongoose");
 
 // schema is empty for now
 const spaceSchema = mongoose.Schema({
+    type:{
+        type: String,
+        required: true
+    },
     title:{
+        type: String,
+        required: true
+    },
+    image:{
         type: String,
         required: true
     },

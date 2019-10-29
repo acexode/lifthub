@@ -11,6 +11,14 @@ import { SpacesComponent } from './spaces/spaces.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SectionsComponent } from './sections/sections.component';
 import { FooterComponent } from './footer/footer.component';
+import { UserNavComponent } from './user_page/user-nav/user-nav.component';
+import { BedSpaceComponent } from './user_page/bed-space/bed-space.component';
+import { WorkSpaceComponent } from './user_page/work-space/work-space.component';
+import { OfficeSpaceComponent } from './user_page/office-space/office-space.component';
+import { TrainingSpaceComponent } from './user_page/training-space/training-space.component';
+import { EventSpaceComponent } from './user_page/event-space/event-space.component';
+import { ConferenceSpaceComponent } from './user_page/conference-space/conference-space.component';
+import { UserPageComponent } from './user_page/user-page/user-page.component';
 
 
 
@@ -22,7 +30,15 @@ import { FooterComponent } from './footer/footer.component';
     LoginComponent,
     SpacesComponent,
     SectionsComponent,
-    FooterComponent
+    FooterComponent,
+    UserNavComponent,
+    BedSpaceComponent,
+    WorkSpaceComponent,
+    OfficeSpaceComponent,
+    TrainingSpaceComponent,
+    EventSpaceComponent,
+    ConferenceSpaceComponent,
+    UserPageComponent
   ],
   imports: [
     BrowserModule,

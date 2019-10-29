@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       console.log(res)
       this.data = res['token']
       localStorage.setItem('token',this.data)
-      //this.router.navigate(['login'])
+      this.router.navigate(['login'])
     },err=>{
       this.errMsg = err.error.message
     })
