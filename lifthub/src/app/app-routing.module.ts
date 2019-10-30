@@ -1,14 +1,11 @@
-<<<<<<< HEAD
-=======
-import { SpacesComponent } from './spaces/spaces.component';
->>>>>>> changed username to email in login and signup
+
+import { BedSpaceComponent } from './user_page/bed-space/bed-space.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { UserPageComponent } from './user_page/user-page/user-page.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
-<<<<<<< HEAD
-const routes: Routes = [];
-=======
 const routes: Routes = [
   {
     path: "",
@@ -16,12 +13,20 @@ const routes: Routes = [
     pathMatch:"full"
   },
   {
+    path: "",
+    component:LandingPageComponent,
+    pathMatch:"full"
+  },
+  {
     path: "space",
-    component:SpacesComponent,
+    component:UserPageComponent,
+    children : [{
+      path: "bedspace",
+      component: BedSpaceComponent
+    }],
     data:{title:"Spaces"}
   }
 ];
->>>>>>> changed username to email in login and signup
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
