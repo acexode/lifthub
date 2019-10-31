@@ -1,0 +1,44 @@
+<mdb-card class="bg" style="background-image: url('https://images.pexels.com/photos/1595385/pexels-photo-1595385.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940')">
+    <div class="text-white text-center py-5 px-4 my-5">
+      <div>
+        <h2 class="card-title h1-responsive pt-3 mb-5 font-bold"><strong>Spaces to suit all your needs</strong></h2>
+        <div class="mt-5">
+                <button type="text" mdbBtn color="blue" mdbWavesEffect>Buy now <mdb-icon far icon="gem" class="ml-1"></mdb-icon> </button>
+                <button type="button" mdbBtn color="primary" outline="true" mdbWavesEffect> Download <mdb-icon fas icon="download" class="ml-1"></mdb-icon></button>
+              </div>
+      </div>
+    </div>
+  </mdb-card>
+<!-- Section: Blog v.2 -->
+<section *ngFor="let space of spaces" class="my-5">
+
+<!-- Section heading -->
+<h2 class="h1-responsive font-weight-bold my-5">{{space.name}}</h2>
+
+<!-- Grid row -->
+<div class="row">
+
+  <!-- Grid column -->
+  <div *ngFor="let sub of space.sub" class="col-lg-4 col-md-12 mb-lg-0 mb-4">
+
+    <!-- Featured image -->
+    <div class="view overlay rounded z-depth-2 mb-4 waves-light" mdbWavesEffect>
+      <img class="img-fluid" src="{{sub.img}}" alt="Sample image">
+      <a>
+        <div class="mask text-white pt-5 rgba-white-slight">
+          <h5 class="h5-responsive pt-5  font-weight-bold my-5">{{sub.name}}</h5>
+        </div>
+      </a>
+    </div>     
+
+  </div>    
+  <!-- Grid column -->
+</div>
+<div class="row justify-content-end">
+    <a href="#!" class="blue-text align-self-end">
+        <h6 class="font-weight-bold mb-3">See more</h6>
+      </a>
+
+  </div>
+
+</section>

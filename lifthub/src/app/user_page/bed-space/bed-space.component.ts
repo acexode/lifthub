@@ -8,7 +8,31 @@ import { Component, OnInit } from '@angular/core';
 export class BedSpaceComponent implements OnInit {
 
   constructor() { }
-
+    bedspaces = [
+    {
+        type: "Bed Space"
+    },
+    {
+      title: "Smart bedspace"
+    },
+    {
+      image: ""
+    },
+    {
+      location: "Central Business District, Abuja"
+    },
+    {
+      description: "Beautifully furnished bed space with smart room gadgets"
+    },
+    {
+      price: "1,200,000",
+      
+    },
+    {
+    availability: true
+     
+    }
+    ]
   ngOnInit() {
   }
 

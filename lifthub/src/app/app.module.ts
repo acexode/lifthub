@@ -19,6 +19,8 @@ import { EventSpaceComponent } from './user_page/event-space/event-space.compone
 import { ConferenceSpaceComponent } from './user_page/conference-space/conference-space.component';
 import { UserPageComponent } from './user_page/user-page/user-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component';
+
 
 
 
@@ -38,7 +40,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     EventSpaceComponent,
     ConferenceSpaceComponent,
     UserPageComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    AllSpacesComponent
   ],
   imports: [
     BrowserModule,

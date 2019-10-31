@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserPageComponent } from './user_page/user-page/user-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component';
+import { OfficeSpaceComponent } from './user_page/office-space/office-space.component';
 
 
 const routes: Routes = [
@@ -20,11 +22,22 @@ const routes: Routes = [
   {
     path: "space",
     component:UserPageComponent,
-    children : [{
+    children : [
+      {
+        path: "",
+        component: AllSpacesComponent,
+        pathMatch:"full"
+      },
+      {
       path: "bedspace",
       component: BedSpaceComponent
-    }],
-    data:{title:"Spaces"}
+      },
+      {
+        path: "workspace",
+        component: OfficeSpaceComponent
+      }
+  ]
+    
   }
 ];
 
