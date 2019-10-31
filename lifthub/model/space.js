@@ -2,37 +2,33 @@ const mongoose = require("mongoose");
 
 // schema is empty for now
 const spaceSchema = mongoose.Schema({
-    type:{
-        type: String,
-        required: true
-    },
-    details:[{
-        name:{
-        type: String,
-        required: true
-        },
-        image:{
+    spaceType: string,
+    details: {
+        name: {
             type: String,
             required: true
         },
-        location:{
-            type: [String],
-            required: true
-        },
-        description:{
+        img: {
             type: String,
             required: true
         },
-        price:{
+        location: {
             type: String,
             required: true
         },
-        availability:{
-            type: Boolean,
+        description: {
+            type: String,
+            required: true
+        },
+        price: {
+            type: String,
+            required: true
+        },
+        availability: {
+            type: String,
             required: true
         }
-    }]
-    
+    }
 })
 
 module.exports = mongoose.model("Space", spaceSchema)
