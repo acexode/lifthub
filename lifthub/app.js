@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser");
@@ -6,10 +7,23 @@ const http = require("http")
 const app = express();
 const mongodbUri = require("./config/keys").uri
 const routes = require("./routes/routes")
+=======
+const express = require("express"),
+  passport = require("passport"),
+  mongoose = require("mongoose"),
+  bodyParser = require("body-parser"),
+  path = require("path"),
+  http = require("http"),
+  app = express(),
+  mongodbUri = require("./config/keys").uri,
+  routes = require("./routes/routes");
+
+>>>>>>> changed username to email in login and signup
 mongoose.Promise = global.Promise;
 
 
 // MIDDLEWARES
+<<<<<<< HEAD
 // app.use(bodyParser.json())
 //app.use(bodyParser.urlencoded({extended:true}));
 
@@ -28,6 +42,26 @@ app.get("/*", (req,res)=>{
 })
 
 
+=======
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:true}));
+
+// Not yet connected to mongodb mlab
+mongoose.connect(mongodbUri, {useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
+    console.log("connected to MongoDB");
+}).catch(err =>{
+    console.log("Couldn't connect to db",err)
+})
+
+
+// ROUTES
+app.use(express.static(__dirname+'/dist/lifthub'))
+app.use("/",express.static(__dirname+'/dist/lifthub'))
+// initialize passport
+app.use(passport.initialize())
+app.use("/api", routes);
+
+>>>>>>> changed username to email in login and signup
 const normalizePort = (val)=> {
     var port = parseInt(val, 10);
   
