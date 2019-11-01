@@ -1,11 +1,13 @@
-const express = require("express")
-const mongoose = require("mongoose")
-const bodyParser = require("body-parser");
-const path = require("path")
-const http = require("http")
-const app = express();
-const mongodbUri = require("./config/keys").uri
-const routes = require("./routes/routes")
+const express = require("express"),
+  passport = require("passport"),
+  mongoose = require("mongoose"),
+  bodyParser = require("body-parser"),
+  path = require("path"),
+  http = require("http"),
+  app = express(),
+  mongodbUri = require("./config/keys").uri,
+  routes = require("./routes/routes");
+
 mongoose.Promise = global.Promise;
 
 
@@ -25,6 +27,13 @@ app.use(express.static(__dirname+'/dist/lifthub'))
 app.use("/",express.static(__dirname+'/dist/lifthub'))
 app.use("/apis", routes);
 
+
+// ROUTES
+app.use(express.static(__dirname+'/dist/lifthub'))
+app.use("/",express.static(__dirname+'/dist/lifthub'))
+// initialize passport
+app.use(passport.initialize())
+app.use("/api", routes);
 
 const normalizePort = (val)=> {
     var port = parseInt(val, 10);
