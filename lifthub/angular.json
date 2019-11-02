@@ -28,11 +28,6 @@
               "src/assets"
             ],
             "styles": [
-<<<<<<< HEAD
-              "src/styles.scss"
-            ],
-            "scripts": []
-=======
               "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
               "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
               "node_modules/@fortawesome/fontawesome-free/scss/regular.scss",
@@ -46,7 +41,6 @@
             "node_modules/chart.js/dist/Chart.js",
             "node_modules/hammerjs/hammer.min.js"
           ]
->>>>>>> changed username to email in login and signup
           },
           "configurations": {
             "production": {
@@ -108,12 +102,6 @@
               "src/favicon.ico",
               "src/assets"
             ],
-<<<<<<< HEAD
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
-=======
                         
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
@@ -129,7 +117,6 @@
             "node_modules/chart.js/dist/Chart.js",
             "node_modules/hammerjs/hammer.min.js"
             ]
->>>>>>> changed username to email in login and signup
           }
         },
         "lint": {

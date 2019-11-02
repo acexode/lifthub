@@ -16,7 +16,11 @@ router.get("/space",passport.authenticate("jwt",{session:false}), (req,res)=>{
             if(err){
                 return next(err)
             }else{
-                res.json(space) 
+                if (!space) {
+                    res.json({ success: false, message: 'no space' })
+                } else {
+                    res.json({ success: true, space: space })
+                } 
             }
         })
     }else{
@@ -26,9 +30,20 @@ router.get("/space",passport.authenticate("jwt",{session:false}), (req,res)=>{
 
 
 // GET BY ID
-router.get("/:id", (req,res)=>{
-    // later
-})
+router.get('/space/:id', (req, res) => {
+    var params = req.params.id
+    Space.findOne({ _id: params }, {}, (err, space) => {
+        if (err) {
+            res.json({ success: false, message: err })
+        } else {
+            if (!space) {
+                res.json({ success: false, message: 'no space' })
+            } else {
+                res.json({ success: true, space: space })
+            }
+        }
+    })
+});
 
 /*
 POST REQUEST
@@ -62,16 +77,14 @@ router.post("/signup", (req,res)=>{
 //LOGIN
 router.post("/login",(req,res)=>{
     const email = {email:req.body.email}
-    const pwd = req.body.password
-    console.log(email)
+    const pwd = req.body.password    
     User.findOne(email,function(err,user){
         if(err){
             throw err
         }
         if(!user){
             res.send({success:false,message:"User does not exist"})
-        }else{
-            console.log(pwd)
+        }else{            
             user.comparePassword(pwd,function(err,match){
                 if(match && !err){
                     let token = jwt.sign(user.toJSON(),keys.secret);
@@ -87,19 +100,25 @@ router.post("/login",(req,res)=>{
 })
 
 // POST NEW SPACE
-router.post("/space",passport.authenticate("jwt",{session:false}), (req,res)=>{
+router.post("/space", (req,res)=>{
     const token = getToken(req.header)
     if(token){
         const newSpace = new Space({
-            title: req.body.title,
-            location: req.body.location,
-            description: req.body.description,
-            price: req.body.price,
-            availability: req.body.availability,
-        })
+            spaceType: req.body.type,
+            details:{                
+                name: req.body.name,
+                img: req.body.img,
+                location: req.body.location,
+                description: req.body.description,
+                price: req.body.price,
+                availability: req.body.availability,
+            } 
+           
+        })        
         newSpace.save(err=>{
             if(err){
                 res.json({success:false,message:"failed to create new space"})
+                
             }else{
                 res.json({success:true,message:"New space created"}) 
             }
@@ -110,14 +129,45 @@ router.post("/space",passport.authenticate("jwt",{session:false}), (req,res)=>{
 })
 
 // UPDATE ITEM
-router.put("/", (req,res)=>{
-    // TODO
+router.put("/:id", (req,res)=>{
+    const id = req.params.id;
+    Space.findOne({_id:id},{},(err,space)=>{
+        if(err){
+            res.json({success:false, message:err})
+        }else{
+            if(!space){
+                res.json({success:false,message:"space not found"})
+            }else{
+                space.spaceType = req.body.type
+                space.details.name = req.body.name
+                space.details.img = req.body.img
+                space.details.location = req.body.location
+                space.details.description = req.body.description
+                space.details.price = req.body.price
+                space.details.availability = req.body.availability
+                space.save((err) => {
+                    if (err) {
+                        res.json({ success: false, message: err })
+                    } else {
+                        res.json({ success: true, message: 'post updated' })
+                    }
+                })
+            }
+        }
+    })
 })
 
 // DELETE ITEM
-router.delete("/", (req,res)=>{
-    // TODO
-})
+router.delete('/space/:id', (req, res) => {
+    const params = req.params.id
+    Space.findByIdAndRemove({ _id: params }, {}, (err, posts) => {
+        if (err) {
+            res.json({ success: false, message: 'Invalid Id' })
+        } else {
+            res.json({ success: true, message: 'space removed' })
+        }
+    })
+});
 
 // TOKEN DISPATCHER
 const getToken = headers=>{

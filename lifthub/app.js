@@ -15,12 +15,12 @@ mongoose.Promise = global.Promise;
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}));
 
-// Not yet connected to mongodb mlab
-// mongoose.connect(mongodbUri, {useNewUrlParser:true}).then(()=>{
-//     console.log("connected to MongoDB");
-// }).catch(err =>{
-//     console.log("Couldn't connect to db",err)
-// })
+//Not yet connected to mongodb mlab
+mongoose.connect(mongodbUri, {useNewUrlParser:true}).then(()=>{
+    console.log("connected to MongoDB");
+}).catch(err =>{
+    console.log("Couldn't connect to db",err)
+})
  
 // ROUTES
 app.use(express.static(__dirname+'/dist/lifthub'))
