@@ -6,6 +6,7 @@ import { UserPageComponent } from './user_page/user-page/user-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component';
 import { OfficeSpaceComponent } from './user_page/office-space/office-space.component';
+//import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
@@ -18,10 +19,11 @@ const routes: Routes = [
     path: "",
     component:LandingPageComponent,
     pathMatch:"full"
-  },
+  },  
   {
     path: "space",
     component:UserPageComponent,
+   
     children : [
       {
         path: "",

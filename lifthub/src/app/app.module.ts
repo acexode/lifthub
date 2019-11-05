@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
-import { SpacesComponent } from './spaces/spaces.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { SectionsComponent } from './sections/sections.component';
 import { FooterComponent } from './footer/footer.component';
@@ -30,7 +30,6 @@ import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component'
     SignupComponent,
     NavbarComponent,
     LoginComponent,
-    SpacesComponent,
     SectionsComponent,
     FooterComponent,
     UserNavComponent,
