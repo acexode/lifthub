@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DispatcherService } from '../dispatcher.service';
 import {Router} from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { ModalModule, WavesModule, InputsModule } from 'angular-bootstrap-md'
+import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
+import { SignupComponent } from '../signup/signup.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,11 +12,8 @@ import { ModalModule, WavesModule, InputsModule } from 'angular-bootstrap-md'
 export class LoginComponent implements OnInit {
   user = {email:"",password:""};
   errMsg;
-  data:any 
-  
-  @ViewChild ('login',{static:true}) public loginModal: any;
-  @ViewChild ('signup',{static:true}) public signupModal: any;
-  constructor( private router:Router, private dispatch: DispatcherService) {
+  data:any   
+  constructor( private router:Router, private dispatch: DispatcherService,public modalRef: MDBModalRef,private service:MDBModalService) {
      
    }
    validatingForm: FormGroup;
@@ -49,32 +47,14 @@ export class LoginComponent implements OnInit {
       this.errMsg = err.error.message
     })
   }
-  signup(){
-    this.user.email =  this.modalFormElegantEmail.value
-    this.user.password =  this.modalFormElegantPassword.value
-
-    console.log(this.user.email + "your password is "+ this.user.password)
-
-    this.dispatch.signup(this.user).subscribe(data =>{
-      console.log(data)
-     
-    },err=>{
-      this.errMsg = err.error.message
-    })
+ 
+  
+  openSignUp() {    
+    this.modalRef.hide()
+    this.modalRef = this.service.show(SignupComponent)
   }
-  openLogin() {
-    this.loginModal.show();
-  }
-  openSignUp() {
-    this.loginModal.hide()
-    this.signupModal.show();
-  }
-  hideLogin(){
-    this.loginModal.hide()
-  }
-  hidesignup(){
-    this.loginModal.hide()
-  }
+  
+ 
  
 
 }

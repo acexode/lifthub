@@ -1,7 +1,9 @@
+import { LoginComponent } from './../login/login.component';
 import { DispatcherService } from './../dispatcher.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {Router} from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
 
 
 @Component({
@@ -12,10 +14,8 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 export class SignupComponent implements OnInit {
   user = {email:"",password:""};
   errMsg;
-  @ViewChild ('login',{static:true}) public loginModal: any;
-  @ViewChild ('signup',{static:true}) public signupModal: any;
   data:any 
-  constructor( private router:Router, private dispatch: DispatcherService) {
+  constructor( private router:Router, private dispatch: DispatcherService,public modalRef: MDBModalRef,private service:MDBModalService) {
      
    }
    validatingForm: FormGroup;
@@ -49,31 +49,12 @@ export class SignupComponent implements OnInit {
       this.errMsg = err.error.message
     })
   }
-  login(){   
-    this.user.email =  this.modalFormElegantEmail.value
-    this.user.password =  this.modalFormElegantPassword.value   
-    console.log(this.user)
-    this.dispatch.login(this.user).subscribe(res =>{
-      console.log(res)
-      this.data = res['token']
-      localStorage.setItem('token',this.data)
-      this.router.navigate(['space'])
-    },err=>{
-      this.errMsg = err.error.message
-    })
-  }
+ 
   openLogin() {
-    this.signupModal.hide()
-    this.loginModal.show();
+    this.modalRef.hide()
+    this.service.show(LoginComponent);
+    
   }
-  openSignUp() {    
-    this.signupModal.show();
-  }
-  hideLogin(){
-    this.loginModal.hide()
-  }
-  hidesignup(){
-    this.signupModal.hide()
-  }
+  
 
 }

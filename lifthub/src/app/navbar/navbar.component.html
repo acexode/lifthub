@@ -23,10 +23,10 @@
             </ul>
             <ul class="navbar-nav ml-auto" mdbWavesEffect>
               <li class="nav-item waves-light" mdbWavesEffect>
-                <app-login ></app-login>
+                <a (click)="openLogin()" class="nav-link" href="#">Sign In</a>
               </li>
               <li  class="nav-item waves-light" mdbWavesEffect>
-                  <app-signup ></app-signup>
+                <a (click)="openSignup()" class="nav-link" href="#">Sign Up</a>
               </li>
             </ul>
           </links>

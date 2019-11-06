@@ -20,6 +20,7 @@ import { ConferenceSpaceComponent } from './user_page/conference-space/conferenc
 import { UserPageComponent } from './user_page/user-page/user-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component';
+import { ModalComponent } from './modal/modal.component';
 
 
 
@@ -40,17 +41,19 @@ import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component'
     ConferenceSpaceComponent,
     UserPageComponent,
     LandingPageComponent,
-    AllSpacesComponent
-  ],
+    AllSpacesComponent,
+    ModalComponent
+  ],  
   imports: [
+    MDBBootstrapModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
-    MDBBootstrapModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
+  entryComponents: [LoginComponent,ModalComponent,SignupComponent],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })
