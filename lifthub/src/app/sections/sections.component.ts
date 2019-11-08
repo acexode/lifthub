@@ -28,23 +28,27 @@ export class SectionsComponent implements OnInit {
 
   ngOnInit() {
   }
-  goto(e){
-    console.log(this.dispatcher.isLoggedIn())
-    if(this.dispatcher.isLoggedIn()){
-        this.router.navigate(['space/'+e])
-    }else{
+   goto(e){   
+        this.router.navigate(['space/'+e])   
+  }
+  
+  // goto(e){
+  //   console.log(this.dispatcher.isLoggedIn())
+  //   //if(this.dispatcher.isLoggedIn()){
+  //       this.router.navigate(['space/'+e])
+  //   }else{
      
-      this.modalRef = this.service.show(ModalComponent,this.options);
+  //     this.modalRef = this.service.show(ModalComponent,this.options);
    
-    }
-  }
-  openLogin() {    
-    this.modalRef = this.service.show(LoginComponent,this.options)
-  }
-  openSignUp() {    
-    this.modalRef.hide()
-    this.modalRef = this.service.show(SignupComponent,this.options)
-  }
+  //   }
+  // }
+  // openLogin() {    
+  //   this.modalRef = this.service.show(LoginComponent,this.options)
+  // }
+  // openSignUp() {    
+  //   this.modalRef.hide()
+  //   this.modalRef = this.service.show(SignupComponent,this.options)
+  // }
   
 
 }

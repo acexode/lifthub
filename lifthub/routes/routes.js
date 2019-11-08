@@ -9,9 +9,7 @@ const Space = require("../model/space")
 const User = require("../model/users")
 
 // GET ITEMS
-router.get("/space",passport.authenticate("jwt",{session:false}), (req,res)=>{
-    const token = getToken(req.header)
-    if(token){
+router.get("/space",(req,res)=>{   
         Space.find((err,space)=>{
             if(err){
                 return next(err)
@@ -23,9 +21,7 @@ router.get("/space",passport.authenticate("jwt",{session:false}), (req,res)=>{
                 } 
             }
         })
-    }else{
-        res.json({success:true,message:"You dont have admin priviledges"})
-    }
+   
 })
 
 
@@ -44,6 +40,23 @@ router.get('/space/:id', (req, res) => {
         }
     })
 });
+// get by location
+router.get('/spaces', (req, res) => {
+    var params = req.query.location
+    console.log(params)
+    Space.find({ 'details.location': params}, {}, (err, space) => {
+        if (err) {
+            res.json({ success: false, message: err })
+        } else {
+            if (!space) {
+                res.json({ success: false, message: 'no space' })
+            } else {
+                res.json({ success: true, space: space })
+            }
+        }
+    })
+});
+
 
 /*
 POST REQUEST
@@ -102,7 +115,7 @@ router.post("/login",(req,res)=>{
 // POST NEW SPACE
 router.post("/space", (req,res)=>{
     const token = getToken(req.header)
-    if(token){
+    if(true){
         const newSpace = new Space({
             spaceType: req.body.type,
             details:{                
@@ -114,7 +127,8 @@ router.post("/space", (req,res)=>{
                 availability: req.body.availability,
             } 
            
-        })        
+        })
+        console.log(newSpace)        
         newSpace.save(err=>{
             if(err){
                 res.json({success:false,message:"failed to create new space"})

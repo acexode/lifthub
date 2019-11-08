@@ -35,6 +35,7 @@ app.use("/",express.static(__dirname+'/dist/lifthub'))
 app.use(passport.initialize())
 app.use("/api", routes);
 
+
 const normalizePort = (val)=> {
     var port = parseInt(val, 10);
   
