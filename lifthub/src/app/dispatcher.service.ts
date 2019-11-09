@@ -6,23 +6,23 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DispatcherService {
-  User = {username:"",password:""}
+
   constructor(private http: HttpClient) { }
 
   signup(user){
-    return this.http.post("/api/signup",user)
+    return this.http.post('/api/signup', user);
   }
-  login(user){
-    console.log(user)
-   return this.http.post("/api/login",user)
+  login(user) {
+    console.log(user);
+    return this.http.post('/api/login', user);
   }
 
   isLoggedIn(){
     const token = localStorage.getItem('token')
-    if(token){
-      return true
-    }else{
-      return false
+    if (token) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

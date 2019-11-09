@@ -42,9 +42,10 @@ router.get('/space/:id', (req, res) => {
 });
 // get by location
 router.get('/spaces', (req, res) => {
-    var params = req.query.location
-    console.log(params)
-    Space.find({ 'details.location': params}, {}, (err, space) => {
+    var space = req.query.space
+    var location = req.query.location
+    
+    Space.find({ 'spaceType':space,'details.location': location}, {}, (err, space) => {
         if (err) {
             res.json({ success: false, message: err })
         } else {

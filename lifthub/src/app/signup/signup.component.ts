@@ -14,6 +14,7 @@ import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
 export class SignupComponent implements OnInit {
   user = {email:"",password:""};
   errMsg;
+  successMsg;
   data:any 
   constructor( private router:Router, private dispatch: DispatcherService,public modalRef: MDBModalRef,private service:MDBModalService) {
      
@@ -37,17 +38,19 @@ export class SignupComponent implements OnInit {
    }
 
   signup(){
-    this.user.email =  this.modalFormElegantEmail.value
-    this.user.password =  this.modalFormElegantPassword.value
-
-    console.log(this.user.email + "your password is "+ this.user.password)
-
-    this.dispatch.signup(this.user).subscribe(data =>{
-      console.log(data)
-     
-    },err=>{
-      this.errMsg = err.error.message
-    })
+    this.user.email =  this.modalFormElegantEmail.value;
+    this.user.password =  this.modalFormElegantPassword.value;
+    this.dispatch.signup(this.user).subscribe(res =>{
+      console.log(res)
+      this.successMsg = res['message'];
+      this.dispatch.login(this.user).subscribe(token =>{
+        this.data = token['token']
+        localStorage.setItem('token', this.data);
+        this.router.navigate(['space'])
+      })      
+    }, err => {
+      this.errMsg = err.error.message;
+    });
   }
  
   openLogin() {
