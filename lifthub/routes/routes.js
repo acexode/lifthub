@@ -91,8 +91,10 @@ router.post("/signup", (req,res)=>{
 //LOGIN
 router.post("/login",(req,res)=>{
     const email = {email:req.body.email}
-    const pwd = req.body.password    
-    User.findOne(email,function(err,user){
+    const pwd = req.body.password 
+    console.log(req.body.email + " " + pwd)   
+    User.findOne({email:req.body.email},function(err,user){
+        console.log(user)
         if(err){
             throw err
         }

@@ -35,13 +35,15 @@ export class LoginComponent implements OnInit {
   login(){
     this.user.email =  this.modalFormElegantEmail.value;
     this.user.password =  this.modalFormElegantPassword.value;
-    console.log(this.user)
+    //console.log(this.user)
     this.dispatch.login(this.user).subscribe(res =>{ 
+      console.log(res)
       this.data = res['token']
       localStorage.setItem('token',this.data)     
       this.modalRef.hide()
       this.router.navigate(['space'])
     },err => {
+      console.log(err)
       this.errMsg = err.error.message
     })
   }
