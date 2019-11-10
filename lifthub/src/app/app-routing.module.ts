@@ -6,6 +6,10 @@ import { UserPageComponent } from './user_page/user-page/user-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component';
 import { OfficeSpaceComponent } from './user_page/office-space/office-space.component';
+import { ConferenceSpaceComponent } from './user_page/conference-space/conference-space.component';
+import { TrainingSpaceComponent } from './user_page/training-space/training-space.component';
+import { EventSpaceComponent } from './user_page/event-space/event-space.component';
+//import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
@@ -18,24 +22,38 @@ const routes: Routes = [
     path: "",
     component:LandingPageComponent,
     pathMatch:"full"
-  },
+  },  
   {
     path: "space",
     component:UserPageComponent,
+   
     children : [
       {
         path: "",
         component: AllSpacesComponent,
         pathMatch:"full"
+      },      
+      {
+        path: "conference",
+        component: ConferenceSpaceComponent
       },
       {
-      path: "bedspace",
-      component: BedSpaceComponent
+        path: "training",
+        component: TrainingSpaceComponent
       },
       {
-        path: "workspace",
+        path: "office",
         component: OfficeSpaceComponent
+      },      
+      {
+        path: "bedspace",
+        component: BedSpaceComponent
+      },
+      {
+        path: "event",
+        component: EventSpaceComponent
       }
+     
   ]
     
   }

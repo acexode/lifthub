@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
-import { SpacesComponent } from './spaces/spaces.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { SectionsComponent } from './sections/sections.component';
 import { FooterComponent } from './footer/footer.component';
@@ -20,6 +20,7 @@ import { ConferenceSpaceComponent } from './user_page/conference-space/conferenc
 import { UserPageComponent } from './user_page/user-page/user-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component';
+import { ModalComponent } from './modal/modal.component';
 
 
 
@@ -30,7 +31,6 @@ import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component'
     SignupComponent,
     NavbarComponent,
     LoginComponent,
-    SpacesComponent,
     SectionsComponent,
     FooterComponent,
     UserNavComponent,
@@ -41,17 +41,19 @@ import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component'
     ConferenceSpaceComponent,
     UserPageComponent,
     LandingPageComponent,
-    AllSpacesComponent
-  ],
+    AllSpacesComponent,
+    ModalComponent
+  ],  
   imports: [
+    MDBBootstrapModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
-    MDBBootstrapModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
+  entryComponents: [LoginComponent,ModalComponent,SignupComponent],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })

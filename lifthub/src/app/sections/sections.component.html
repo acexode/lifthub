@@ -1,3 +1,4 @@
+
 <section class="my-5">
     <br>
    
@@ -33,7 +34,7 @@
         </p>
         <!-- Post data -->
         <!-- Read more button -->
-        <a class="btn btn-info btn-md">View Spaces</a>
+        <a (click)="goto('office')" class="btn btn-warning btn-md">View Spaces</a>
   
       </div>
       <!-- Grid column -->
@@ -61,7 +62,7 @@
         <!-- Post data -->
         
         <!-- Read more button -->
-        <a class="btn btn-info btn-md mb-lg-0 mb-4">View Events</a>
+        <a  (click)="goto('event')" class="btn btn-warning btn-md">View Events</a>
   
       </div>
       <!-- Grid column -->
@@ -101,148 +102,156 @@
         <br>
       
         <!-- Grid row -->
-        <div class="row mb-5">
-      
+        <div class="row mb-5">      
           <!-- Grid column -->
-          
-              <div class="col-sm">
-                  <div class="card-group">
-                      <mdb-card>
-                        <mdb-card-body>
-                            <img class="img-fluid" src="https://images.pexels.com/photos/1181355/pexels-photo-1181355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Sample image">
-         
-                        </mdb-card-body>
-                      </mdb-card>
-                    
-                      <mdb-card>
-                        <mdb-card-body class="text-center">
-                          <br>
-                          <mdb-card-title class="pt-5">
-                            <h5>Events</h5>
-                          </mdb-card-title>                          
-                        </mdb-card-body>
-                      </mdb-card>
-                    
-                     
-                    </div>
-              </div>
-              <div class="col-sm">
-                  <div class="card-group">
-                      <mdb-card>
-                        <mdb-card-body>
-                            <img class="img-fluid" src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Sample image">
-         
-                        </mdb-card-body>
-                      </mdb-card>
-                    
-                      <mdb-card>
-                        <mdb-card-body class="text-center">
-                          <br>
-                          <mdb-card-title class="pt-5">
-                            <h5>Conferences</h5>
-                          </mdb-card-title>                          
-                        </mdb-card-body>
-                      </mdb-card>
-                    
-                     
-                    </div>
-              </div>
-              <div class="col-sm">
-                  <div class="card-group">
-                      <mdb-card>
-                        <mdb-card-body>
-                            <img class="img-fluid" src="https://images.pexels.com/photos/716276/pexels-photo-716276.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Sample image">
-         
-                        </mdb-card-body>
-                      </mdb-card>
-                    
-                      <mdb-card>
-                        <mdb-card-body class="text-center">
-                          <br>
-                          <mdb-card-title class="pt-5">
-                            <h5>Training</h5>
-                          </mdb-card-title>                          
-                        </mdb-card-body>
-                      </mdb-card>
-                    
-                     
-                    </div>
-              </div>
            
-          <!-- Grid column -->
-      
-          <!-- Grid column -->
-         
-          <!-- Grid column -->
+              <div class="col-sm">
+                  <a (click)="goto('event')">
+              
+                    <div class="card-group">
+                      
+                        <mdb-card>
+                          <mdb-card-body>
+                              <img class="img-fluid" src="https://images.pexels.com/photos/1181355/pexels-photo-1181355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Sample image">
+           
+                          </mdb-card-body>
+                        </mdb-card>
+                      
+                        <mdb-card>
+                          <mdb-card-body class="text-center pt-4">
+                            <br>
+                            <mdb-card-title >
+                              <h5>Events</h5>
+                            </mdb-card-title>                          
+                          </mdb-card-body>
+                        </mdb-card>
+                      
+                       
+                      </div>
+                    </a>
+              </div>
+              <div class="col-sm">
+                  <a (click)="goto('conference')">
+                    
+                    <div class="card-group">
+                        <mdb-card>
+                          <mdb-card-body>
+                              <img class="img-fluid" src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Sample image">
+           
+                          </mdb-card-body>
+                        </mdb-card>
+                      
+                        <mdb-card>
+                          <mdb-card-body class="text-center pt-4">
+                            <br>
+                            <mdb-card-title >
+                              <h5>Conferences</h5>
+                            </mdb-card-title>                          
+                          </mdb-card-body>
+                        </mdb-card>
+                      
+                       
+                      </div>
+                    </a>
+              </div>
+              <div class="col-sm">
+                  <a (click)="goto('training')">
+                    <div class="card-group">
+                        <mdb-card>
+                          <mdb-card-body>
+                              <img class="img-fluid" src="https://images.pexels.com/photos/716276/pexels-photo-716276.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Sample image">
+           
+                          </mdb-card-body>
+                        </mdb-card>
+                      
+                        <mdb-card>
+                          <mdb-card-body class="text-center pt-4">
+                            <br>
+                            <mdb-card-title >
+                              <h5>Training</h5>
+                            </mdb-card-title>                          
+                          </mdb-card-body>
+                        </mdb-card>
+                      
+                       
+                      </div>
+              
+                    </a>
+              </div>
+                 
       
         </div>
         <!-- Grid row -->
-        <div class="row">
-      
-            <!-- Grid column -->
-            
+        <div class="row">      
+            <!-- Grid column -->            
                 <div class="col-sm">
-                    <div class="card-group">
-                        <mdb-card>
-                          <mdb-card-body>
-                              <img class="img-fluid" src="https://images.pexels.com/photos/1181355/pexels-photo-1181355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Sample image">
-           
-                          </mdb-card-body>
-                        </mdb-card>
-                      
-                        <mdb-card>
-                          <mdb-card-body class="text-center">
-                            <br>
-                            <mdb-card-title class="pt-5">
-                              <h5>Work Space</h5>
-                            </mdb-card-title>                          
-                          </mdb-card-body>
-                        </mdb-card>
-                      
-                       
-                      </div>
+                    <a (click)="goto('office')">              
+                      <div class="card-group">
+                          <mdb-card>
+                            <mdb-card-body>
+                                <img class="img-fluid" src="https://images.pexels.com/photos/1181355/pexels-photo-1181355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Sample image">
+             
+                            </mdb-card-body>
+                          </mdb-card>
+                        
+                          <mdb-card>
+                            <mdb-card-body class="text-center pt-4">
+                              <br>
+                              <mdb-card-title>
+                                <h5>Work Space</h5>
+                              </mdb-card-title>                          
+                            </mdb-card-body>
+                          </mdb-card>                        
+                         
+                        </div>
+                      </a>
                 </div>
                 <div class="col-sm">
-                    <div class="card-group">
-                        <mdb-card>
-                          <mdb-card-body>
-                              <img class="img-fluid" src="https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Sample image">
-           
-                          </mdb-card-body>
-                        </mdb-card>
-                      
-                        <mdb-card>
-                          <mdb-card-body class="text-center">
-                            <br>
-                            <mdb-card-title class="pt-5">
-                              <h5>Bed Space</h5>
-                            </mdb-card-title>                          
-                          </mdb-card-body>
-                        </mdb-card>
-                      
-                       
-                      </div>
+                    <a (click)="goto('bedspace')">
+                      <div class="card-group">
+                          <mdb-card>
+                            <mdb-card-body>
+                                <img class="img-fluid" src="https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Sample image">
+             
+                            </mdb-card-body>
+                          </mdb-card>
+                        
+                          <mdb-card>
+                            <mdb-card-body class="text-center pt-4">
+                              <br>
+                              <mdb-card-title>
+                                <h5>Bed Space</h5>
+                              </mdb-card-title>                          
+                            </mdb-card-body>
+                          </mdb-card>
+                        
+                         
+                        </div>
+              
+                      </a>
                 </div>
                 <div class="col-sm">
-                    <div class="card-group">
-                        <mdb-card>
-                          <mdb-card-body>
-                              <img class="img-fluid" src="https://images.pexels.com/photos/1181355/pexels-photo-1181355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Sample image">
-           
-                          </mdb-card-body>
-                        </mdb-card>
-                      
-                        <mdb-card>
-                          <mdb-card-body class="text-center">
-                            <br>
-                            <mdb-card-title class="pt-5">
-                              <h5>Programs</h5>
-                            </mdb-card-title>                          
-                          </mdb-card-body>
-                        </mdb-card>
-                      
-                       
-                      </div>
+                    <a (click)="goto('programs')">
+                      <div class="card-group">
+                          <mdb-card>
+                            <mdb-card-body>
+                                <img class="img-fluid" src="https://images.pexels.com/photos/1181355/pexels-photo-1181355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Sample image">
+             
+                            </mdb-card-body>
+                          </mdb-card>
+                        
+                          <mdb-card>
+                            <mdb-card-body class="text-center pt-4">
+                              <br>
+                              <mdb-card-title >
+                                <h5>Programs</h5>
+                              </mdb-card-title>                          
+                            </mdb-card-body>
+                          </mdb-card>                        
+                         
+                        </div>
+              
+                      </a>
                 </div>
              
             <!-- Grid column -->
@@ -313,7 +322,7 @@
 
       
       <!-- Read more button -->
-      <a mdbBtn color="info" class="stretched-link" href="">See more</a>
+      <a mdbBtn (click)="goto('office')" color="warning" class="stretched-link" href="">See more</a>
 
     </div>
     <!-- Grid column -->
@@ -358,7 +367,7 @@
       </p>
       <!-- Post data -->
       <!-- Read more button -->
-      <a class="btn btn-info btn-md">View Programs</a>
+      <a (click)="goto('programs')" class="btn btn-warning btn-md">View Programs</a>
 
     </div>
     <!-- Grid column -->
@@ -398,7 +407,7 @@
   <input type="email" id="defaultSubscriptionFormEmail" class="form-control mb-4" placeholder="E-mail">
 
   <!-- Sign in button -->
-  <button mdbBtn color="info" block="true" type="submit">Subscribe</button>
+  <button mdbBtn color="warning" block="true" type="submit">Subscribe</button>
 
 
 </form>

@@ -23,10 +23,11 @@
             </ul>
             <ul class="navbar-nav ml-auto" mdbWavesEffect>
               <li class="nav-item waves-light" mdbWavesEffect>
-                <app-login ></app-login>
+                <a (click)="openLogin()" class="nav-link" href="#">Sign In</a>
               </li>
               <li  class="nav-item waves-light" mdbWavesEffect>
-                  <app-signup ></app-signup>
+                  <button  (click)="openSignup()" mdbBtn color="warning" block="true" type="submit">Sign Up</button>
+                <!-- <a (click)="openSignup()" class="signup btn btn-md btn-warning" href="#">Sign Up</a> -->
               </li>
             </ul>
           </links>
@@ -41,29 +42,29 @@
     
                   <div class="col-md-6  text-md-left mb-5 ">
                     <!--Form-->
-                    <mdb-card class="wow fadeInRight" data-wow-delay="0.3s">
+                    <mdb-card  class="wow fadeInRight" data-wow-delay="0.3s">
                       <mdb-card-body>
                         <!--Header-->
                         <div class="text-center">
-                          <h2 class="h1 white-text h1-responsive font-bold wow fadeInLeft" data-wow-delay="0.3s">Rethinking where you work ? </h2>
+                          <h2 class="h2 text-body  h2-responsive font-bold wow fadeInLeft" data-wow-delay="0.3s">Rethinking where you work ? </h2>
                      
                           <hr class="hr-light">
                         </div>
                         <!--Body-->
-                        <div class="white-text">                          
-                            <h6 class="wow fadeInLeft" data-wow-delay="0.3s"> Whether you're an established enterprise or you're a growing startup, discover services
+                        <div>                          
+                            <h6 class="wow fadeInLeft"text-body data-wow-delay="0.3s"> Whether you're an established enterprise or you're a growing startup, discover services
                                  that inspire your people's most important and impactful work.</h6>
                             
                             
                           </div>
                         <div class="md-form">                         
                           
-                          <input type="text" id="form3" class="text-white form-control" mdbInput>
-                          <label for="form3" class="text-white">Create organization form</label>
+                          <input type="text" id="form3" class="text-grey form-control" mdbInput>
+                          <label for="form3" class="text-muted">Create organization form</label>
                         </div>
                         
                         <div class="text-center mt-4">
-                          <button mdbBtn color="warning-color" mdbWavesEffect>Get Started</button>
+                          <button mdbBtn class="btn btn-warning btn-md" mdbWavesEffect>Get Started</button>
                           
                         </div>
                       </mdb-card-body>

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // schema is empty for now
 const spaceSchema = mongoose.Schema({
-    spaceType: string,
+    spaceType: String,  // bed,conference,events etc.
     details: {
         name: {
             type: String,
