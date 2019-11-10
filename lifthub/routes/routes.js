@@ -76,9 +76,8 @@ router.post("/signup", (req,res)=>{
             password:req.body.password
         })
         newUser.save(err=>{
-            if(err){
-                console.log(err)
-              return  res.json({ success:false,message: "Email already exist!!"})
+            if(err){               
+              return  res.status(401).json({ success:false,message: "Email already exist!!"})
             }
             res.json({
                 success:true,
@@ -91,24 +90,21 @@ router.post("/signup", (req,res)=>{
 //LOGIN
 router.post("/login",(req,res)=>{
     const email = {email:req.body.email}
-    const pwd = req.body.password 
-    console.log(req.body.email + " " + pwd)   
-    User.findOne({email:req.body.email},function(err,user){
-        console.log(user)
+    const pwd = req.body.password    
+    User.findOne({'email':req.body.email},function(err,user){        
         if(err){
             throw err
         }
         if(!user){
-            res.send({success:false,message:"User does not exist"})
-        }else{            
+            res.status(401).send({success:false,message:"User does not exist"})
+        }else{
+            console.log(user)            
             user.comparePassword(pwd,function(err,match){
                 if(match && !err){
                     let token = jwt.sign(user.toJSON(),keys.secret);
                     res.json({success:true,token:`JWT ${token}`})
                 }else{
-                    res.send({
-                        success:false,message:"Incorrect password!!"
-                    })
+                    res.status(401).send({success:false,message:"Incorrect password!!"})
                 }
             })
         }
@@ -116,9 +112,9 @@ router.post("/login",(req,res)=>{
 })
 
 // POST NEW SPACE
-router.post("/space", (req,res)=>{
+router.post("/space",passport.authenticate('jwt',{session:false}), (req,res)=>{
     const token = getToken(req.header)
-    if(true){
+    if(token){
         const newSpace = new Space({
             spaceType: req.body.type,
             details:{                
@@ -141,7 +137,7 @@ router.post("/space", (req,res)=>{
             }
         })
     }else{
-        res.json({success:true,message:"You dont have admin priviledges"})
+        res.status(403).json({success:true,message:"You dont have admin priviledges"})
     }
 })
 

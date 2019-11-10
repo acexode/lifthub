@@ -12,27 +12,26 @@ import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  user = {email:"",password:""};
+  user = {email: '', password: ''};
   errMsg;
   successMsg;
-  data:any 
-  constructor( private router:Router, private dispatch: DispatcherService,public modalRef: MDBModalRef,private service:MDBModalService) {
-     
+  data:any;
+  constructor( private router: Router, private dispatch: DispatcherService,public modalRef: MDBModalRef, private service: MDBModalService) {
    }
    validatingForm: FormGroup;
 
    ngOnInit() {
-     
+
      this.validatingForm = new FormGroup({
        modalFormElegantEmail: new FormControl('', Validators.email),
        modalFormElegantPassword: new FormControl('', Validators.required)
      });
    }
- 
+
    get modalFormElegantEmail() {
      return this.validatingForm.get('modalFormElegantEmail');
    }
- 
+
    get modalFormElegantPassword() {
      return this.validatingForm.get('modalFormElegantPassword');
    }
@@ -46,18 +45,18 @@ export class SignupComponent implements OnInit {
       this.dispatch.login(this.user).subscribe(token =>{
         this.data = token['token']
         localStorage.setItem('token', this.data);
-        this.router.navigate(['space'])
-      })      
+        this.modalRef.hide()
+        this.router.navigate(['space']);
+      });
     }, err => {
       this.errMsg = err.error.message;
+      console.log(err);
     });
   }
- 
+
   openLogin() {
-    this.modalRef.hide()
+    this.modalRef.hide();
     this.service.show(LoginComponent);
-    
   }
-  
 
 }

@@ -9,15 +9,15 @@
     height: 100vh !important;
   }
   .top-nav-collapse {
-    background-color: #3f51b5 !important;
+    background: radial-gradient(black, transparent) !important;
   }
   .navbar:not(.top-nav-collapse) {
-    background: transparent !important;
+    background: radial-gradient(black, transparent) !important;
   }
   
   @media (max-width: 768px) {
     .navbar:not(.top-nav-collapse) {
-      background: #3f51b5 !important;
+      background: radial-gradient(black, transparent) !important;
     }
   }
   .rgba-gradient .full-bg-img {
@@ -48,3 +48,6 @@
       height: 1040px;
     }
   }
+  .navbar{
+    background: radial-gradient(black, transparent) !important;
+}
