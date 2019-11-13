@@ -7,7 +7,8 @@ require("../config/auth")(passport)
 const router = express.Router()
 const Space = require("../model/space")
 const User = require("../model/users")
-
+const request = require('superagent');
+const nodemailer = require('nodemailer');
 // GET ITEMS
 router.get("/space",(req,res)=>{   
         Space.find((err,space)=>{
@@ -40,12 +41,26 @@ router.get('/space/:id', (req, res) => {
         }
     })
 });
-// get by location
-router.get('/spaces', (req, res) => {
-    var space = req.query.space
-    var location = req.query.location
-    
+// get by location & spaceType
+router.get('/search', (req, res) => {
+    var space = new RegExp(req.query.space, 'i')
+    var location =new RegExp(req.query.location, 'i')   
     Space.find({ 'spaceType':space,'details.location': location}, {}, (err, space) => {
+        if (err) {
+            res.json({ success: false, message: err })
+        } else {
+            if (!space) {
+                res.json({ success: false, message: 'no space' })
+            } else {
+                res.json({ success: true, space: space })
+            }
+        }
+    })
+});
+// get by spaceType
+router.get('/spacetype', (req, res) => {
+    var space = new RegExp(req.query.space, 'i')   
+    Space.find({ 'spaceType': space}, {}, (err, space) => {
         if (err) {
             res.json({ success: false, message: err })
         } else {
@@ -112,7 +127,7 @@ router.post("/login",(req,res)=>{
 })
 
 // POST NEW SPACE
-router.post("/space",passport.authenticate('jwt',{session:false}), (req,res)=>{
+router.post("/newspace",passport.authenticate('jwt',{session:false}), (req,res)=>{
     const token = getToken(req.header)
     if(token){
         const newSpace = new Space({
@@ -181,7 +196,28 @@ router.delete('/space/:id', (req, res) => {
         }
     })
 });
-
+// subscribe to newsletter
+router.post('/subscribe',(req,res)=>{
+    console.log(req.body)
+    request
+        .post('https://' + keys.mailchimpInstance + '.api.mailchimp.com/3.0/lists/' + keys.listUniqueId + '/members/')
+        .set('Content-Type', 'application/json;charset=utf-8')
+        .set('Authorization', 'Basic ' + new Buffer('any:' + keys.mailchimpApiKey ).toString('base64'))
+        .send({
+          'email_address': req.body.subscribeFormEmail,
+          'status': 'subscribed',
+          'merge_fields': {
+            'FNAME': req.body.subscribeFormName,            
+          }
+        })
+            .end(function(err, response) {
+              if (response.status < 300 || (response.status === 400 && response.body.title === "Member Exists")) {
+                res.json({ success: true, message: 'Signed up' })
+              } else {
+                res.json({ success: false, message: 'Signed up failed !!' })
+              }
+          });
+})
 // TOKEN DISPATCHER
 const getToken = headers=>{
     if(headers && headers.authorization){
@@ -195,5 +231,37 @@ const getToken = headers=>{
         return null;
     }
 }
+router.post("/email", (req,res)=>{
+    const {name,email,phone,msg} = req.body;
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: keys.email,
+          pass: keys.password
+        },
+        tls: {
+            rejectUnauthorized: false
+        }
+      });
+    const mailOptions = {
+        from: email,
+        to: keys.email,
+        subject: msg,
+        text: `Hi my name is ${name}, i am interested in the space property, please call me on 
+        this number ${phone} or email me via ${email}`
+      };
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            res.json({success: false, msg: error.message});
+           console.log(error)
+           console.log(error.message)
+        } else {
+          res.json({success: true, msg: info.response});
+        }
+      });
+      
+})
+  
+
 
 module.exports = router

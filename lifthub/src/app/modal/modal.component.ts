@@ -12,7 +12,7 @@ import { SignupComponent } from '../signup/signup.component';
 })
 export class ModalComponent implements OnInit {
   validatingForm: FormGroup;
-  constructor(public modalRef: MDBModalRef,private service:MDBModalService) {}
+  constructor(public modalRef: MDBModalRef,private service:MDBModalService) {} 
 
   ngOnInit() {
      

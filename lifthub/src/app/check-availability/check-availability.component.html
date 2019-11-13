@@ -1,0 +1,83 @@
+
+<div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Contact our agent</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form>
+        <div class="modal-body mx-3">
+          
+          <div class="md-form mb-5">
+            <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
+            <input type="text" id="form34" class="form-control" mdbInput mdbValidate [formControl]="contactFormModalName">
+            <label for="form34">Your name</label>
+            <mdb-error
+              *ngIf="contactFormModalName.invalid && (contactFormModalName.dirty || contactFormModalName.touched)">Input
+              invalid
+            </mdb-error>
+            <mdb-success
+              *ngIf="contactFormModalName.valid && (contactFormModalName.dirty || contactFormModalName.touched)">Input
+              valid
+            </mdb-success>
+          </div>
+  
+          <div class="md-form mb-5">
+            <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
+            <input type="email" id="form29" class="form-control" mdbInput mdbValidate
+                   [formControl]="contactFormModalEmail">
+            <label for="form29">Your email</label>
+            <mdb-error
+              *ngIf="contactFormModalEmail.invalid && (contactFormModalEmail.dirty || contactFormModalEmail.touched)">
+              Input invalid
+            </mdb-error>
+            <mdb-success
+              *ngIf="contactFormModalEmail.valid && (contactFormModalEmail.dirty || contactFormModalEmail.touched)">Input
+              valid
+            </mdb-success>
+          </div>
+  
+          <div class="md-form mb-5">
+            <mdb-icon fas icon="phone" class="prefix grey-text"></mdb-icon>
+            <input type="text" id="form32" class="form-control" mdbInput mdbValidate
+                   [formControl]="contactFormModalPhone">
+            <label for="form32">Phone</label>
+            <mdb-error
+              *ngIf="contactFormModalPhone.invalid && (contactFormModalPhone.dirty || contactFormModalPhone.touched)">
+              Input invalid
+            </mdb-error>
+            <mdb-success
+              *ngIf="contactFormModalPhone.valid && (contactFormModalPhone.dirty || contactFormModalPhone.touched)">
+              Input valid
+            </mdb-success>
+          </div>
+  
+          <div class="md-form">
+            <mdb-icon fas icon="pencil-alt" class="prefix grey-text"></mdb-icon>
+            <textarea type="text" id="form8" class="md-textarea form-control" rows="1" mdbInput mdbValidate
+                      [formControl]="contactFormModalMessage">I am interested in this space</textarea>
+            <label for="form8">Your Message</label>
+            <mdb-error
+              *ngIf="contactFormModalMessage.invalid && (contactFormModalMessage.dirty || contactFormModalMessage.touched)">
+              Input invalid
+            </mdb-error>
+            <mdb-success
+              *ngIf="contactFormModalMessage.valid && (contactFormModalMessage.dirty || contactFormModalMessage.touched)">
+              Input valid
+            </mdb-success>
+          </div>
+  
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button mdbBtn color="warning" class="waves-light" (click)="sendMessage()" [disabled]="disabledSubmitButton" mdbWavesEffect>Send
+            <mdb-icon far icon="paper-plane" class="ml-1"></mdb-icon>
+          </button>
+        </div>
+          
+        </form>
+    </div>
+  </div>
+</div>

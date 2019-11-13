@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
     }
 })
 
+
 userSchema.pre("save", function(next){
     
     const user = this;
@@ -43,4 +44,5 @@ userSchema.methods.comparePassword = function(pwd,next){
     })
 };
 module.exports = mongoose.model("User",userSchema)
+
 

@@ -4,4 +4,12 @@
    vertical-align: middle;
    transform: translateY(-7px);
 }
+@media only screen and (max-width: 990px) {
+    .navbar {
+        background-color: #3b3b3b !important;
+    }
+}
+.user-nav{
+    background: #000 !important;
+}
 

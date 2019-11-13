@@ -9,6 +9,7 @@ import { OfficeSpaceComponent } from './user_page/office-space/office-space.comp
 import { ConferenceSpaceComponent } from './user_page/conference-space/conference-space.component';
 import { TrainingSpaceComponent } from './user_page/training-space/training-space.component';
 import { EventSpaceComponent } from './user_page/event-space/event-space.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 //import { AuthGuard } from './auth.guard';
 
 
@@ -44,6 +45,10 @@ const routes: Routes = [
       {
         path: "office",
         component: OfficeSpaceComponent
+      },      
+      {
+        path: "search",
+        component: SearchResultComponent
       },      
       {
         path: "bedspace",

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit,HostListener } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DispatcherService } from '../../dispatcher.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-all-spaces',
   templateUrl: './all-spaces.component.html',
@@ -60,9 +62,28 @@ export class AllSpacesComponent implements OnInit {
       img: "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
     }]
   }];
-  constructor() { }
+  searchForm: FormGroup;
+  search
+  disabledSubmitButton : boolean = true;
+  constructor(private fb: FormBuilder, private dispatcher: DispatcherService,private router:Router) { 
+    this.searchForm = fb.group({
+      'space': ['', Validators.required],
+      'location': ['', Validators.required],
+      });
+  }
 
   ngOnInit() {
+  }
+  @HostListener('input') oninput() {
+    if (this.searchForm.valid) {
+      this.disabledSubmitButton = false;
+    }
+  }
+  onSubmit() {
+    const {space, location} = this.searchForm.value;
+    const url = `space/search`;
+    console.log(space + ' ' + location);
+    this.router.navigate([url],{queryParams:{space, location}});
   }
 
 }

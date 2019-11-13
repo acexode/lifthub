@@ -16,16 +16,16 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}));
 
 //Not yet connected to mongodb mlab
-mongoose.connect(mongodbUri, {useNewUrlParser:true}).then(()=>{
+mongoose.connect(mongodbUri, {useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
     console.log("connected to MongoDB");
 }).catch(err =>{
     console.log("Couldn't connect to db",err)
 })
  
 // ROUTES
-app.use(express.static(__dirname+'/dist/lifthub'))
-app.use("/",express.static(__dirname+'/dist/lifthub'))
-app.use("/apis", routes);
+// app.use(express.static(__dirname+'/dist/lifthub'))
+// app.use("/",express.static(__dirname+'/dist/lifthub'))
+// app.use("/apis", routes);
 
 
 // ROUTES
@@ -51,7 +51,7 @@ const normalizePort = (val)=> {
   
     return false;
   }
-const port = normalizePort(process.env.PORT || '4300');
+const port = normalizePort(process.env.PORT || '4200');
 app.set('port', port);
 
 const server = http.createServer(app);

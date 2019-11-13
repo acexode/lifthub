@@ -322,7 +322,7 @@
 
       
       <!-- Read more button -->
-      <a mdbBtn (click)="goto('office')" color="warning" class="stretched-link" href="">See more</a>
+      <a mdbBtn (click)="goto('office')" color="warning" class="stretched-link">See more</a>
 
     </div>
     <!-- Grid column -->
@@ -394,20 +394,27 @@
 
       <!-- Featured image -->
       <!-- Default form subscription -->
-<form class="text-center border border-light p-5">
+<form [formGroup]="subscribeForm" (ngSubmit)="onSubmit()" class="text-center border border-light p-5">
 
   <p class="h4 mb-4">Subscribe</p>
 
   <p>Join our mailing list. We write rarely, but only with the best content.</p>  
 
   <!-- Name -->
-  <input type="text" id="defaultSubscriptionFormPassword" class="form-control mb-4" placeholder="Name">
+  <div class="md-form mt-3">
+    <input type="text" formControlName="subscribeFormName" id="materialContactFormName" class="form-control"
+      mdbInput>
+    <label for="materialContactFormName">Name</label>
+  </div>
 
-  <!-- Email -->
-  <input type="email" id="defaultSubscriptionFormEmail" class="form-control mb-4" placeholder="E-mail">
+  <div class="md-form">
+    <input type="email" formControlName="subscribeFormEmail" id="materialContactFormEmail" class="form-control"
+      mdbInput>
+    <label for="materialContactFormEmail">E-mail</label>
+  </div>
 
   <!-- Sign in button -->
-  <button mdbBtn color="warning" block="true" type="submit">Subscribe</button>
+  <button mdbBtn color="warning" block="true" type="submit" [disabled]="disabledSubmitButton">Subscribe</button>
 
 
 </form>

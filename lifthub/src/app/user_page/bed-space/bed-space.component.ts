@@ -1,4 +1,9 @@
+import { SampleData } from './../../sample';
 import { Component, OnInit } from '@angular/core';
+import { CheckAvailabilityComponent } from 'src/app/check-availability/check-availability.component';
+import { DispatcherService } from 'src/app/dispatcher.service';
+import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-bed-space',
@@ -6,46 +11,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bed-space.component.scss']
 })
 export class BedSpaceComponent implements OnInit {
-  spaces = [{  
-    spaceType: "Bed Space",
-    details : {
-      name: "Single bed space",
-      img: "https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      location: "Central Business District, Abuja",
-      description: "Beautifully furnished bed space with smart room gadgets",
-      price: "1,000,000",
-      availability: true
-    },    
-  
-  },
-  {  
-    spaceType: "Bed Space",
-    details : {
-      name: "Cottage",
-      img: "https://images.pexels.com/photos/271743/pexels-photo-271743.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      location: "IBB Way, Abuja",
-      description: "Beautifully furnished office with electronic gadgets",
-      price: "1,500,000",
-      availability: true
-    },    
-  
-  },
-  {  
-    spaceType: "Bed Space",
-    details : {
-      name: "Double bed space",
-      img: "https://images.pexels.com/photos/237371/pexels-photo-237371.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      location: "Central Business District, Abuja",
-      description: "Beautifully furnished double bed space with smart room gadgets",
-      price: "1,200,000",
-      availability: true
-    },    
-  
-  },
-]
-  constructor() { }
-    
+  modalRef: MDBModalRef;
+  spaces = SampleData;
+  constructor(private dispatcher: DispatcherService, private service: MDBModalService, private route: ActivatedRoute) { }
+
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const {space, location} = params;
+      console.log(params);
+      this.dispatcher.spaceType(space).subscribe((res:any) => {
+          console.log(res);
+          // this.spaces = res
+        }, error => {
+          console.log('Error', error);
+        });
+
+      });
+  }
+  CheckAvailability(){
+    this.modalRef = this.service.show(CheckAvailabilityComponent, {
+      backdrop: true,
+      keyboard: true,
+      focus: true,
+      show: false,
+      ignoreBackdropClick: false,
+      class: ' modal-top',
+      containerClass: 'center',
+      animated: true
+  });
   }
 
 }

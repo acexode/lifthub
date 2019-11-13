@@ -21,6 +21,8 @@ import { UserPageComponent } from './user_page/user-page/user-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component';
 import { ModalComponent } from './modal/modal.component';
+import { SearchResultComponent } from './search-result/search-result.component';
+import { CheckAvailabilityComponent } from './check-availability/check-availability.component';
 
 
 
@@ -42,7 +44,9 @@ import { ModalComponent } from './modal/modal.component';
     UserPageComponent,
     LandingPageComponent,
     AllSpacesComponent,
-    ModalComponent
+    ModalComponent,
+    SearchResultComponent,
+    CheckAvailabilityComponent
   ],  
   imports: [
     MDBBootstrapModule.forRoot(),
@@ -53,7 +57,7 @@ import { ModalComponent } from './modal/modal.component';
     HttpClientModule,
   ],
   providers: [],
-  entryComponents: [LoginComponent,ModalComponent,SignupComponent],
+  entryComponents: [LoginComponent,ModalComponent,SignupComponent,CheckAvailabilityComponent],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })

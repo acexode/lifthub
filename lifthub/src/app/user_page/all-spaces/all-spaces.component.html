@@ -6,21 +6,23 @@
       <!-- Content -->
       
       <h2 class="card-title h2 my-4 py-2">Discover spaces that suits your needs</h2>
-      <div class="form-row mb-4">
-        <div class="col">
-            <!-- First name -->
-            <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Keywords [e.g Job,Space]">
-        </div>
-        <div class="col">
-            <!-- Last name -->
-            <input type="text"  class="form-control" placeholder="[State,City]">
-        </div>
-        <div class="col">
-            <!-- Last name -->
-            <button class="btn btn-info btn-block" type="submit">Search</button>
+      <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+        <div class="form-row mb-4">
+          <div class="col">
+              <!-- Keyword -->
+              <input type="text" formControlName="space" class="form-control" placeholder="Keywords [e.g Job,Space]">
+          </div>
+          <div class="col">
+              <!-- Location -->
+              <input type="text" formControlName="location"  class="form-control" placeholder="[State,City]">
+          </div>
+          <div class="col">
+             
+              <button class="btn btn-warning btn-block"  [disabled]="disabledSubmitButton" type="submit">Search</button>
+            </div>
 
-             </div>
-    </div>
+          </div>
+        </form>
     </div>
   </div>
 </mdb-card>

@@ -1,6 +1,6 @@
 import { LoginComponent } from './../login/login.component';
 import { DispatcherService } from './../dispatcher.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import {Router} from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
@@ -16,6 +16,7 @@ export class SignupComponent implements OnInit {
   errMsg;
   successMsg;
   data:any;
+  disabledSubmitButton: boolean = true;
   constructor( private router: Router, private dispatch: DispatcherService,public modalRef: MDBModalRef, private service: MDBModalService) {
    }
    validatingForm: FormGroup;
@@ -27,6 +28,11 @@ export class SignupComponent implements OnInit {
        modalFormElegantPassword: new FormControl('', Validators.required)
      });
    }
+   @HostListener('input') oninput() {
+    if (this.validatingForm.valid) {
+      this.disabledSubmitButton = false;
+    }
+  }
 
    get modalFormElegantEmail() {
      return this.validatingForm.get('modalFormElegantEmail');
@@ -37,6 +43,7 @@ export class SignupComponent implements OnInit {
    }
 
   signup(){
+   
     this.user.email =  this.modalFormElegantEmail.value;
     this.user.password =  this.modalFormElegantPassword.value;
     this.dispatch.signup(this.user).subscribe(res =>{
