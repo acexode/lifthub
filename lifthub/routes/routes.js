@@ -9,8 +9,46 @@ const Space = require("../model/space")
 const User = require("../model/users")
 const request = require('superagent');
 const nodemailer = require('nodemailer');
+const googleMapsClient = require('@google/maps').createClient({
+    key: keys.geocode
+  });
+
+
+  router.get("/locate",(req,res)=>{
+    const lat = req.query.lat
+    const lng = req.query.lng
+    googleMapsClient.reverseGeocode({
+        latlng: [lat,lng]
+    },(err,data)=>{
+        if(err){
+            res.json({ success: false, message: err.json() })
+            console.log(err)
+        } else {
+            // user_city & user_country filter the results for the city name and country
+            var user_city = data.json.results[0].address_components.filter(ac=>~ac.types.indexOf('locality'))[0].long_name
+            var user_country = data.json.results[0].address_components.filter(ac=>~ac.types.indexOf('country'))[0].long_name
+            var fullLocation = `${user_city}, ${user_country}`
+            // case insensitive with RegEx           
+            var location = new RegExp(user_city, 'i')
+            Space.find({'details.location': location}, {}, (err, space) => {
+                if (err) {
+                    res.json({ success: false, message: err })
+                } else {
+                    if (!space) {
+                        res.json({ success: false, message: 'no space' })
+                    } else {
+                        res.json({ success: true, space: space, fullLocation  });
+                    }
+                }
+            })
+            
+            
+        }
+    }) 
+  })
 // GET ITEMS
-router.get("/space",(req,res)=>{   
+router.get("/space",(req,res)=>{  
+        
         Space.find((err,space)=>{
             if(err){
                 return next(err)
@@ -231,6 +269,7 @@ const getToken = headers=>{
         return null;
     }
 }
+// post send availability message
 router.post("/email", (req,res)=>{
     const {name,email,phone,msg} = req.body;
     const transporter = nodemailer.createTransport({
