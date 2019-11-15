@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport");
-const keys = require("../config/keys");
 const jwt = require("jsonwebtoken");
 require("../config/auth")(passport)
 const router = express.Router()
@@ -10,11 +9,11 @@ const User = require("../model/users")
 const request = require('superagent');
 const nodemailer = require('nodemailer');
 const googleMapsClient = require('@google/maps').createClient({
-    key: keys.geocode
+    key: process.env.geocode
   });
 
 
-  router.get("/locate",(req,res)=>{
+  router.get("/space/locate",(req,res)=>{
     const lat = req.query.lat
     const lng = req.query.lng
     googleMapsClient.reverseGeocode({
@@ -80,7 +79,7 @@ router.get('/space/:id', (req, res) => {
     })
 });
 // get by location & spaceType
-router.get('/search', (req, res) => {
+router.get('/space/search', (req, res) => {
     var space = new RegExp(req.query.space, 'i')
     var location =new RegExp(req.query.location, 'i')   
     Space.find({ 'spaceType':space,'details.location': location}, {}, (err, space) => {
@@ -96,7 +95,7 @@ router.get('/search', (req, res) => {
     })
 });
 // get by spaceType
-router.get('/spacetype', (req, res) => {
+router.get('/space/type', (req, res) => {
     var space = new RegExp(req.query.space, 'i')   
     Space.find({ 'spaceType': space}, {}, (err, space) => {
         if (err) {
@@ -154,7 +153,7 @@ router.post("/login",(req,res)=>{
             console.log(user)            
             user.comparePassword(pwd,function(err,match){
                 if(match && !err){
-                    let token = jwt.sign(user.toJSON(),keys.secret);
+                    let token = jwt.sign(user.toJSON(),process.env.SECRET);
                     res.json({success:true,token:`JWT ${token}`})
                 }else{
                     res.status(401).send({success:false,message:"Incorrect password!!"})
@@ -165,7 +164,7 @@ router.post("/login",(req,res)=>{
 })
 
 // POST NEW SPACE
-router.post("/newspace",passport.authenticate('jwt',{session:false}), (req,res)=>{
+router.post("/space",passport.authenticate('jwt',{session:false}), (req,res)=>{
     const token = getToken(req.header)
     if(token){
         const newSpace = new Space({
@@ -238,9 +237,9 @@ router.delete('/space/:id', (req, res) => {
 router.post('/subscribe',(req,res)=>{
     console.log(req.body)
     request
-        .post('https://' + keys.mailchimpInstance + '.api.mailchimp.com/3.0/lists/' + keys.listUniqueId + '/members/')
+        .post('https://' + process.env.mailchimpInstance + '.api.mailchimp.com/3.0/lists/' + process.env.listUniqueId + '/members/')
         .set('Content-Type', 'application/json;charset=utf-8')
-        .set('Authorization', 'Basic ' + new Buffer('any:' + keys.mailchimpApiKey ).toString('base64'))
+        .set('Authorization', 'Basic ' + new Buffer('any:' + process.env.mailchimpApiKey ).toString('base64'))
         .send({
           'email_address': req.body.subscribeFormEmail,
           'status': 'subscribed',
@@ -275,8 +274,8 @@ router.post("/email", (req,res)=>{
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: keys.email,
-          pass: keys.password
+          user: process.env.EMAIL,
+          pass: process.env.PASSWORD
         },
         tls: {
             rejectUnauthorized: false
@@ -284,7 +283,7 @@ router.post("/email", (req,res)=>{
       });
     const mailOptions = {
         from: email,
-        to: keys.email,
+        to: process.env.EMAIL,
         subject: msg,
         text: `Hi my name is ${name}, i am interested in the space property, please call me on 
         this number ${phone} or email me via ${email}`

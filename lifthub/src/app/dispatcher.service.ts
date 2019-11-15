@@ -22,15 +22,15 @@ export class DispatcherService {
   }
   // search for space based on location and spacetype
   search(type, location) {
-    return this.http.get(`/api/search?space=${type}&location=${location}`);
+    return this.http.get(`/api/space/search?space=${type}&location=${location}`);
   }
   // search based on spacetype
   spaceType(space) {
-    return this.http.get(`/api/spacetype?space=${space}`);
+    return this.http.get(`/api/space/type?space=${space}`);
   }
   // get all space in a location
   getLocationData(lat, lng) {
-    return this.http.get(`/api/locate?lat=${lat}&lng=${lng}`);
+    return this.http.get(`/api/space/locate?lat=${lat}&lng=${lng}`);
   }
   // check if a space is available
   checkAvailability(msg) {
