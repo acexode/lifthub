@@ -18,6 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/lifthub",
+            "baseHref": "/",
             "index": "src/index.html",
             "showCircularDependencies": false,
             "main": "src/main.ts",

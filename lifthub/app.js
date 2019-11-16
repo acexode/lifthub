@@ -11,7 +11,7 @@ const express = require("express"),
   
 mongoose.Promise = global.Promise;
 
-console.log(process.env);
+
 // MIDDLEWARES
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}));
@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGODBURI, {useNewUrlParser:true,useUnifiedTopolog
 }).catch(err =>{
     console.log("Couldn't connect to db",err)
 })
- 
+
 
 // ROUTES
 app.use(express.static(__dirname+'/dist/lifthub'))
@@ -30,6 +30,7 @@ app.use("/",express.static(__dirname+'/dist/lifthub'))
 // initialize passport
 app.use(passport.initialize())
 app.use("/api", routes);
+
 
 
 const normalizePort = (val)=> {

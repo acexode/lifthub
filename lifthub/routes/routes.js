@@ -9,11 +9,12 @@ const User = require("../model/users")
 const request = require('superagent');
 const nodemailer = require('nodemailer');
 const googleMapsClient = require('@google/maps').createClient({
-    key: process.env.geocode
+    key: process.env.GEOCODE
   });
 
 
   router.get("/space/locate",(req,res)=>{
+      console.log(process.env.GEOCODE)
     const lat = req.query.lat
     const lng = req.query.lng
     googleMapsClient.reverseGeocode({
@@ -45,43 +46,11 @@ const googleMapsClient = require('@google/maps').createClient({
         }
     }) 
   })
-// GET ITEMS
-router.get("/space",(req,res)=>{  
-        
-        Space.find((err,space)=>{
-            if(err){
-                return next(err)
-            }else{
-                if (!space) {
-                    res.json({ success: false, message: 'no space' })
-                } else {
-                    res.json({ success: true, space: space })
-                } 
-            }
-        })
-   
-})
-
-
-// GET BY ID
-router.get('/space/:id', (req, res) => {
-    var params = req.params.id
-    Space.findOne({ _id: params }, {}, (err, space) => {
-        if (err) {
-            res.json({ success: false, message: err })
-        } else {
-            if (!space) {
-                res.json({ success: false, message: 'no space' })
-            } else {
-                res.json({ success: true, space: space })
-            }
-        }
-    })
-});
 // get by location & spaceType
 router.get('/space/search', (req, res) => {
     var space = new RegExp(req.query.space, 'i')
-    var location =new RegExp(req.query.location, 'i')   
+    var location =new RegExp(req.query.location, 'i') 
+    console.log(space); 
     Space.find({ 'spaceType':space,'details.location': location}, {}, (err, space) => {
         if (err) {
             res.json({ success: false, message: err })
@@ -96,7 +65,8 @@ router.get('/space/search', (req, res) => {
 });
 // get by spaceType
 router.get('/space/type', (req, res) => {
-    var space = new RegExp(req.query.space, 'i')   
+    var space = new RegExp(req.query.spaceType, 'i') 
+    console.log("spacetype: " + req.query.spaceType)   
     Space.find({ 'spaceType': space}, {}, (err, space) => {
         if (err) {
             res.json({ success: false, message: err })
@@ -109,6 +79,22 @@ router.get('/space/type', (req, res) => {
         }
     })
 });
+// GET ITEMS
+router.get("/space",(req,res)=>{          
+    Space.find((err,space)=>{
+            if(err){
+                return next(err)
+            }else{
+                if (!space) {
+                    res.json({ success: false, message: 'no space' })
+                } else {
+                    res.json({ success: true, space: space })
+                } 
+            }
+        })
+   
+})
+
 
 
 /*
@@ -192,6 +178,21 @@ router.post("/space",passport.authenticate('jwt',{session:false}), (req,res)=>{
         res.status(403).json({success:true,message:"You dont have admin priviledges"})
     }
 })
+// GET BY ID
+router.get('/space/:id', (req, res) => {
+    var params = req.params.id
+    Space.findOne({ _id: params }, {}, (err, space) => {
+        if (err) {
+            res.json({ success: false, message: err })
+        } else {
+            if (!space) {
+                res.json({ success: false, message: 'no space' })
+            } else {
+                res.json({ success: true, space: space })
+            }
+        }
+    })
+});
 
 // UPDATE ITEM
 router.put("/:id", (req,res)=>{

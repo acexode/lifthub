@@ -15,47 +15,52 @@ import { SearchResultComponent } from './search-result/search-result.component';
 
 const routes: Routes = [
   {
-    path: "",
-    redirectTo:"/",
-    pathMatch:"full"
+    path: '',
+    redirectTo:'/',
+    pathMatch:'full'
   },
   {
-    path: "",
+    path: '',
     component:LandingPageComponent,
-    pathMatch:"full"
+    pathMatch:'full'
   },  
   {
-    path: "space",
+    path: 'space',
     component:UserPageComponent,
    
     children : [
       {
-        path: "",
+        path: '',
         component: AllSpacesComponent,
-        pathMatch:"full"
+        pathMatch:'full'
+      },
+      {
+        path: '',
+        redirectTo:'/space',
+        pathMatch:'full'
       },      
       {
-        path: "conference",
+        path: 'conference',
         component: ConferenceSpaceComponent
       },
       {
-        path: "training",
+        path: 'training',
         component: TrainingSpaceComponent
       },
       {
-        path: "office",
+        path: 'office',
         component: OfficeSpaceComponent
       },      
       {
-        path: "search",
+        path: 'search',
         component: SearchResultComponent
       },      
       {
-        path: "bedspace",
+        path: 'bedspace',
         component: BedSpaceComponent
       },
       {
-        path: "event",
+        path: 'event',
         component: EventSpaceComponent
       }
      
@@ -66,7 +71,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes,{
-    scrollPositionRestoration: 'top'
+    scrollPositionRestoration: 'top',
+    onSameUrlNavigation: 'reload'
   })],
   exports: [RouterModule]
 })
