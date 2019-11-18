@@ -6,21 +6,23 @@
       <!-- Content -->
       
       <h2 class="card-title h2 my-4 py-2">Discover spaces that suits your needs</h2>
-      <div class="form-row mb-4">
-        <div class="col">
-            <!-- First name -->
-            <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="Keywords [e.g Job,Space]">
-        </div>
-        <div class="col">
-            <!-- Last name -->
-            <input type="text"  class="form-control" placeholder="[State,City]">
-        </div>
-        <div class="col">
-            <!-- Last name -->
-            <button class="btn btn-info btn-block" type="submit">Search</button>
+      <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+        <div class="form-row mb-4">
+          <div class="col">
+              <!-- Keyword -->
+              <input type="text" formControlName="space" class="form-control" placeholder="Keywords [e.g Job,Space]">
+          </div>
+          <div class="col">
+              <!-- Location -->
+              <input type="text" formControlName="location"  class="form-control" placeholder="[State,City]">
+          </div>
+          <div class="col">
+             
+              <button class="btn btn-warning btn-block"  [disabled]="disabledSubmitButton" type="submit">Search</button>
+            </div>
 
-             </div>
-    </div>
+          </div>
+        </form>
     </div>
   </div>
 </mdb-card>
@@ -37,7 +39,7 @@
 <div class="row">
 
   <!-- Grid column -->
-  <div *ngFor="let sub of space.sub" class="col-lg-4 col-md-12 mb-lg-0 mb-4">
+  <div *ngFor="let sub of space.sub" class="col-lg-4 col-md-12 mb-lg-0 mb-4 wow fadeInRight animated">
 
     <!-- Featured image -->
     <div class="view overlay rounded z-depth-2 mb-4 waves-light" mdbWavesEffect>
@@ -53,7 +55,7 @@
   <!-- Grid column -->
 </div>
 <div class="row justify-content-end">
-    <a href="#!" class="blue-text align-self-end">
+    <a routerLink="{{space.link}}" class="blue-text align-self-end">
         <h6 class="font-weight-bold mb-3">See more</h6>
       </a>
 

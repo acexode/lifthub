@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { DispatcherService } from '../dispatcher.service';
 import {Router} from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
@@ -10,10 +10,12 @@ import { SignupComponent } from '../signup/signup.component';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  user = {email:"",password:""};
-  errMsg;  
-  data:any   
-  constructor( private router:Router, private dispatch: DispatcherService,public modalRef: MDBModalRef,private service:MDBModalService) {
+  user = {email:'',password:''};
+  errMsg;
+  data;
+  disabledSubmitButton = true;
+  // tslint:disable-next-line: max-line-length
+  constructor( private router: Router, private dispatch: DispatcherService, public modalRef: MDBModalRef, private service: MDBModalService) {
    }
    validatingForm: FormGroup;
    ngOnInit() {
@@ -24,6 +26,11 @@ export class LoginComponent implements OnInit {
      });
    }
 
+   @HostListener('input') oninput() {
+    if (this.validatingForm.valid) {
+      this.disabledSubmitButton = false;
+    }
+  }
    get modalFormElegantEmail() {
      return this.validatingForm.get('modalFormElegantEmail');
    }

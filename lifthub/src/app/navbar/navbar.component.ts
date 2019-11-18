@@ -18,25 +18,25 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
   }
-  goto(e){
-    console.log(this.dispatcher.isLoggedIn())
-    if(this.dispatcher.isLoggedIn()){
-        this.router.navigate(['space/'+e])
-    }else{
+  // goto(e){
+  //   console.log(this.dispatcher.isLoggedIn())
+  //   if(this.dispatcher.isLoggedIn()){
+  //       this.router.navigate(['space/'+e])
+  //   }else{
      
-      this.modalRef = this.service.show(ModalComponent, {
-        backdrop: true,
-        keyboard: true,
-        focus: true,
-        show: false,
-        ignoreBackdropClick: false,
-        class: ' modal-top',
-        containerClass: 'center',
-        animated: true
-    });
+  //     this.modalRef = this.service.show(ModalComponent, {
+  //       backdrop: true,
+  //       keyboard: true,
+  //       focus: true,
+  //       show: false,
+  //       ignoreBackdropClick: false,
+  //       class: ' modal-top',
+  //       containerClass: 'center',
+  //       animated: true
+  //   });
    
-    }
-  }
+  //   }
+  // }
   openLogin() {    
     this.modalRef = this.service.show(LoginComponent)
   }

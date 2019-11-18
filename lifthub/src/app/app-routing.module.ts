@@ -9,48 +9,58 @@ import { OfficeSpaceComponent } from './user_page/office-space/office-space.comp
 import { ConferenceSpaceComponent } from './user_page/conference-space/conference-space.component';
 import { TrainingSpaceComponent } from './user_page/training-space/training-space.component';
 import { EventSpaceComponent } from './user_page/event-space/event-space.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 //import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
   {
-    path: "",
-    redirectTo:"/",
-    pathMatch:"full"
+    path: '',
+    redirectTo:'/',
+    pathMatch:'full'
   },
   {
-    path: "",
+    path: '',
     component:LandingPageComponent,
-    pathMatch:"full"
+    pathMatch:'full'
   },  
   {
-    path: "space",
+    path: 'space',
     component:UserPageComponent,
    
     children : [
       {
-        path: "",
+        path: '',
         component: AllSpacesComponent,
-        pathMatch:"full"
+        pathMatch:'full'
+      },
+      {
+        path: '',
+        redirectTo:'/space',
+        pathMatch:'full'
       },      
       {
-        path: "conference",
+        path: 'conference',
         component: ConferenceSpaceComponent
       },
       {
-        path: "training",
+        path: 'training',
         component: TrainingSpaceComponent
       },
       {
-        path: "office",
+        path: 'office',
         component: OfficeSpaceComponent
       },      
       {
-        path: "bedspace",
+        path: 'search',
+        component: SearchResultComponent
+      },      
+      {
+        path: 'bedspace',
         component: BedSpaceComponent
       },
       {
-        path: "event",
+        path: 'event',
         component: EventSpaceComponent
       }
      
@@ -60,7 +70,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{
+    scrollPositionRestoration: 'top',
+    onSameUrlNavigation: 'reload'
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,1 +1,56 @@
 /* You can add global styles to this file, and also import other style files */
+.navbar-dark{
+    background: radial-gradient( black,transparent) !important;
+  }
+  .user-nav{
+    background: #1f1d1d !important;
+    
+}
+  @media only screen and (max-width: 990px) {
+    .navbar {
+        background-color: #3b3b3b !important;
+    }
+}
+.carousel-multi-item .controls-top {
+  margin-bottom: 1.88rem !important;
+  text-align: center !important;
+}
+.carousel-multi-item .controls-top .btn-floating {
+  position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding: 0;
+    margin: 10px;
+    overflow: hidden;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+    transition: all .2s ease-in-out;
+    width: 47px;
+    height: 47px;
+    background: #ffbb33;
+}
+
+.btn-floating i {
+  display: inline-block;
+  width: inherit;
+  color: #fff;
+  text-align: center;
+  font-size: 1.25rem;
+    line-height: 47px;
+}
+.carousel-indicators li {
+  box-sizing: content-box;
+  flex: 0 1 auto;  
+  margin-right: 3px;
+  margin-left: 3px;
+  text-indent: -999px;
+  background-color: darkorange !important;
+  background-clip: padding-box;
+  // Use transparent borders to increase the hit area by 10px on top and bottom.
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  opacity: .5;
+  transition: opacity 0.6s ease;
+}

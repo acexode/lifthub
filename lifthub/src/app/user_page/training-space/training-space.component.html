@@ -1,1 +1,83 @@
-<p>training-space works!</p>
+<!-- Section: Blog v.1 -->
+<section class="my-5">  
+    <!-- Grid row -->
+    <ng-container *ngFor="let space of spaces;let i =index">
+      <div *ngIf="i%2!=0" class="row mb-5">
+  
+        <!-- Grid column -->
+        <div class="col-lg-5 wow fadeInLeft">
+    
+          <!-- Featured image -->
+          <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
+            <img class="img-fluid" src="{{space.details.img}}" alt="Sample image">
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+    
+        </div>
+        <!-- Grid column -->
+    
+        <!-- Grid column -->
+        <div class="col-lg-7 wow fadeInRight">
+    
+          <!-- Category -->
+          <a href="#!" class="green-text">
+            <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="map-marked-alt" class="pr-2"></mdb-icon>{{space.details.location}}</h6>
+          </a>
+          <!-- Post title -->
+          <h3 class="font-weight-bold mb-3"><strong>{{space.spaceType}}</strong></h3>
+          <h5 class="font-weight-bold mb-3"><strong>{{space.details.name}}</strong></h5>
+          <!-- Excerpt -->
+          <p>{{space.details.description}}</p>
+          <!-- Post data -->
+          <p><mdb-icon fas icon="tag" class="pr-2"></mdb-icon> <a><strong>{{space.details.price}}</strong></a>, </p>
+          <!-- Read more button -->
+          <a mdbBtn color="warning" (click)="CheckAvailability()" mdbWavesEffect>Check Availability</a>
+    
+        </div>
+        <!-- Grid column -->
+    
+      </div>
+      <div *ngIf="i%2==0" class="row mb-5">         
+    
+        <!-- Grid column -->
+        <div class="col-lg-7 wow fadeInRight">
+    
+          <!-- Category -->
+          <a href="#!" class="green-text">
+            <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="map-marked-alt" class="pr-2"></mdb-icon>{{space.details.location}}</h6>
+          </a>
+          <!-- Post title -->
+          <h3 class="font-weight-bold mb-3"><strong>{{space.spaceType}}</strong></h3>
+          <h5 class="font-weight-bold mb-3"><strong>{{space.details.name}}</strong></h5>
+          <!-- Excerpt -->
+          <p>{{space.details.description}}</p>
+          <!-- Post data -->
+          <p><mdb-icon fas icon="tag" class="pr-2"></mdb-icon> <a><strong>{{space.details.price}}</strong></a>, </p>
+          <!-- Read more button -->
+          <a mdbBtn color="warning" (click)="CheckAvailability()" mdbWavesEffect>Check Availability</a>
+    
+        </div>      
+        <!-- Grid column -->
+        <div class="col-lg-5 wow fadeIn">
+    
+          <!-- Featured image -->
+          <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
+            <img class="img-fluid" src="{{space.details.img}}" alt="Sample image">
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+    
+        </div>
+        <!-- Grid column -->
+    
+      </div>
+      <hr class="my-5">
+    </ng-container>
+    
+  
+  </section>
+  
+  

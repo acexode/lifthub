@@ -5,9 +5,10 @@ const express = require("express"),
   path = require("path"),
   http = require("http"),
   app = express(),
-  mongodbUri = require("./config/keys").uri,
-  routes = require("./routes/routes");
-
+  mongodbUri = require("./config/keys").uri,  
+  routes = require("./routes/routes"),
+  dotenv = require('dotenv').config()
+  
 mongoose.Promise = global.Promise;
 
 
@@ -16,16 +17,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}));
 
 //Not yet connected to mongodb mlab
-mongoose.connect(mongodbUri, {useNewUrlParser:true}).then(()=>{
+mongoose.connect(process.env.MONGODBURI, {useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
     console.log("connected to MongoDB");
 }).catch(err =>{
     console.log("Couldn't connect to db",err)
 })
- 
-// ROUTES
-app.use(express.static(__dirname+'/dist/lifthub'))
-app.use("/",express.static(__dirname+'/dist/lifthub'))
-app.use("/apis", routes);
 
 
 // ROUTES
@@ -34,6 +30,7 @@ app.use("/",express.static(__dirname+'/dist/lifthub'))
 // initialize passport
 app.use(passport.initialize())
 app.use("/api", routes);
+
 
 
 const normalizePort = (val)=> {
@@ -51,7 +48,7 @@ const normalizePort = (val)=> {
   
     return false;
   }
-const port = normalizePort(process.env.PORT || '4300');
+const port = normalizePort(process.env.PORT);
 app.set('port', port);
 
 const server = http.createServer(app);

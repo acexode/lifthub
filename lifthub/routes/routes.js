@@ -1,16 +1,87 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport");
-const keys = require("../config/keys");
 const jwt = require("jsonwebtoken");
 require("../config/auth")(passport)
 const router = express.Router()
 const Space = require("../model/space")
 const User = require("../model/users")
+const request = require('superagent');
+const nodemailer = require('nodemailer');
+const googleMapsClient = require('@google/maps').createClient({
+    key: process.env.GEOCODE
+  });
 
+
+  router.get("/space/locate",(req,res)=>{
+      console.log(process.env.GEOCODE)
+    const lat = req.query.lat
+    const lng = req.query.lng
+    googleMapsClient.reverseGeocode({
+        latlng: [lat,lng]
+    },(err,data)=>{
+        if(err){
+            res.json({ success: false, message: err.json() })
+            console.log(err)
+        } else {
+            // user_city & user_country filter the results for the city name and country
+            var user_city = data.json.results[0].address_components.filter(ac=>~ac.types.indexOf('locality'))[0].long_name
+            var user_country = data.json.results[0].address_components.filter(ac=>~ac.types.indexOf('country'))[0].long_name
+            var fullLocation = `${user_city}, ${user_country}`
+            // case insensitive with RegEx           
+            var location = new RegExp(user_city, 'i')
+            Space.find({'details.location': location}, {}, (err, space) => {
+                if (err) {
+                    res.json({ success: false, message: err })
+                } else {
+                    if (!space) {
+                        res.json({ success: false, message: 'no space' })
+                    } else {
+                        res.json({ success: true, space: space, fullLocation  });
+                    }
+                }
+            })
+            
+            
+        }
+    }) 
+  })
+// get by location & spaceType
+router.get('/space/search', (req, res) => {
+    var space = new RegExp(req.query.space, 'i')
+    var location =new RegExp(req.query.location, 'i') 
+    console.log(space); 
+    Space.find({ 'spaceType':space,'details.location': location}, {}, (err, space) => {
+        if (err) {
+            res.json({ success: false, message: err })
+        } else {
+            if (!space) {
+                res.json({ success: false, message: 'no space' })
+            } else {
+                res.json({ success: true, space: space })
+            }
+        }
+    })
+});
+// get by spaceType
+router.get('/space/type', (req, res) => {
+    var space = new RegExp(req.query.spaceType, 'i') 
+    console.log("spacetype: " + req.query.spaceType)   
+    Space.find({ 'spaceType': space}, {}, (err, space) => {
+        if (err) {
+            res.json({ success: false, message: err })
+        } else {
+            if (!space) {
+                res.json({ success: false, message: 'no space' })
+            } else {
+                res.json({ success: true, space: space })
+            }
+        }
+    })
+});
 // GET ITEMS
-router.get("/space",(req,res)=>{   
-        Space.find((err,space)=>{
+router.get("/space",(req,res)=>{          
+    Space.find((err,space)=>{
             if(err){
                 return next(err)
             }else{
@@ -24,39 +95,6 @@ router.get("/space",(req,res)=>{
    
 })
 
-
-// GET BY ID
-router.get('/space/:id', (req, res) => {
-    var params = req.params.id
-    Space.findOne({ _id: params }, {}, (err, space) => {
-        if (err) {
-            res.json({ success: false, message: err })
-        } else {
-            if (!space) {
-                res.json({ success: false, message: 'no space' })
-            } else {
-                res.json({ success: true, space: space })
-            }
-        }
-    })
-});
-// get by location
-router.get('/spaces', (req, res) => {
-    var space = req.query.space
-    var location = req.query.location
-    
-    Space.find({ 'spaceType':space,'details.location': location}, {}, (err, space) => {
-        if (err) {
-            res.json({ success: false, message: err })
-        } else {
-            if (!space) {
-                res.json({ success: false, message: 'no space' })
-            } else {
-                res.json({ success: true, space: space })
-            }
-        }
-    })
-});
 
 
 /*
@@ -101,7 +139,7 @@ router.post("/login",(req,res)=>{
             console.log(user)            
             user.comparePassword(pwd,function(err,match){
                 if(match && !err){
-                    let token = jwt.sign(user.toJSON(),keys.secret);
+                    let token = jwt.sign(user.toJSON(),process.env.SECRET);
                     res.json({success:true,token:`JWT ${token}`})
                 }else{
                     res.status(401).send({success:false,message:"Incorrect password!!"})
@@ -140,6 +178,21 @@ router.post("/space",passport.authenticate('jwt',{session:false}), (req,res)=>{
         res.status(403).json({success:true,message:"You dont have admin priviledges"})
     }
 })
+// GET BY ID
+router.get('/space/:id', (req, res) => {
+    var params = req.params.id
+    Space.findOne({ _id: params }, {}, (err, space) => {
+        if (err) {
+            res.json({ success: false, message: err })
+        } else {
+            if (!space) {
+                res.json({ success: false, message: 'no space' })
+            } else {
+                res.json({ success: true, space: space })
+            }
+        }
+    })
+});
 
 // UPDATE ITEM
 router.put("/:id", (req,res)=>{
@@ -181,7 +234,28 @@ router.delete('/space/:id', (req, res) => {
         }
     })
 });
-
+// subscribe to newsletter
+router.post('/subscribe',(req,res)=>{
+    console.log(req.body)
+    request
+        .post('https://' + process.env.mailchimpInstance + '.api.mailchimp.com/3.0/lists/' + process.env.listUniqueId + '/members/')
+        .set('Content-Type', 'application/json;charset=utf-8')
+        .set('Authorization', 'Basic ' + new Buffer('any:' + process.env.mailchimpApiKey ).toString('base64'))
+        .send({
+          'email_address': req.body.subscribeFormEmail,
+          'status': 'subscribed',
+          'merge_fields': {
+            'FNAME': req.body.subscribeFormName,            
+          }
+        })
+            .end(function(err, response) {
+              if (response.status < 300 || (response.status === 400 && response.body.title === "Member Exists")) {
+                res.json({ success: true, message: 'Signed up' })
+              } else {
+                res.json({ success: false, message: 'Signed up failed !!' })
+              }
+          });
+})
 // TOKEN DISPATCHER
 const getToken = headers=>{
     if(headers && headers.authorization){
@@ -195,5 +269,38 @@ const getToken = headers=>{
         return null;
     }
 }
+// post send availability message
+router.post("/email", (req,res)=>{
+    const {name,email,phone,msg} = req.body;
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASSWORD
+        },
+        tls: {
+            rejectUnauthorized: false
+        }
+      });
+    const mailOptions = {
+        from: email,
+        to: process.env.EMAIL,
+        subject: msg,
+        text: `Hi my name is ${name}, i am interested in the space property, please call me on 
+        this number ${phone} or email me via ${email}`
+      };
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            res.json({success: false, msg: error.message});
+           console.log(error)
+           console.log(error.message)
+        } else {
+          res.json({success: true, msg: info.response});
+        }
+      });
+      
+})
+  
+
 
 module.exports = router
