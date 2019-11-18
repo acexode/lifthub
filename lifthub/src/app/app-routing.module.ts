@@ -10,35 +10,35 @@ import { ConferenceSpaceComponent } from './user_page/conference-space/conferenc
 import { TrainingSpaceComponent } from './user_page/training-space/training-space.component';
 import { EventSpaceComponent } from './user_page/event-space/event-space.component';
 import { SearchResultComponent } from './search-result/search-result.component';
-//import { AuthGuard } from './auth.guard';
+// import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo:'/',
-    pathMatch:'full'
+    redirectTo: '/',
+    pathMatch: 'full'
   },
   {
     path: '',
-    component:LandingPageComponent,
-    pathMatch:'full'
-  },  
+    component: LandingPageComponent,
+    pathMatch: 'full'
+  },
   {
     path: 'space',
-    component:UserPageComponent,
-   
+    component: UserPageComponent,
+
     children : [
       {
         path: '',
         component: AllSpacesComponent,
-        pathMatch:'full'
+        pathMatch: 'full'
       },
       {
         path: '',
-        redirectTo:'/space',
-        pathMatch:'full'
-      },      
+        redirectTo: '/space',
+        pathMatch: 'full'
+      },
       {
         path: 'conference',
         component: ConferenceSpaceComponent
@@ -50,11 +50,11 @@ const routes: Routes = [
       {
         path: 'office',
         component: OfficeSpaceComponent
-      },      
+      },
       {
         path: 'search',
         component: SearchResultComponent
-      },      
+      },
       {
         path: 'bedspace',
         component: BedSpaceComponent
@@ -63,14 +63,14 @@ const routes: Routes = [
         path: 'event',
         component: EventSpaceComponent
       }
-     
+
   ]
-    
+
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{
+  imports: [RouterModule.forRoot(routes, {
     scrollPositionRestoration: 'top',
     onSameUrlNavigation: 'reload'
   })],

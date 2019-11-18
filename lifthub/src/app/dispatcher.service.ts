@@ -26,7 +26,7 @@ export class DispatcherService {
   }
   // search based on spacetype
   spaceType(space) {
-    return this.http.get(`/api/space/type?space=${space}`);
+    return this.http.get(`/api/space/type?spaceType=${space}`);
   }
   // get all space in a location
   getLocationData(lat, lng) {

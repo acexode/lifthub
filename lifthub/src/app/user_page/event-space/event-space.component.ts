@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CheckAvailabilityComponent } from 'src/app/check-availability/check-availability.component';
 import { DispatcherService } from 'src/app/dispatcher.service';
 import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-space',
@@ -15,7 +15,7 @@ export class EventSpaceComponent implements OnInit {
   modalRef: MDBModalRef;
   spaces = SampleData;
   slides: any = [[]];
-constructor(private dispatcher: DispatcherService, private service: MDBModalService, private route: ActivatedRoute) { }
+constructor(private dispatcher: DispatcherService, private service: MDBModalService, private router: Router) { }
 
   chunk(arr, chunkSize) {
     let R = [];
@@ -27,17 +27,16 @@ constructor(private dispatcher: DispatcherService, private service: MDBModalServ
 
 ngOnInit() {
   this.slides = this.chunk(this.spaces, 3);
-  this.route.queryParams.subscribe(params => {
-    const {space, location} = params;
-    console.log(params);
-    this.dispatcher.spaceType(space).subscribe((res:any) => {
+  const path = this.router.url;
+  const index = path.lastIndexOf('/') + 1;
+  const space = path.substring(index);
+  console.log(space)
+  this.dispatcher.spaceType(space).subscribe((res:any) => {
         console.log(res);
         // this.spaces = res
       }, error => {
         console.log('Error', error);
       });
-
-    });
 }
   CheckAvailability(){
     this.modalRef = this.service.show(CheckAvailabilityComponent, {

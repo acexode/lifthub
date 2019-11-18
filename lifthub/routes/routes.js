@@ -168,8 +168,7 @@ router.post("/space",passport.authenticate('jwt',{session:false}), (req,res)=>{
         console.log(newSpace)        
         newSpace.save(err=>{
             if(err){
-                res.json({success:false,message:"failed to create new space"})
-                
+                res.json({success:false,message:"failed to create new space"})                
             }else{
                 res.json({success:true,message:"New space created"}) 
             }
