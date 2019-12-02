@@ -1,104 +1,53 @@
-<mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'"
-  [animation]="'slide'">
-  <mdb-carousel-item *ngFor="let item of spaces; let i = index">
-    <div class="col-md-4" [ngClass]="{'d-none d-md-block': cardIndex !== 0}" *ngFor="let card of spaces; let cardIndex = index">
-      <mdb-card class="my-1">
-        <mdb-card-img [src]="card.details.img" alt="Card image cap"></mdb-card-img>
-        <mdb-card-body>
-            <a href="#!" class="green-text">
-                <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="map-marked-alt" class="pr-2"></mdb-icon>{{card.details.location}}</h6>
-              </a>
-          <mdb-card-title>
-            <h4>{{card.details.name}}</h4>
-          </mdb-card-title>
-          <p>{{card.details.description}}</p>
-          <p><mdb-icon fas icon="tag" class="pr-2"></mdb-icon> <a><strong>{{card.details.price}}</strong></a>, </p>
-          <a mdbBtn (click)="CheckAvailability()" color="warning" class="waves-light" mdbWavesEffect>Check Availability</a>
-        </mdb-card-body>
-      </mdb-card>
+<div class="container mt-5">
+    <div  class="row mt-5">
+      <div *ngFor="let space of spaces;let i =index" class="col-lg-4 col-md-6 mb-3">
+        <div class="room-grid-item">
+          <figure class="gradient-overlay-hover link-icon">
+            <a (click)="gotoBook(index)">
+              <img
+              src="{{space.details.img}}"
+                class="img-fluid"
+                alt="Image"
+              />
+            </a>
+            <div class="room-services">
+              <i
+                class="fa fa-coffee"
+                aria-hidden="true"
+                data-toggle="popover"
+                data-placement="right"
+                data-trigger="hover"
+                data-content="Breakfast Included"
+                data-original-title="Breakfast"
+              ></i>
+              <i
+                class="fa fa-wifi"
+                aria-hidden="true"
+                data-toggle="popover"
+                data-placement="right"
+                data-trigger="hover"
+                data-content="Free WiFi"
+                data-original-title="WiFi"
+              ></i>
+              <i
+                class="fa fa-tv"
+                data-toggle="popover"
+                data-placement="right"
+                data-trigger="hover"
+                data-content="Plasma TV with cable channels"
+                data-original-title="TV"
+              ></i>
+            </div>
+            <div class="room-price">€{{space.details.price}} / night</div>
+          </figure>
+          <div class="room-info">
+            <h2 class="room-title">
+              <a (click)="gotoBook(i)">{{space.details.name}}</a>
+            </h2>
+            <p>Enjoy our {{space.details.name}}</p>
+          </div>
+        </div>
+      </div>
+  
     </div>
-  </mdb-carousel-item>
-</mdb-carousel>
-<!-- Section: Blog v.1 -->
-<section class="my-5">  
-    <!-- Grid row -->
-    <ng-container *ngFor="let space of spaces;let i =index">
-      <div *ngIf="i%2!=0" class="row mb-5">
-  
-        <!-- Grid column -->
-        <div class="col-lg-5">
-    
-          <!-- Featured image -->
-          <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
-            <img class="img-fluid" src="{{space.details.img}}" alt="Sample image">
-            <a>
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-    
-        </div>
-        <!-- Grid column -->
-    
-        <!-- Grid column -->
-        <div class="col-lg-7">
-    
-          <!-- Category -->
-          <a href="#!" class="green-text">
-            <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="map-marked-alt" class="pr-2"></mdb-icon>{{space.details.location}}</h6>
-          </a>
-          <!-- Post title -->
-          <h3 class="font-weight-bold mb-3"><strong>{{space.spaceType}}</strong></h3>
-          <h5 class="font-weight-bold mb-3"><strong>{{space.details.name}}</strong></h5>
-          <!-- Excerpt -->
-          <p>{{space.details.description}}</p>
-          <!-- Post data -->
-          <p><mdb-icon fas icon="tag" class="pr-2"></mdb-icon> <a><strong>{{space.details.price}}</strong></a>, </p>
-          <!-- Read more button -->
-          <a mdbBtn color="warning" (click)="CheckAvailability()" mdbWavesEffect>Check Availability</a>
-    
-        </div>
-        <!-- Grid column -->
-    
-      </div>
-      <div *ngIf="i%2==0" class="row mb-5">         
-    
-        <!-- Grid column -->
-        <div class="col-lg-7">
-    
-          <!-- Category -->
-          <a href="#!" class="green-text">
-            <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="map-marked-alt" class="pr-2"></mdb-icon>{{space.details.location}}</h6>
-          </a>
-          <!-- Post title -->
-          <h3 class="font-weight-bold mb-3"><strong>{{space.spaceType}}</strong></h3>
-          <h5 class="font-weight-bold mb-3"><strong>{{space.details.name}}</strong></h5>
-          <!-- Excerpt -->
-          <p>{{space.details.description}}</p>
-          <!-- Post data -->
-          <p><mdb-icon fas icon="tag" class="pr-2"></mdb-icon> <a><strong>{{space.details.price}}</strong></a>, </p>
-          <!-- Read more button -->
-          <a mdbBtn color="warning" (click)="CheckAvailability()" mdbWavesEffect>Check Availability</a>
-    
-        </div>      
-        <!-- Grid column -->
-        <div class="col-lg-5">
-    
-          <!-- Featured image -->
-          <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
-            <img class="img-fluid" src="{{space.details.img}}" alt="Sample image">
-            <a>
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-    
-        </div>
-        <!-- Grid column -->
-    
-      </div>
-      <hr class="my-5">
-    </ng-container>
-    
-  
-  </section>
-  
-  
+  </div>

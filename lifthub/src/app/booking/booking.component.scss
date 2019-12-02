@@ -1,0 +1,19 @@
+//@import "../../assets/css/materialize.css";
+
+.carousel-thumbnails .carousel-indicators>li {
+    width: initial !important;
+    height: initial ;
+    text-indent: initial;
+}
+.carousel .carousel-indicators li {
+    width: initial !important;
+    height: .625rem !important;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.carousel-indicators {
+    position: absolute;
+    right: 0;
+    bottom: -20%;
+}

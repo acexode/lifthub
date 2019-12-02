@@ -23,6 +23,10 @@ import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component'
 import { ModalComponent } from './modal/modal.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { CheckAvailabilityComponent } from './check-availability/check-availability.component';
+import { BookingComponent } from './booking/booking.component';
+
+import { FunplacesComponent } from './funplaces/funplaces.component';
+import { BookingformComponent } from './bookingform/bookingform.component';
 
 
 
@@ -46,7 +50,11 @@ import { CheckAvailabilityComponent } from './check-availability/check-availabil
     AllSpacesComponent,
     ModalComponent,
     SearchResultComponent,
-    CheckAvailabilityComponent
+    CheckAvailabilityComponent,
+    BookingComponent,
+   
+    FunplacesComponent,
+    BookingformComponent
   ],  
   imports: [
     MDBBootstrapModule.forRoot(),

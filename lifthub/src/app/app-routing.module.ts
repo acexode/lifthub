@@ -1,3 +1,4 @@
+import { BookingComponent } from 'src/app/booking/booking.component';
 
 import { BedSpaceComponent } from './user_page/bed-space/bed-space.component';
 import { NgModule } from '@angular/core';
@@ -10,46 +11,112 @@ import { ConferenceSpaceComponent } from './user_page/conference-space/conferenc
 import { TrainingSpaceComponent } from './user_page/training-space/training-space.component';
 import { EventSpaceComponent } from './user_page/event-space/event-space.component';
 import { SearchResultComponent } from './search-result/search-result.component';
+
+import { FunplacesComponent } from './funplaces/funplaces.component';
 // import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/',
+    redirectTo: '/space',
     pathMatch: 'full'
-  },
-  {
-    path: '',
-    component: LandingPageComponent,
-    pathMatch: 'full'
-  },
+  },  
   {
     path: 'space',
     component: UserPageComponent,
-
     children : [
+      {
+        path: 'booking',
+        component: BookingComponent
+      },
       {
         path: '',
         component: AllSpacesComponent,
         pathMatch: 'full'
       },
       {
-        path: '',
-        redirectTo: '/space',
-        pathMatch: 'full'
-      },
-      {
-        path: 'conference',
-        component: ConferenceSpaceComponent
-      },
-      {
-        path: 'training',
-        component: TrainingSpaceComponent
+        path: 'funplaces',
+        children : [
+          {
+            path: 'restaurant',
+            component: FunplacesComponent
+          },
+          {
+            path: 'pub',
+            component: FunplacesComponent
+          },
+          {
+            path: 'bar',
+            component: FunplacesComponent
+          },
+          {
+            path: 'coffee',
+            component: FunplacesComponent
+          },
+          {
+            path: 'movies',
+            component: FunplacesComponent
+          },
+          {
+            path: 'concerts',
+            component: FunplacesComponent
+          },
+          {
+            path: 'boat-ride',
+            component: FunplacesComponent
+          },
+          {
+            path: 'receptions',
+            component: FunplacesComponent
+          },
+          {
+            path: 'book-club',
+            component: FunplacesComponent
+          },
+          {
+            path: 'book-table',
+            component: FunplacesComponent
+          },
+          {
+            path: 'meetups',
+            component: FunplacesComponent
+          },
+          {
+            path: 'bonfire',
+            component: FunplacesComponent
+          },
+          {
+            path: 'barbecue',
+            component: FunplacesComponent
+          },
+          {
+            path: 'stargazing',
+            component: FunplacesComponent
+          },
+        ]
       },
       {
         path: 'office',
-        component: OfficeSpaceComponent
+        children : [
+          {
+            path: 'private',
+            component: OfficeSpaceComponent
+          },
+          {
+            path: 'shared',
+            component: OfficeSpaceComponent
+          },
+          {
+            path: 'co-working',
+            component: OfficeSpaceComponent
+          },
+          {
+            path: 'open',
+            component: OfficeSpaceComponent
+          },
+        ]
+        // component: OfficeSpaceComponent
       },
       {
         path: 'search',
@@ -57,11 +124,81 @@ const routes: Routes = [
       },
       {
         path: 'bedspace',
-        component: BedSpaceComponent
+        children: [
+          {
+            path: 'single-bed',
+            component: BedSpaceComponent
+          },
+          {
+            path: 'single-double-bed',
+            component: BedSpaceComponent
+          },
+          {
+            path: 'executive-bedroom',
+            component: BedSpaceComponent
+          },
+          {
+            path: 'executive-suite',
+            component: BedSpaceComponent
+          },
+          {
+            path: 'luxury-suite',
+            component: BedSpaceComponent
+          },
+          {
+            path: 'apartment',
+            component: BedSpaceComponent
+          },
+        ]
       },
       {
-        path: 'event',
-        component: EventSpaceComponent
+        path: 'events',
+        children : [
+          {
+            path: 'picnics',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'meeting',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'trainings',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'private-meeting',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'board-meeting',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'group-meeting',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'reception',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'conference',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'seminars',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'meetups',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'lectures',
+            component: EventSpaceComponent
+          },
+        ]
       }
 
   ]

@@ -38,6 +38,10 @@ ngOnInit() {
         console.log('Error', error);
       });
 }
+gotoBook(index){
+  this.router.navigate(['space/booking', {data :this.spaces[index] }])
+}
+
   CheckAvailability(){
     this.modalRef = this.service.show(CheckAvailabilityComponent, {
       backdrop: true,
