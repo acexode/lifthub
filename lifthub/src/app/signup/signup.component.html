@@ -8,7 +8,7 @@
       <!--Header-->
       <div class="modal-header text-center">
         <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
-          <strong>Sign up</strong>
+          <strong>Sign Up</strong>
         </h3>
         <p class="modal-title w-100 text-danger font-weight-bold my-4" color="danger" *ngIf="errMsg">{{errMsg}}</p>
         <p class="modal-title w-100 text-success font-weight-bold my-4" color="success" *ngIf="successMsg">{{successMsg}}</p>
@@ -82,7 +82,7 @@
       <!-- Footer-->
        <div class="modal-footer mx-5 pt-3 mb-1">
         <p class="font-small grey-text d-flex justify-content-end">Member already ?
-          <a  (click)="openLogin()" href="#" class="blue-text ml-1"> Sign In</a>
+          <a  (click)="openLogin(e)" class="blue-text ml-1"> Sign In</a>
         </p>
       </div> 
     </div>

@@ -12,62 +12,18 @@ import * as M from '../../assets/js/materialize.min.js';
 })
 
 export class BookingComponent implements OnInit {
-  disabledSubmitButton = true;
-  options = {
-    minDate: new Date()
-  };
-    checkInDate;
-    checkInTime;
-    checkOutDate;
-    checkOutTime;
-  constructor(private dispatcher: DispatcherService,private fb: FormBuilder, private route: ActivatedRoute) { }
-  BookForm: FormGroup;
-  message = {name: '', email: '', phone: '', msg: ''};
+
+  space;
+  constructor(private dispatcher: DispatcherService, private route: ActivatedRoute) { } 
   ngOnInit() {
-    console.log(this.route.snapshot.paramMap.get('data'));
-    const checkin = document.querySelector('#checkInDate');
-    const checkout = document.querySelector('#checkOutDate');
-    const timein = document.querySelectorAll('#checkInTime');
-    const timeout = document.querySelectorAll('#checkOutTime');
-    this.checkInDate = M.Datepicker.init(checkin, {minDate: new Date,format:"yyyy-mm-dd"});
-    this.checkOutDate = M.Datepicker.init(checkout, {minDate: new Date,format:"yyyy-mm-dd"});
-    this.checkInTime = M.Timepicker.init(timein, {});
-    this.checkOutTime = M.Timepicker.init(timeout, {});
-    this.BookForm = this.fb.group({
-      checkInDate: ['', Validators.required],
-      checkInTime: ['', Validators.required],
-      checkOutDate: ['', Validators.required],
-      checkOutTime: ['', Validators.required],
+    const id = this.route.snapshot.paramMap.get('data');
+    this.dispatcher.getSingle(id).subscribe((data: any) =>{
+      this.space = data.space;
+      console.log(this.space);
     });
 
   }
 
-  @HostListener('input') oninput() {
-    if (this.BookForm.valid) {
-      this.disabledSubmitButton = false;
-    }
-  }
-  onSubmit() {
-    console.log(this.checkInDate)
-    console.log(this.checkInDate.date);
-    console.log(this.checkInTime[0].time);
-    console.log('-------------------');
-    console.log(this.checkOutDate.date);
-    console.log(this.checkOutTime[0].time);
-    if(new Date(this.checkInDate.date) > new Date(this.checkOutDate.date)){
-      console.log("checkin greater than checkout")
-    }else{
-      console.log("checkout greater than checkin");
-    }
-    // this.dispatcher.subscribe(this.subscribeForm.value).subscribe((res) => {
-    //   alert('Your message has been sent.');
-    //   console.log(res)
-    //   this.subscribeForm.reset();
-    //   this.disabledSubmitButton = true;
-    // }, error => {
-    //   console.log('Error', error);
-    // });
-  }
 
 }
 

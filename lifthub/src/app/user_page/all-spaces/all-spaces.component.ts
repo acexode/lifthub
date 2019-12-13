@@ -77,6 +77,7 @@ export class AllSpacesComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     console.log("entered");
     if (navigator.geolocation) {
       console.log(true);

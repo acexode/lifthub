@@ -7,10 +7,10 @@
         >
         <p class="h4 mb-4">Book</p>
         
-        <!-- Name -->
+        
         <div class="form-row">
           <div class="col-6">
-            <!-- First name -->
+            
             <div class="md-form">
               <input
                 type="text"
@@ -23,7 +23,7 @@
             </div>
           </div>
           <div class="col-6">
-            <!-- Last name -->
+            
             <div class="md-form">
               <input
                 type="text"
@@ -38,7 +38,7 @@
         </div>
         <div class="form-row">
           <div class="col-6">
-            <!-- First name -->
+            
             <div class="md-form">
               <input
                 type="text"
@@ -51,7 +51,7 @@
             </div>
           </div>
           <div class="col-6">
-            <!-- Last name -->
+            
             <div class="md-form">
               <input
                 type="text"
@@ -61,6 +61,37 @@
                 mdbInput
               />
               <label for="checkOutTime">Time</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">          
+         <div class="col-12 text-center">
+           <span class="text-center">Recurring Date</span>
+         </div>
+          <div class="col-6 ">     
+            <div class="md-form input-field">
+
+              <select class="sel" formControlName="recurringOption" >                 
+                  <option value="none" selected>None</option>
+                  <option value="daily">Daily</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="monthly">Monthly</option>
+                </select>
+                <label>Type</label>
+                
+            </div>    
+            
+          </div>
+          <div class="col-6">            
+            <div class="md-form">
+              <input
+                type="text"
+                formControlName="recurringDate"
+                id="recurringDate"
+                class="datepicker form-control"
+                mdbInput
+              />
+              <label for="recurringDate">Date</label>
             </div>
           </div>
         </div>
@@ -74,3 +105,5 @@
             </div>
         </div>
         </form>
+
+        

@@ -12,7 +12,7 @@ import { TrainingSpaceComponent } from './user_page/training-space/training-spac
 import { EventSpaceComponent } from './user_page/event-space/event-space.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 
-import { FunplacesComponent } from './funplaces/funplaces.component';
+import { FunplacesComponent } from './user_page/funplaces/funplaces.component';
 // import { AuthGuard } from './auth.guard';
 
 
@@ -21,7 +21,7 @@ const routes: Routes = [
     path: '',
     redirectTo: '/space',
     pathMatch: 'full'
-  },  
+  },
   {
     path: 'space',
     component: UserPageComponent,
@@ -59,11 +59,15 @@ const routes: Routes = [
             component: FunplacesComponent
           },
           {
-            path: 'concerts',
+            path: 'concert',
             component: FunplacesComponent
           },
           {
-            path: 'boat-ride',
+            path: 'boat ride',
+            component: FunplacesComponent
+          },
+          {
+            path: 'library',
             component: FunplacesComponent
           },
           {
@@ -71,11 +75,11 @@ const routes: Routes = [
             component: FunplacesComponent
           },
           {
-            path: 'book-club',
+            path: 'club',
             component: FunplacesComponent
           },
           {
-            path: 'book-table',
+            path: 'table',
             component: FunplacesComponent
           },
           {
@@ -126,23 +130,23 @@ const routes: Routes = [
         path: 'bedspace',
         children: [
           {
-            path: 'single-bed',
+            path: 'single bed',
             component: BedSpaceComponent
           },
           {
-            path: 'single-double-bed',
+            path: 'double bed',
             component: BedSpaceComponent
           },
           {
-            path: 'executive-bedroom',
+            path: 'executive bedroom',
             component: BedSpaceComponent
           },
           {
-            path: 'executive-suite',
+            path: 'executive suite',
             component: BedSpaceComponent
           },
           {
-            path: 'luxury-suite',
+            path: 'luxury suite',
             component: BedSpaceComponent
           },
           {
@@ -167,15 +171,15 @@ const routes: Routes = [
             component: EventSpaceComponent
           },
           {
-            path: 'private-meeting',
+            path: 'private meeting',
             component: EventSpaceComponent
           },
           {
-            path: 'board-meeting',
+            path: 'board meeting',
             component: EventSpaceComponent
           },
           {
-            path: 'group-meeting',
+            path: 'group meeting',
             component: EventSpaceComponent
           },
           {

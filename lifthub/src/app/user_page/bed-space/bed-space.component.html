@@ -1,12 +1,12 @@
-<div class="container mt-5">
+<div class="container mt-5">  
   <div  class="row mt-5">
     <div *ngFor="let space of spaces;let i =index" class="col-lg-4 col-md-6 mb-3">
       <div class="room-grid-item">
         <figure class="gradient-overlay-hover link-icon">
-          <a (click)="gotoBook(index)">
+          <a (click)="gotoBook(space._id)">
             <img
             src="{{space.details.img}}"
-              class="img-fluid"
+              class="img-fluid rooms-img"
               alt="Image"
             />
           </a>
@@ -42,9 +42,9 @@
         </figure>
         <div class="room-info">
           <h2 class="room-title">
-            <a (click)="gotoBook(i)">{{space.details.name}}</a>
+            <a (click)="gotoBook(space._id)">{{space.details.name}} </a>
           </h2>
-          <p>Enjoy our {{space.details.name}}</p>
+          <p>{{space.details.description}}</p>
         </div>
       </div>
     </div>

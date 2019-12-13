@@ -573,6 +573,10 @@
   .room-reviews .review-author img {
     border-radius: 3px;
   }
+  .rooms-img{
+    width: fit-content;
+    height: 200px;
+  }
   
   .room-reviews .review-info {
     font-size: 13px;

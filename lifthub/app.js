@@ -11,6 +11,8 @@ const express = require("express"),
   
 mongoose.Promise = global.Promise;
 
+// uncomment to fill sample data into mongodb
+// const seed = require('./model/seed')
 
 // MIDDLEWARES
 app.use(bodyParser.json())
