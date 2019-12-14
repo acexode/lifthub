@@ -2,14 +2,13 @@ const express = require("express"),
   passport = require("passport"),
   mongoose = require("mongoose"),
   bodyParser = require("body-parser"),
-  path = require("path"),
   http = require("http"),
-  app = express(),
-  mongodbUri = require("./config/keys").uri,  
-  routes = require("./routes/routes"),
-  dotenv = require('dotenv').config()
+  app = express(),    
+  auth = require("./routes/auth"),
+  space = require("./routes/space"),
+  dotenv = require('dotenv').config();
   
-mongoose.Promise = global.Promise;
+  mongoose.Promise = global.Promise;
 
 // uncomment to fill sample data into mongodb
 // const seed = require('./model/seed')
@@ -23,17 +22,19 @@ mongoose.connect(process.env.MONGODBURI, {useNewUrlParser:true,useUnifiedTopolog
     console.log("connected to MongoDB");
 }).catch(err =>{
     console.log("Couldn't connect to db",err)
-})
+  })
 
-
-// ROUTES
-app.use(express.static(__dirname+'/dist/lifthub'))
-app.use("/",express.static(__dirname+'/dist/lifthub'))
-// initialize passport
-app.use(passport.initialize())
-app.use("/api", routes);
-
-
+  
+  // ROUTES
+  app.use(express.static(__dirname+'/dist/lifthub'))
+  app.use("/",express.static(__dirname+'/dist/lifthub'))
+  // initialize passport
+  app.use(passport.initialize())
+  app.use("/api", auth);
+  app.use("/api", space);
+  
+  
+ 
 
 const normalizePort = (val)=> {
     var port = parseInt(val, 10);

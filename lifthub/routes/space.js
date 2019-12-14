@@ -1,52 +1,22 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const passport = require("passport");
 require("../config/auth")(passport);
-const jwt = require("jsonwebtoken");
-const keys = require("../config/keys")
 const router = express.Router();
 const Space = require("../model/space");
-const User = require("../model/users");
 const request = require("superagent");
-const nodemailer = require("nodemailer");
-const googleMapsClient = require("@google/maps").createClient({
-  key: process.env.GEOCODE
-});
+const helper = require('../helper/helper')
+
 const moment = require("moment");
 const momentTimezone = require("moment-timezone");
-//console.log(process.env.SECRET);
-// Function to convert UTC JS Date object to a Moment.js object in WAT – West Africa Time
-const dateWAT = date => {
-  //return momentTimezone(date).tz(Africa/Lagos)
-  return moment.tz(date, "Africa/Lagos").toDate();
-};
-// Function to calculate the duration of the hours between the start and end of the booking
-const durationHours = (bookingStart, bookingEnd) => {
-  // convert the UTC Date objects to Moment.js objeccts
-  // console.log("bookings")
-  // console.log(bookingStart)
-  // console.log(bookingEnd)
-  let startDateLocal = moment(dateWAT(bookingStart));
-  let endDateLocal = moment(dateWAT(bookingEnd));
 
-  // calculate the duration of the difference between the two times
-  let difference = moment.duration(endDateLocal.diff(startDateLocal));
-  let hours = parseInt(difference.asHours());
 
-  // duration in minutes
-  let minutes = parseInt(difference.asMinutes());
-  // return the difference in decimal format
-  // console.log("difference")
-  // console.log(hours)
-  // console.log(minutes)
-  // console.log( hours + minutes / 60)
-  return hours + minutes / 60;
-};
+// Get space based om location
 router.get("/space/locate", (req, res) => {
   console.log(process.env.GEOCODE);
   const lat = req.query.lat;
   const lng = req.query.lng;
-  googleMapsClient.reverseGeocode(
+
+  helper.googleMapsClient.reverseGeocode(
     {
       latlng: [lat, lng]
     },
@@ -80,7 +50,8 @@ router.get("/space/locate", (req, res) => {
     }
   );
 });
-// get by location & spaceType
+
+// Get by location & spaceType
 router.get("/space/search", (req, res) => {
   var space = new RegExp(req.query.space, "i");
   var location = new RegExp(req.query.location, "i");
@@ -101,7 +72,8 @@ router.get("/space/search", (req, res) => {
     }
   );
 });
-// get by spaceType
+
+// Get by spaceType
 router.get("/space/type", (req, res) => {
   var space = new RegExp(req.query.spaceType, "i");
   console.log("spacetype: " + req.query.spaceType);
@@ -117,7 +89,8 @@ router.get("/space/type", (req, res) => {
     }
   });
 });
-// GET ITEMS
+
+// Get all space
 router.get("/space", (req, res) => {
   Space.find((err, space) => {
     if (err) {
@@ -132,69 +105,10 @@ router.get("/space", (req, res) => {
   });
 });
 
-/*
-POST REQUEST
-SIGNUP, LOGIN & POST SPACE
-*/
-router.post("/signup", (req, res) => {
-  console.log(JSON.stringify(req.body.email));
-  if (!req.body.email || !req.body.password) {
-    res.json({
-      success: false,
-      message: "Email and password are required!!"
-    });
-  } else {
-    const newUser = new User({
-      email: req.body.email,
-      password: req.body.password
-    });
-    newUser.save(err => {
-      if (err) {
-        return res
-          .status(401)
-          .json({ success: false, message: "Email already exist!!" });
-      }
-      res.json({
-        success: true,
-        message: "User created!!"
-      });
-    });
-  }
-});
 
-//LOGIN
-router.post("/login", (req, res) => {
-  const email = { email: req.body.email };
-  const pwd = req.body.password;
-  User.findOne({ email: req.body.email }, function(err, user) {
-    if (err) {
-      throw err;
-    }
-    if (!user) {
-      res.status(401).send({ success: false, message: "User does not exist" });
-    } else {
-      console.log(user);
-      console.log(process.env.SECRET);
-      user.comparePassword(pwd, function(err, match) {
-        if (match && !err) {
-          let token = jwt.sign(user.toJSON(), process.env.SECRET,{expiresIn:'24hr'});
-          res.json({success: true, token:'JWT '+token});
-        } else {
-          res
-            .status(401)
-            .send({ success: false, message: "Incorrect password!!" });
-        }
-      });
-    }
-  });
-});
-
-// POST NEW SPACE
-router.post(
-  "/space",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const token = getToken(req.header);
+// Post new space
+router.post("/space",passport.authenticate("jwt", { session: false }),(req, res) => {
+    const token = helper.getToken(req.header);
     if (token) {
       const newSpace = new Space({
         spaceType: req.body.type,
@@ -228,7 +142,8 @@ router.post(
     }
   }
 );
-// GET BY ID
+
+// Get space by id
 router.get("/space/:id", (req, res) => {
   var params = req.params.id;
   Space.findOne({ _id: params }, {}, (err, space) => {
@@ -244,7 +159,7 @@ router.get("/space/:id", (req, res) => {
   });
 });
 
-// UPDATE ITEM
+// Update space
 router.put("/:id", (req, res) => {
   const id = req.params.id;
   Space.findOne({ _id: id }, {}, (err, space) => {
@@ -276,7 +191,8 @@ router.put("/:id", (req, res) => {
 // make booking
 router.put("/book/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
     const { id } = req.params;
-    const token = getToken(req.headers);      
+    const token = helper.getToken(req.headers);      
+    console.log(req.user)
     if (token) {
       if (req.body.recurring.length === 0) {
         Space.findByIdAndUpdate(
@@ -286,9 +202,9 @@ router.put("/book/:id", passport.authenticate("jwt", { session: false }), (req, 
               bookings: {
                 user: req.user._id,
                 // The hour on which the booking starts, calculated from 12:00AM as time = 0
-                startHour: dateWAT(req.body.bookingStart),
+                startHour: helper.dateWAT(req.body.bookingStart),
                 // The duration of the booking in decimal format
-                duration: durationHours(
+                duration: helper.durationHours(
                   req.body.bookingStart,
                   req.body.bookingEnd
                 ),
@@ -300,6 +216,8 @@ router.put("/book/:id", passport.authenticate("jwt", { session: false }), (req, 
           { new: true, runValidators: true, context: "query" }
         )
           .then(space => {
+            // send a reminder email
+            helper.reminder(req.user.email,space.spaceType, helper.dateWAT(req.body.bookingStart),req.body.bookingEnd)
             res.status(201).json(space);
           })
           .catch(error => {
@@ -310,9 +228,9 @@ router.put("/book/:id", passport.authenticate("jwt", { session: false }), (req, 
         // The first booking in the recurring booking range
         let firstBooking = req.body;
         firstBooking.user = req.user._id;
-        firstBooking.startHour = dateWAT(req.body.bookingStart);
+        firstBooking.startHour = helper.dateWAT(req.body.bookingStart);
 
-        firstBooking.duration = durationHours(
+        firstBooking.duration =  helper.durationHours(
           req.body.bookingStart,
           req.body.bookingEnd
         );
@@ -389,6 +307,8 @@ router.put("/book/:id", passport.authenticate("jwt", { session: false }), (req, 
           { new: true, runValidators: true, context: "query" }
         )
           .then(space => {
+            // send a reminder email
+            helper.reminder(req.user.email,space.spaceType, helper.dateWAT(req.body.bookingStart),req.body.bookingEnd)
             res.status(201).json(space);
           })
           .catch(error => {
@@ -473,20 +393,8 @@ router.post("/subscribe", (req, res) => {
       }
     });
 });
-// TOKEN DISPATCHER
-const getToken = function (headers) {
- 
-  if (headers && headers.authorization) {
-    var parted = headers.authorization.split(' ');
-    if (parted.length === 2) {
-      return parted[1];
-    } else {
-      return null;
-    }
-  } else {
-    return null;
-  }
-};
+
+
 
 // post send availability message
 router.post("/email", (req, res) => {
@@ -518,5 +426,6 @@ router.post("/email", (req, res) => {
     }
   });
 });
+
 
 module.exports = router;
