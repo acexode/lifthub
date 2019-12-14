@@ -1,13 +1,13 @@
 const Space = require('./space')
-// Space.remove().then(() =>{
-//   console.log(("all item removed")
-// })
+Space.remove({}).then(() =>{
+  console.log("all item removed")
+});
 Space.create(
     [{
         spaceType: 'Single bedrooms with one bed',
         details : {
           name: 'Single bed space',
-          img: ['assets/deluxe.jpg'],
+          img: ['assets/deluxe.jpg','assets/small.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished bed space with smart room gadgets',
           price: '1,000,000',
@@ -26,7 +26,7 @@ Space.create(
         spaceType: 'Single bedrooms with one bed',
         details : {
           name: 'Single bed space',
-          img: ['assets/deluxe.jpg'],
+          img: ['assets/deluxe.jpg','assets/small.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished bed space with smart room gadgets',
           price: '1,000,000',
@@ -45,7 +45,7 @@ Space.create(
         spaceType: 'Single bedrooms with one bed',
         details : {
           name: 'Single bed space',
-          img: ['assets/deluxe.jpg'],
+          img: ['assets/deluxe.jpg','assets/small.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished bed space with smart room gadgets',
           price: '1,000,000',
@@ -64,7 +64,7 @@ Space.create(
         spaceType: 'Single bedrooms with double beds',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -83,7 +83,7 @@ Space.create(
         spaceType: 'Single bedrooms with double beds',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -102,7 +102,7 @@ Space.create(
         spaceType: 'Single bedrooms with double beds',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -121,7 +121,7 @@ Space.create(
         spaceType: 'Restaurant',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -140,7 +140,7 @@ Space.create(
         spaceType: 'Restaurant',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -159,7 +159,7 @@ Space.create(
         spaceType: 'Restaurant',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -178,7 +178,7 @@ Space.create(
         spaceType: 'Pub',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -197,7 +197,7 @@ Space.create(
         spaceType: 'Pub',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -216,7 +216,7 @@ Space.create(
         spaceType: 'Pub',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -235,7 +235,7 @@ Space.create(
         spaceType: 'Bar',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -254,7 +254,7 @@ Space.create(
         spaceType: 'Bar',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -273,7 +273,7 @@ Space.create(
         spaceType: 'Bar',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -292,7 +292,7 @@ Space.create(
         spaceType: 'Coffee',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -311,7 +311,7 @@ Space.create(
         spaceType: 'Coffee',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -330,7 +330,7 @@ Space.create(
         spaceType: 'Coffee',
         details : {
           name: 'Cottage',
-          img: ['assets/small.jpg'],
+          img: ['assets/small.jpg','assets/luxury.jpg','assets/single1.jpg'],
           location: 'IBB Way, Abuja',
           description: 'Beautifully furnished office with electronic gadgets',
           price: '1,500,000',
@@ -349,7 +349,7 @@ Space.create(
         spaceType: 'Library',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -368,7 +368,7 @@ Space.create(
         spaceType: 'Library',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -387,7 +387,7 @@ Space.create(
         spaceType: 'Library',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -406,7 +406,7 @@ Space.create(
         spaceType: 'Library',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -425,7 +425,7 @@ Space.create(
         spaceType: 'Movies',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -444,7 +444,7 @@ Space.create(
         spaceType: 'Movies',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -463,7 +463,7 @@ Space.create(
         spaceType: 'Movies',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -482,7 +482,7 @@ Space.create(
         spaceType: 'Movies',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -501,7 +501,7 @@ Space.create(
         spaceType: 'Concert',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -520,7 +520,7 @@ Space.create(
         spaceType: 'Concert',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -539,7 +539,7 @@ Space.create(
         spaceType: 'Concert',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -558,7 +558,7 @@ Space.create(
         spaceType: 'Boat ride',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -577,7 +577,7 @@ Space.create(
         spaceType: 'Boat ride',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -596,7 +596,7 @@ Space.create(
         spaceType: 'Boat ride',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -615,7 +615,7 @@ Space.create(
         spaceType: 'Receptions',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -634,7 +634,7 @@ Space.create(
         spaceType: 'Receptions',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -653,7 +653,7 @@ Space.create(
         spaceType: 'Receptions',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -672,7 +672,7 @@ Space.create(
         spaceType: 'Receptions',
         details : {
           name: 'Double bed space',
-          img: ['assets/luxury.jpg'],
+          img: ['assets/luxury.jpg','assets/small.jpg','assets/family.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -691,7 +691,7 @@ Space.create(
         spaceType: 'Club',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -710,7 +710,7 @@ Space.create(
         spaceType: 'Club',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -729,7 +729,7 @@ Space.create(
         spaceType: 'Club',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -748,7 +748,7 @@ Space.create(
         spaceType: 'Table',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -767,7 +767,7 @@ Space.create(
         spaceType: 'Table',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -786,7 +786,7 @@ Space.create(
         spaceType: 'Table',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -805,7 +805,7 @@ Space.create(
         spaceType: 'Table',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -824,7 +824,7 @@ Space.create(
         spaceType: 'Meetups',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -843,7 +843,7 @@ Space.create(
         spaceType: 'Meetups',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -862,7 +862,7 @@ Space.create(
         spaceType: 'Meetups',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -881,7 +881,7 @@ Space.create(
         spaceType: 'Meetups',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -900,7 +900,7 @@ Space.create(
         spaceType: 'bonfire',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -919,7 +919,7 @@ Space.create(
         spaceType: 'bonfire',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -938,7 +938,7 @@ Space.create(
         spaceType: 'bonfire',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -957,7 +957,7 @@ Space.create(
         spaceType: 'bonfire',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -976,7 +976,7 @@ Space.create(
         spaceType: 'barbecue',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -995,7 +995,7 @@ Space.create(
         spaceType: 'barbecue',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1014,7 +1014,7 @@ Space.create(
         spaceType: 'barbecue',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1033,7 +1033,7 @@ Space.create(
         spaceType: 'barbecue',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1052,7 +1052,7 @@ Space.create(
         spaceType: 'stargazing',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1071,7 +1071,7 @@ Space.create(
         spaceType: 'stargazing',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1090,7 +1090,7 @@ Space.create(
         spaceType: 'stargazing',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1109,7 +1109,7 @@ Space.create(
         spaceType: 'stargazing',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1128,7 +1128,7 @@ Space.create(
         spaceType: 'Executive bedrooms',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1147,7 +1147,7 @@ Space.create(
         spaceType: 'Executive bedrooms',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1166,7 +1166,7 @@ Space.create(
         spaceType: 'Executive bedrooms',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1185,7 +1185,7 @@ Space.create(
         spaceType: 'Executive bedrooms',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1204,7 +1204,7 @@ Space.create(
         spaceType: 'Executive suites',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1223,7 +1223,7 @@ Space.create(
         spaceType: 'Executive suites',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1242,7 +1242,7 @@ Space.create(
         spaceType: 'Executive suites',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1261,7 +1261,7 @@ Space.create(
         spaceType: 'Executive suites',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1280,7 +1280,7 @@ Space.create(
         spaceType: 'Luxury suites',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1299,7 +1299,7 @@ Space.create(
         spaceType: 'Luxury suites',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1318,7 +1318,7 @@ Space.create(
         spaceType: 'Luxury suites',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1337,7 +1337,7 @@ Space.create(
         spaceType: 'Luxury suites',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1356,7 +1356,7 @@ Space.create(
         spaceType: 'Apartments',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1375,7 +1375,7 @@ Space.create(
         spaceType: 'Apartments',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1394,7 +1394,7 @@ Space.create(
         spaceType: 'Apartments',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1413,7 +1413,7 @@ Space.create(
         spaceType: 'Apartments',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1432,7 +1432,7 @@ Space.create(
         spaceType: 'Picnics',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1451,7 +1451,7 @@ Space.create(
         spaceType: 'Picnics',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1470,7 +1470,7 @@ Space.create(
         spaceType: 'Picnics',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1489,7 +1489,7 @@ Space.create(
         spaceType: 'Picnics',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1508,7 +1508,7 @@ Space.create(
         spaceType: 'Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1527,7 +1527,7 @@ Space.create(
         spaceType: 'Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1546,7 +1546,7 @@ Space.create(
         spaceType: 'Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1565,7 +1565,7 @@ Space.create(
         spaceType: 'Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1584,7 +1584,7 @@ Space.create(
         spaceType: 'Private Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1603,7 +1603,7 @@ Space.create(
         spaceType: 'Private Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1622,7 +1622,7 @@ Space.create(
         spaceType: 'Private Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1641,7 +1641,7 @@ Space.create(
         spaceType: 'Private Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1660,7 +1660,7 @@ Space.create(
         spaceType: 'Board Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1679,7 +1679,7 @@ Space.create(
         spaceType: 'Board Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1698,7 +1698,7 @@ Space.create(
         spaceType: 'Board Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1717,7 +1717,7 @@ Space.create(
         spaceType: 'Board Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1736,7 +1736,7 @@ Space.create(
         spaceType: 'Group Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1755,7 +1755,7 @@ Space.create(
         spaceType: 'Group Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1774,7 +1774,7 @@ Space.create(
         spaceType: 'Group Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1793,7 +1793,7 @@ Space.create(
         spaceType: 'Group Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1812,7 +1812,7 @@ Space.create(
         spaceType: 'Group Meeting',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1831,7 +1831,7 @@ Space.create(
         spaceType: 'Trainings',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1850,7 +1850,7 @@ Space.create(
         spaceType: 'Trainings',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1869,7 +1869,7 @@ Space.create(
         spaceType: 'Trainings',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1888,7 +1888,7 @@ Space.create(
         spaceType: 'Trainings',
         details : {
           name: 'Double bed space',
-          img: ['assets/single1.jpg'],
+          img: ['assets/single1.jpg','assets/deluxe.jpg','assets/king.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1907,7 +1907,7 @@ Space.create(
         spaceType: 'Conference',
         details : {
           name: 'Maitama conference space',
-          img: ['assets/king.jpg'],
+          img: ['assets/king.jpg','assets/small.jpg','assets/single1.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1926,7 +1926,7 @@ Space.create(
         spaceType: 'Conference',
         details : {
           name: 'Maitama conference space',
-          img: ['assets/king.jpg'],
+          img: ['assets/king.jpg','assets/small.jpg','assets/single1.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1945,7 +1945,7 @@ Space.create(
         spaceType: 'Conference',
         details : {
           name: 'Maitama conference space',
-          img: ['assets/king.jpg'],
+          img: ['assets/king.jpg','assets/small.jpg','assets/single1.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1964,7 +1964,7 @@ Space.create(
         spaceType: 'Conference',
         details : {
           name: 'Maitama conference space',
-          img: ['assets/king.jpg'],
+          img: ['assets/king.jpg','assets/small.jpg','assets/single1.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -1983,7 +1983,7 @@ Space.create(
         spaceType: 'Seminars',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2002,7 +2002,7 @@ Space.create(
         spaceType: 'Seminars',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2021,7 +2021,7 @@ Space.create(
         spaceType: 'Seminars',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2040,7 +2040,7 @@ Space.create(
         spaceType: 'Lectures',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2059,7 +2059,7 @@ Space.create(
         spaceType: 'Lectures',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2078,7 +2078,7 @@ Space.create(
         spaceType: 'Lectures',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2097,7 +2097,7 @@ Space.create(
         spaceType: 'Private Office',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2116,7 +2116,7 @@ Space.create(
         spaceType: 'Private Office',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2135,7 +2135,7 @@ Space.create(
         spaceType: 'Private Office',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2154,7 +2154,7 @@ Space.create(
         spaceType: 'Private Office',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2173,7 +2173,7 @@ Space.create(
         spaceType: 'Shared Office',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2192,7 +2192,7 @@ Space.create(
         spaceType: 'Shared Office',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2211,7 +2211,7 @@ Space.create(
         spaceType: 'Shared Office',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2230,7 +2230,7 @@ Space.create(
         spaceType: 'Co-working',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2249,7 +2249,7 @@ Space.create(
         spaceType: 'Co-working',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2268,7 +2268,7 @@ Space.create(
         spaceType: 'Co-working',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2287,7 +2287,7 @@ Space.create(
         spaceType: 'open',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2306,7 +2306,7 @@ Space.create(
         spaceType: 'open',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2325,7 +2325,7 @@ Space.create(
         spaceType: 'open',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',
@@ -2344,7 +2344,7 @@ Space.create(
         spaceType: 'open',
         details : {
           name: 'Private-Office space',
-          img: ['assets/family.jpg'],
+          img: ['assets/family.jpg','assets/king.jpg','assets/small.jpg'],
           location: 'Central Business District, Abuja',
           description: 'Beautifully furnished double bed space with smart room gadgets',
           price: '1,200,000',

@@ -5,8 +5,8 @@
         <figure class="gradient-overlay-hover link-icon">
           <a (click)="gotoBook(space._id)">
             <img
-            src="{{space.details.img}} rooms-img"
-              class="img-fluid"
+            src="{{space.details.img[0]}}"
+              class="img-fluid rooms-img"
               alt="Image"
             />
           </a>
@@ -42,7 +42,7 @@
         </figure>
         <div class="room-info">
           <h2 class="room-title">
-            <a (click)="gotoBook(space._id)">{{space.details.name}}</a>
+            <a (click)="gotoBook(space._id)">{{space.details.name}} </a>
           </h2>
           <p>{{space.details.description}}</p>
         </div>
