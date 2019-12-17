@@ -7,10 +7,7 @@ import * as moment from 'moment-timezone';
   providedIn: 'root'
 })
 export class DispatcherService {
-   httpOptions = {
-    headers: new HttpHeaders({ 'Authorization': localStorage.getItem('token') })
-  };
-
+   
   constructor(private http: HttpClient) { }
   // signup new user
   signup(user) {
@@ -61,6 +58,10 @@ export class DispatcherService {
   
 }
 bookSpace(data, prevBooking) {
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Authorization': localStorage.getItem('token') })
+  };
+  console.log(httpOptions);
   // convert to UTC Date Object
   const bookStart = this.dateUTC(data.startDate);
   const bookEnd = this.dateUTC(data.endDate); 
@@ -96,8 +97,8 @@ bookSpace(data, prevBooking) {
   const dateString = data.recurringData[0]
 
   const validRecurring = (data.recurringData.length > 0) ?
-    this.dateUTC(dateString).getTime() > newBookingEnd : true;  
-  
+    this.dateUTC(dateString).getTime() > newBookingEnd : true;
+
   // Save the booking to the database and return the booking if there are no clashes and the new booking time is not in the past
   if (!bookingClash && validDate && validRecurring ) {
     console.log('http');
@@ -107,7 +108,7 @@ bookSpace(data, prevBooking) {
       spaceId: data.spaceId,
       recurring: data.recurringData
 
-    },this.httpOptions).toPromise()
+    }, httpOptions).toPromise();
     //  .catch(err => alert(err.response.data.error.message.match(/error:.+/i)[0]))
   }
 

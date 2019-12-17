@@ -12,7 +12,7 @@ import * as M from '../../assets/js/materialize.min.js';
 })
 export class BookingformComponent implements OnInit {
 
-  spaceData; //= SampleData[0];
+  spaceData = SampleData[0];
   disabledSubmitButton = true;
   options = {
     minDate: new Date()
@@ -34,16 +34,16 @@ export class BookingformComponent implements OnInit {
       this.spaceData = data.space;
       console.log(this.spaceData);
       console.log(this.minDate())
-
-    // init form
-      this.checkInDate =
-      M.Datepicker.init(this.elem('#checkInDate'), {minDate: this.minDate(), format: 'yyyy-mm-dd'}).gotoDate(this.minDate());
-      this.checkOutDate =
-      M.Datepicker.init(this.elem('#checkOutDate'), {minDate: this.minDate(), format: 'yyyy-mm-dd'}).gotoDate(this.minDate());
-      this.recurringDate =
-      M.Datepicker.init(this.elem('#recurringDate'), {minDate: this.minDate(), format: 'yyyy-mm-dd'}).gotoDate(this.minDate());
+      // init form
+      this.checkInDate = M.Datepicker.init(this.elem('#checkInDate'), {minDate: this.minDate(), format: 'yyyy-mm-dd'});
+      this.checkOutDate = M.Datepicker.init(this.elem('#checkOutDate'), {minDate: this.minDate(), format: 'yyyy-mm-dd'});
+      this.recurringDate = M.Datepicker.init(this.elem('#recurringDate'), {minDate: this.minDate(), format: 'yyyy-mm-dd'});
       this.checkInTime = M.Timepicker.init(this.elem('#checkInTime'), {});
       this.checkOutTime = M.Timepicker.init( this.elem('#checkOutTime'), {});
+      M.DatePicker.getInstance(this.elem('#checkInDate')).gotoDate(this.minDate());
+      M.DatePicker.getInstance(this.elem('#checkOutDate')).gotoDate(this.minDate());
+      M.DatePicker.getInstance(this.elem('#recurringDate')).gotoDate(this.minDate());
+
     })
 
   }
@@ -111,12 +111,13 @@ export class BookingformComponent implements OnInit {
     return recurringData;
   }
   onSubmit() {
-     const startDate = this.checkInDate.toString() + ' ' + this.checkInTime.time + ' ' + this.checkInTime.amOrPm;
-     const endDate = this.checkOutDate.toString() + ' ' + this.checkOutTime.time + ' ' + this.checkInTime.amOrPm;
-     const recurringType = this.elem('#recurringOption').value;
-     const recurringDate = this.recurringDate.toString();
-     const recurringData = this.handleRecurringData(recurringType, recurringDate);
-     if (this.checkInDate.toString() === '' || this.checkInDate.toString() === '') {
+    console.log(this.checkInDate);
+    const startDate = this.checkInDate.toString() + ' ' + this.checkInTime.time + ' ' + this.checkInTime.amOrPm;
+    const endDate = this.checkOutDate.toString() + ' ' + this.checkOutTime.time + ' ' + this.checkInTime.amOrPm;
+    const recurringType = this.elem('#recurringOption').value;
+    const recurringDate = this.recurringDate.toString();
+    const recurringData = this.handleRecurringData(recurringType, recurringDate);
+    if (this.checkInDate.toString() === '' || this.checkInDate.toString() === '') {
        this.errMsg = true;
      } else {
       this.errMsg = false;
@@ -127,7 +128,7 @@ export class BookingformComponent implements OnInit {
         recurringData
       };
       console.log(data);
-       this.bookSpace(data);
+      this.bookSpace(data);
      }
 
   }
