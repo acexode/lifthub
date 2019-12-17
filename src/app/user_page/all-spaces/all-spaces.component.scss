@@ -1,0 +1,28 @@
+.bg{
+    background-size: cover;
+    height: 500px;
+    background-position: center;
+}
+.card{
+    box-shadow: none !important;
+    border: none !important
+}
+.card.card-cascade.wider.reverse .card-body.card-body-cascade {
+    z-index: 3;
+    margin-top: -5rem;
+    border-radius: .25rem;
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+}
+.card.card-cascade.wider .card-body.card-body-cascade {
+    z-index: 1;
+    margin-right: 4%;
+    margin-left: 4%;
+    background: #fff;
+}
+
+.card-body {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-radius: 0 !important;
+}

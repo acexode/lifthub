@@ -1,0 +1,83 @@
+<!-- Main Navigation -->
+<header id="myH" class="intro-header">
+
+        <!--Navbar-->
+        <mdb-navbar color="danger" SideClass="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+          <mdb-navbar-brand>
+            <a class="logo navbar-brand waves-light" mdbWavesEffect href="#"><strong>LIFTHUB</strong></a>
+          </mdb-navbar-brand>
+          <links>
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active waves-light" mdbWavesEffect>
+                <a class="nav-link" href="#">Job Opening <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item waves-light" mdbWavesEffect>
+                <a class="nav-link" href="#">Products</a>
+              </li>
+              <li class="nav-item waves-light" mdbWavesEffect>
+                <a class="nav-link" href="#">Community</a>
+              </li>
+              <li class="nav-item waves-light" mdbWavesEffect>
+                <a class="nav-link" href="#">Events</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ml-auto" mdbWavesEffect>
+              <li class="nav-item waves-light" mdbWavesEffect>
+                <a (click)="openLogin()" class="nav-link" href="#">Sign In</a>
+              </li>
+              <li  class="nav-item waves-light" mdbWavesEffect>
+                  <button  (click)="openSignup()" mdbBtn color="warning" block="true" type="submit">Sign Up</button>
+                <!-- <a (click)="openSignup()" class="signup btn btn-md btn-warning" href="#">Sign Up</a> -->
+              </li>
+            </ul>
+          </links>
+        </mdb-navbar>
+    
+        <!--Intro Section-->
+        <section class="view intro-2">
+          <div class="full-bg-img mask rgba-gradient">
+            <div class="container flex-center">
+              <div class="d-flex align-items-center content-height w-100">
+                <div class="row flex-center pt-5 mt-3 w-100">                  
+    
+                  <div class="col-md-6  text-md-left mb-5 ">
+                    <!--Form-->
+                    <mdb-card  class="wow fadeInLeft" data-wow-delay="0.6s">
+                      <mdb-card-body>
+                        <!--Header-->
+                        <div class="text-center">
+                          <h2 class="h2 text-body  h2-responsive font-bold wow fadeInLeft" data-wow-delay="0.8s">Rethinking where you work ? </h2>
+                     
+                          <hr class="hr-light">
+                        </div>
+                        <!--Body-->
+                        <div>                          
+                            <h6 class="wow fadeInLeft"text-body data-wow-delay="0.8s"> Whether you're an established enterprise or you're a growing startup, discover services
+                                 that inspire your people's most important and impactful work.</h6>
+                            
+                            
+                          </div>
+                        <div class="md-form">                         
+                          
+                          <input type="text" id="form3" class="text-grey form-control" mdbInput>
+                          <label for="form3" class="text-muted">Create organization form</label>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                          <button mdbBtn class="btn btn-warning btn-md" mdbWavesEffect>Get Started</button>
+                          
+                        </div>
+                      </mdb-card-body>
+                    </mdb-card>
+                    <!--/.Form-->
+                  </div>
+                  <div class="col-md-6"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      
+      
+      </header>
+      <!--Main Navigation -->
