@@ -1,11 +1,11 @@
 
-
-        <form
-        [formGroup]="BookForm"
+    
+        <form        
         (ngSubmit)="onSubmit()"
-        class="text-center border border-light p-5"
+        class="text-center border border-light p-5 bookings"
         >
-        <p class="h4 mb-4">Book</p>
+        <p class="h4 mb-2">Book</p>
+        <p *ngIf="errMsg" color="red" class="h6 alert-danger">CheckIn and Checkout cannot be empty</p>
         
         
         <div class="form-row">
@@ -13,8 +13,8 @@
             
             <div class="md-form">
               <input
-                type="text"
-                formControlName="checkInDate"
+                required
+                type="text"               
                 id="checkInDate"
                 class="datepicker form-control"
                 mdbInput
@@ -26,8 +26,8 @@
             
             <div class="md-form">
               <input
-                type="text"
-                formControlName="checkInTime"
+                required
+                type="text"                
                 id="checkInTime"
                 class="timepicker form-control"
                 mdbInput
@@ -41,8 +41,8 @@
             
             <div class="md-form">
               <input
-                type="text"
-                formControlName="checkOutDate"
+                required
+                type="text"                
                 id="checkOutDate"
                 class="datepicker form-control"
                 mdbInput
@@ -54,8 +54,8 @@
             
             <div class="md-form">
               <input
-                type="text"
-                formControlName="checkOutTime"
+                required
+                type="text"               
                 id="checkOutTime"
                 class="timepicker form-control"
                 mdbInput
@@ -69,24 +69,22 @@
            <span class="text-center">Recurring Date</span>
          </div>
           <div class="col-6 ">     
-            <div class="md-form input-field">
-
-              <select class="sel" formControlName="recurringOption" >                 
-                  <option value="none" selected>None</option>
-                  <option value="daily">Daily</option>
-                  <option value="weekly">Weekly</option>
-                  <option value="monthly">Monthly</option>
-                </select>
-                <label>Type</label>
-                
+            <div class="md-form input-field">              
+                <select class="sel"  id="recurringOption" required>
+                  <option value="none" disabled selected>Type</option>                 
+                    <option  value="none" >None</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>                  
+                </select>                
             </div>    
             
           </div>
           <div class="col-6">            
             <div class="md-form">
               <input
-                type="text"
-                formControlName="recurringDate"
+                required
+                type="text"               
                 id="recurringDate"
                 class="datepicker form-control"
                 mdbInput

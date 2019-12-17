@@ -1,29 +1,22 @@
-
-
-  <div class="row mb-5 pb-5">
+    <div class="row mb-5 pb-5">
       
-      <div class="col-lg-8 pt-5">
-          <mdb-carousel class="carousel slide carousel-fade" [type]="'carousel-thumbnails'" [animation]="'fade'">
-              <mdb-carousel-item *ngFor="let img of space.details.img">
-                <img class="d-block w-100" src="{{img}}" alt="First slide">
-              </mdb-carousel-item>             
-            </mdb-carousel>
-            <div class="row mb-5"></div>
+    <div class="col-lg-8 mb-5 pt-5">
+      <mdb-carousel class="carousel slide carousel-fade" [type]="'carousel-thumbnails'" [animation]="'fade'">
+        <mdb-carousel-item *ngFor="let img of space.details.img">
+          <img class="d-block w-100" src="{{img}}" alt="First slide">
+        </mdb-carousel-item>             
+      </mdb-carousel>
+      <div style="height: 50px;" class="row mb-5">
+        
       </div>
-      <br>
-      <div class="col-lg-4 pt-5">
-          <app-bookingform></app-bookingform>
-      </div>
-      
-  </div>
-  <div class="row mt-5 mb-5 pb-5">
-      
-    <div class="excerpt mt-5">
-          <p>{{space.details.description}}</p>
-      </div>
-      
-     
-      
-  </div>
-
+    </div>
+    <br>
+    <div class="col-lg-4 pt-5">
+        <app-bookingform></app-bookingform>
+    </div>
+    
+</div>
+<div class="row pt-5 mb-5 pb-5">
+    <p>{{space.details.description}}</p>
+</div>
 

@@ -1,5 +1,4 @@
-import { BookingComponent } from 'src/app/booking/booking.component';
-
+import { BookingComponent } from './booking/booking.component';
 import { BedSpaceComponent } from './user_page/bed-space/bed-space.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';

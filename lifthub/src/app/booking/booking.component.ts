@@ -1,19 +1,18 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, HostListener, ViewEncapsulation } from '@angular/core';
-import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DispatcherService } from '../dispatcher.service';
-import * as M from '../../assets/js/materialize.min.js';
+import { SampleData } from '../sample';
 
 @Component({
   selector: 'app-booking',
   encapsulation: ViewEncapsulation.None,
-   templateUrl: './booking.component.html',
+  templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.scss'],
 })
 
 export class BookingComponent implements OnInit {
 
-  space;
+  space = SampleData[0];
   constructor(private dispatcher: DispatcherService, private route: ActivatedRoute) { } 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('data');

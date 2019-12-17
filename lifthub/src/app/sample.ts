@@ -2,7 +2,7 @@ export const SampleData  = [{
     spaceType: 'Bed Space',
     details : {
       name: 'Single bed space',
-      img: 'assets/deluxe.jpg',
+      img: ['assets/deluxe.jpg', 'assets/family.jpg', 'assets/king.jpg'],
       location: 'Central Business District, Abuja',
       description: 'Beautifully furnished bed space with smart room gadgets',
       price: '1,000,000',
@@ -14,14 +14,15 @@ export const SampleData  = [{
         breakfast: true,
         whiteBoard: false
       },
-      bookings: []
+      bookings: [],
+      _id: 1      
 
   },
   {
     spaceType: 'Bed Space',
     details : {
       name: 'Cottage',
-      img: 'assets/small.jpg',
+      img: ['assets/small.jpg', 'assets/deluxe.jpg', 'assets/family.jpg'],
       location: 'IBB Way, Abuja',
       description: 'Beautifully furnished office with electronic gadgets',
       price: '1,500,000',
@@ -33,14 +34,14 @@ export const SampleData  = [{
         breakfast: true,
         whiteBoard: false
       },
-      bookings: []
-
+      bookings: [],
+      _id: 2
   },
   {
     spaceType: 'Bed Space',
     details : {
       name: 'Double bed space',
-      img: 'assets/luxury.jpg',
+      img: ['assets/luxury.jpg', 'assets/deluxe.jpg', 'assets/family.jpg'],
       location: 'Central Business District, Abuja',
       description: 'Beautifully furnished double bed space with smart room gadgets',
       price: '1,200,000',
@@ -52,14 +53,14 @@ export const SampleData  = [{
         breakfast: true,
         whiteBoard: false
       },
-      bookings: []
-
+      bookings: [],
+      _id: 3
   },
   {
     spaceType: 'Bed Space',
     details : {
       name: 'Double bed space',
-      img: 'assets/single1.jpg',
+      img: ['assets/single1.jpg', 'assets/deluxe.jpg', 'assets/family.jpg'],
       location: 'Central Business District, Abuja',
       description: 'Beautifully furnished double bed space with smart room gadgets',
       price: '1,200,000',
@@ -71,14 +72,14 @@ export const SampleData  = [{
         breakfast: true,
         whiteBoard: true
       },
-      bookings: []
-
+      bookings: [],
+      _id: 4
   },
   {
     spaceType: 'Conference Space',
     details : {
       name: 'Maitama conference space',
-      img: 'assets/king.jpg',
+      img: ['assets/king.jpg', 'assets/deluxe.jpg', 'assets/family.jpg'],
       location: 'Central Business District, Abuja',
       description: 'Beautifully furnished double bed space with smart room gadgets',
       price: '1,200,000',
@@ -90,14 +91,14 @@ export const SampleData  = [{
         breakfast: false,
         whiteBoard: true
       },
-      bookings: []
-
+      bookings: [],
+      _id: 5
   },
   {
     spaceType: 'Office Space',
     details : {
       name: 'Private-Office space',
-      img: 'assets/family.jpg',
+      img: ['assets/family.jpg', 'assets/deluxe.jpg', 'assets/king.jpg'],
       location: 'Central Business District, Abuja',
       description: 'Beautifully furnished double bed space with smart room gadgets',
       price: '1,200,000',
@@ -109,8 +110,8 @@ export const SampleData  = [{
         breakfast: false,
         whiteBoard: false
       },
-      bookings: []
-
+      bookings: [],
+      _id: 6
   },
-  
+
 ]

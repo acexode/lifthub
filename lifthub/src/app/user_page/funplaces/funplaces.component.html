@@ -12,6 +12,7 @@
           </a>
           <div class="room-services">
             <i
+            *ngIf="space.assets.breakfast"
               class="fa fa-coffee"
               aria-hidden="true"
               data-toggle="popover"
@@ -21,6 +22,7 @@
               data-original-title="Breakfast"
             ></i>
             <i
+            *ngIf="space.assets.wifi"
               class="fa fa-wifi"
               aria-hidden="true"
               data-toggle="popover"
@@ -30,12 +32,31 @@
               data-original-title="WiFi"
             ></i>
             <i
+            *ngIf="space.assets.tv"
               class="fa fa-tv"
               data-toggle="popover"
               data-placement="right"
               data-trigger="hover"
               data-content="Plasma TV with cable channels"
               data-original-title="TV"
+            ></i>
+            <i
+            *ngIf="space.assets.whiteboard"
+              class="fa fa-chalkboard"
+              data-toggle="popover"
+              data-placement="right"
+              data-trigger="hover"
+              data-content="Presentation Whiteboard"
+              data-original-title="Whiteboard"
+            ></i>
+            <i
+            *ngIf="space.assets.projector"
+              class="fa fa-hdd"
+              data-toggle="popover"
+              data-placement="right"
+              data-trigger="hover"
+              data-content="Presentation projector"
+              data-original-title="Projector"
             ></i>
           </div>
           <div class="room-price">€{{space.details.price}} / night</div>

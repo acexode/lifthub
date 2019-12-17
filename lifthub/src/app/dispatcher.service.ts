@@ -60,7 +60,7 @@ export class DispatcherService {
     return moment.tz(dateString, "Africa/Lagos").toDate();
   
 }
-bookRoom(data, prevBooking) {
+bookSpace(data, prevBooking) {
   // convert to UTC Date Object
   const bookStart = this.dateUTC(data.startDate);
   const bookEnd = this.dateUTC(data.endDate); 

@@ -30,7 +30,6 @@ import { BookingformComponent } from './bookingform/bookingform.component';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +53,8 @@ import { BookingformComponent } from './bookingform/bookingform.component';
     BookingComponent,
    
     FunplacesComponent,
-    BookingformComponent
+    BookingformComponent,
+    
   ],  
   imports: [
     MDBBootstrapModule.forRoot(),
