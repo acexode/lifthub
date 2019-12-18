@@ -27,6 +27,7 @@ import { BookingComponent } from './booking/booking.component';
 
 import { FunplacesComponent } from './user_page/funplaces/funplaces.component';
 import { BookingformComponent } from './bookingform/bookingform.component';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 
 
@@ -63,6 +64,7 @@ import { BookingformComponent } from './bookingform/bookingform.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FlashMessagesModule.forRoot(),
   ],
   providers: [],
   entryComponents: [LoginComponent,ModalComponent,SignupComponent,CheckAvailabilityComponent],

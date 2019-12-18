@@ -52,6 +52,7 @@ export class BedSpaceComponent implements OnInit {
     if (this.dispatcher.isLoggedIn()) {
       this.router.navigate(['space/booking', { data: index }]);
     } else {
+     
       this.modalRef = this.service.show(ModalComponent, this.options);
 
     }

@@ -13,7 +13,7 @@ import { SignupComponent } from '../signup/signup.component';
 export class ModalComponent implements OnInit {
   validatingForm: FormGroup;
   disabledSubmitButton = true;
-  user = {email: '', password: ''};
+  user = {username: '', password: ''};
   data;
   errMsg;
   constructor(private router: Router, public modalRef: MDBModalRef, private dispatch: DispatcherService, private service: MDBModalService) {}
@@ -21,41 +21,45 @@ export class ModalComponent implements OnInit {
   ngOnInit() {
 
     this.validatingForm = new FormGroup({
-  modalFormElegantEmail: new FormControl('', Validators.email),
-  modalFormElegantPassword: new FormControl('', Validators.required)
-});
-}
-@HostListener('input') oninput() {
-  if (this.validatingForm.valid) {
-    this.disabledSubmitButton = false;
+      modalFormElegantUsername: new FormControl('', Validators.required),
+      modalFormElegantPassword: new FormControl('', Validators.required)
+    });
   }
-}
-login(){
-  
-  this.user.email =  this.modalFormElegantEmail.value;
-  this.user.password =  this.modalFormElegantPassword.value;
-  this.dispatch.login(this.user).subscribe(res => {
-    console.log(res)
-    this.data = res['token']
-    localStorage.setItem('token', this.data);
-    this.modalRef.hide()
-    this.router.navigate(['space'])
-  },err => {
-    console.log(err)
-    this.errMsg = err.error.message;
-  });
-}
 
-get modalFormElegantEmail() {
-return this.validatingForm.get('modalFormElegantEmail');
-}
+  @HostListener('input') oninput() {
+   if (this.validatingForm.valid) {
+     this.disabledSubmitButton = false;
+   }
+ }
+  get modalFormElegantUsername() {
+    return this.validatingForm.get('modalFormElegantUsername');
+  }
 
-get modalFormElegantPassword() {
-return this.validatingForm.get('modalFormElegantPassword');
-}
-openSignUp() {
-  this.modalRef.hide();
-  this.modalRef = this.service.show(SignupComponent)
-}
+  get modalFormElegantPassword() {
+    return this.validatingForm.get('modalFormElegantPassword');
+  }
+
+ login(){
+   
+   this.user.username =  this.modalFormElegantUsername.value;
+   this.user.password =  this.modalFormElegantPassword.value;
+   this.dispatch.login(this.user).subscribe(res => {
+     console.log(res)
+     this.data = res['token']
+     localStorage.setItem('token', this.data);
+     this.modalRef.hide()
+     this.router.navigate(['space'])
+   },err => {
+     console.log(err)
+     this.errMsg = err.error.message;
+   });
+ }
+
+ openSignUp() {
+
+   this.modalRef.hide();
+   this.modalRef = this.service.show(SignupComponent)
+ }
+
 
 }

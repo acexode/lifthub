@@ -21,15 +21,15 @@
         <form>
 
           <div class="md-form mb-5">
-            <input type="email" id="Form-email1" class="form-control" mdbInput mdbValidate
-                   [formControl]="modalFormElegantEmail">
-            <label for="Form-email1">Your email</label>
+            <input type="text" id="Form-username" class="form-control" mdbInput mdbValidate
+                   [formControl]="modalFormElegantUsername">
+            <label for="Form-username">Your Username</label>
             <mdb-error
-              *ngIf="modalFormElegantEmail.invalid && (modalFormElegantEmail.dirty || modalFormElegantEmail.touched)">
+              *ngIf="modalFormElegantUsername.invalid && (modalFormElegantUsername.dirty || modalFormElegantUsername.touched)">
               Input invalid
             </mdb-error>
             <mdb-success
-              *ngIf="modalFormElegantEmail.valid && (modalFormElegantEmail.dirty || modalFormElegantEmail.touched)">Input
+              *ngIf="modalFormElegantUsername.valid && (modalFormElegantUsername.dirty || modalFormElegantUsername.touched)">Input
               valid
             </mdb-success>
           </div>

@@ -10,7 +10,7 @@ import { SignupComponent } from '../signup/signup.component';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  user = {email:'',password:''};
+  user = {username:'',password:''};
   errMsg;
   data;
   disabledSubmitButton = true;
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
    ngOnInit() {
 
       this.validatingForm = new FormGroup({
-       modalFormElegantEmail: new FormControl('', Validators.email),
+       modalFormElegantUsername: new FormControl('', Validators.required),
        modalFormElegantPassword: new FormControl('', Validators.required)
      });
    }
@@ -31,8 +31,8 @@ export class LoginComponent implements OnInit {
       this.disabledSubmitButton = false;
     }
   }
-   get modalFormElegantEmail() {
-     return this.validatingForm.get('modalFormElegantEmail');
+   get modalFormElegantUsername() {
+     return this.validatingForm.get('modalFormElegantUsername');
    }
 
    get modalFormElegantPassword() {
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
 
   login(){
     
-    this.user.email =  this.modalFormElegantEmail.value;
+    this.user.username =  this.modalFormElegantUsername.value;
     this.user.password =  this.modalFormElegantPassword.value;
     this.dispatch.login(this.user).subscribe(res => {
       console.log(res)
