@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
    }
 
   login(){
+    
     this.user.email =  this.modalFormElegantEmail.value;
     this.user.password =  this.modalFormElegantPassword.value;
     this.dispatch.login(this.user).subscribe(res => {
@@ -55,6 +56,7 @@ export class LoginComponent implements OnInit {
   }
 
   openSignUp() {
+
     this.modalRef.hide();
     this.modalRef = this.service.show(SignupComponent)
   }

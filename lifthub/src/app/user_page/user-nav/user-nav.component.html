@@ -1,45 +1,124 @@
-<!--Navbar-->
 <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark  user-nav" >
-
-  <!-- Navbar brand -->
-  <mdb-navbar-brand><a class="navbar-brand" href="#">Navbar</a></mdb-navbar-brand>
-
-  <!-- Collapsible content -->
-  <links>
-
-    <!-- Links -->
-    
-
-    <ul class="navbar-nav mt-4 ml-auto">
-        <li class="nav-item">
-            <a routerLink="/space" class="nav-link waves-light" mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item dropdown" dropdown>
-              <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-                Spaces<span class="caret"></span></a>
-                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-                  <a class="dropdown-item waves-light" mdbWavesEffect (click)="go('space')">Spaces</a>
-                  <a class="dropdown-item waves-light" mdbWavesEffect (click)="go('space/conference')">Conference Space</a>
-                  <a class="dropdown-item waves-light" mdbWavesEffect (click)="go('space/training')">Training Space</a>
-                  <a class="dropdown-item waves-light" mdbWavesEffect (click)="go('space/office')">Office Space</a>
-                  <a class="dropdown-item waves-light" mdbWavesEffect (click)="go('space/bedspace')">Bed Spaces</a>
-                <a class="dropdown-item waves-light" mdbWavesEffect (click)="go('space/event')">Event Space</a>
-                 </div>
+  <mdb-navbar-brand><a href="#" class="navbar-brand" >Lifthub</a></mdb-navbar-brand>
+  <links>     
+          <ul class="navbar-nav  ml-auto"> 
+                <li class="nav-item">
+                        <a href="#" class="nav-link">Home</a>
+                      </li>             
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       Work Spaces <span class="sr-only">(current)</span> </a>
+                  <ul class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
+                      <li><a (click)="goto('office/private')" class="dropdown-item" >Private Offices</a></li>
+                      <li><a (click)="goto('office/shared')" class="dropdown-item" >Shared Office</a></li>
+                      <li><a (click)="goto('office/co-working')" class="dropdown-item" >Co-working spaces</a></li>
+                      <li><a (click)="goto('office/open')" class="dropdown-item" >Open Work Spaces</a></li>
+                  </ul>
+              </li>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Event Spaces </a>
+                  <ul class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
+                      <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" >Host an Event</a>
+                          <ul class="dropdown-menu" style="top:0 !important">
+                              <li><a (click)="goto('events/picnics')" class="dropdown-item" >Picnics</a></li>
+                              <li><a (click)="goto('events/meeting')" class="dropdown-item" >Meetings</a></li>
+                              <li><a (click)="goto('events/trainings')" class="dropdown-item" >Trainings</a></li>
+                          </ul>
+                      </li>
+                      <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" >Meeting spaces</a>
+                          <ul class="dropdown-menu" style="top:0 !important">
+                              <li><a (click)="goto('events/private meeting')" class="dropdown-item" >Private Meeting</a></li>
+                              <li><a (click)="goto('events/board meeting')" class="dropdown-item" >Board Meeting</a></li>
+                              <li><a (click)="goto('events/group meeting')" class="dropdown-item" >Group Meeting</a></li>
+                              <li><a (click)="goto('events/reception')" class="dropdown-item" >Receptions</a></li>
+                          </ul>
+                      </li>
+                      <li><a (click)="goto('events/conference')" class="dropdown-item" >Conference spaces</a>
+                      </li>
+                      <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" >Learning spaces</a>
+                          <ul class="dropdown-menu" style="top:0 !important">
+                              <li><a (click)="goto('events/trainings')" class="dropdown-item" >Trainings</a></li>
+                              <li><a (click)="goto('events/seminars')" class="dropdown-item" >Seminars</a></li>
+                              <li><a (click)="goto('events/meetups')" class="dropdown-item" >Meetups</a></li>
+                              <li><a (click)="goto('events/lectures')" class="dropdown-item" >Lectures</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Fun Spaces </a>
+                <ul class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" >Reserve</a>
+                        <ul class="dropdown-menu" style="top:0 !important">
+                            <li><a (click)="goto('funplaces/restaurant')" class="dropdown-item" >Restaurant</a></li>
+                            <li><a (click)="goto('funplaces/pub')" class="dropdown-item" >Pub</a></li>
+                            <li><a (click)="goto('funplaces/bar')" class="dropdown-item" >Bar</a></li>
+                            <li><a (click)="goto('funplaces/coffee')" class="dropdown-item" >Coffee Shop</a></li>
+                            <li><a (click)="goto('funplaces/library')" class="dropdown-item" >Library</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" >Lifestyle</a>
+                        <ul class="dropdown-menu" style="top:0 !important">
+                            <li><a (click)="goto('funplaces/movies')" class="dropdown-item" >Movies</a></li>
+                            <li><a (click)="goto('funplaces/concert')" class="dropdown-item" >Concerts</a></li>
+                            <li><a (click)="goto('funplaces/boat ride')" class="dropdown-item" >Boat ride</a></li>                            
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" >Night Life</a>
+                        <ul class="dropdown-menu" style="top:0 !important">
+                            <li><a (click)="goto('funplaces/club')" class="dropdown-item" >Book a club</a></li>
+                            <li><a (click)="goto('funplaces/table')" class="dropdown-item" >Book a table at a club</a></li>                            
+                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" >Host an event</a>
+                        <ul class="dropdown-menu" style="top:0 !important">
+                            <li><a (click)="goto('funplaces/bonfire')" class="dropdown-item" >Bonfire night</a></li>
+                            <li><a (click)="goto('funplaces/barbecue')" class="dropdown-item" >Barbecue party</a></li>
+                            <li><a (click)="goto('funplaces/stargazing')" class="dropdown-item" >Stargazing</a></li>
+                        </ul>
+                    </li>
+                        </ul>
+                    </li>
+                </ul>
             </li>
-      <li class="nav-item">
-        <a class="nav-link">Notification <mdb-icon fas icon="bell"></mdb-icon></a>
-      </li>
-      <li class="nav-item avatar dropdown" dropdown>
-        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-          <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="img-fluid rounded-circle z-depth-1"></a>
-        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">My account</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Log out</a>
-        </div>
-      </li>
-    </ul>
+            
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Bed Spaces </a>
+                  <ul class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
+                      <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" >Single bedrooms</a>
+                          <ul class="dropdown-menu" style="top:0 !important">
+                              <li><a (click)="goto('bedspace/single bed')" class="dropdown-item" >Single bedrooms with one bed</a></li>
+                              <li><a (click)="goto('bedspace/double bed')" class="dropdown-item" >Single bedrooms with double beds</a></li>
+                          </ul>
+                      </li>
+                      <li class="dropdown-submenu"><a (click)="goto('bedspace/executive bedroom')" class="dropdown-item">Executive bedrooms</a>
+                          
+                      </li>
+                      <li class="dropdown-submenu"><a (click)="goto('bedspace/executive suite')" class="dropdown-item">Executive suite</a>
+                      </li>
+                      <li class="dropdown-submenu"><a (click)="goto('bedspace/luxury suite')" class="dropdown-item">Luxury suite</a>
+                      </li>
+                      <li class="dropdown-submenu"><a (click)="goto('bedspace/apartment')" class="dropdown-item">Apartments</a>
+                      </li>
+                  </ul>
+              </li>              
+             
+          </ul>  
+          
+          <ul class="navbar-nav nav-flex-icons ml-5">
+            <li class="nav-item">
+                <a class="nav-link">1 <mdb-icon fas icon="envelope"></mdb-icon></a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link">
+                  <div class="btn-group" mdbDropdown>
+                    <mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-primary">
+                      <a class="dropdown-item" href="#">My Bookings</a>
+                      <a class="dropdown-item" href="#">Sign Out</a>                      
+                    </div>
+                  </div>
+                </a>
+              </li>
+          </ul>   
   </links>
-  <!-- Collapsible content -->
 
 </mdb-navbar>
-<!--/.Navbar-->

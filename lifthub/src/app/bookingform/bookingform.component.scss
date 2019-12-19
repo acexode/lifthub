@@ -1,0 +1,20 @@
+@import "../../assets/css/datepicker.css";
+
+.input-field {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.modal{
+    background-color: red($color: #000000) !important;
+  }
+  
+ .sel{
+     display: block;
+ }
+ 
+  .sel{
+      border: none;
+      border-bottom: 1px solid rgb(196, 192, 192);
+      color: #495057;
+  }
