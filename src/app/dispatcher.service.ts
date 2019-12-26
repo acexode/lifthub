@@ -37,6 +37,13 @@ export class DispatcherService {
   getSingle(id){
     return this.http.get(`/api/space/${id}`);
   }
+  // get single space
+  getUserData(){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Authorization': localStorage.getItem('token') })
+    };
+    return this.http.get(`/api/user`,httpOptions);
+  }
   // check if a space is available
   checkAvailability(msg) {
     return this.http.post('/api/email', msg);

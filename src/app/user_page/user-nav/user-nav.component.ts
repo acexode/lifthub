@@ -1,5 +1,8 @@
 import { Component, OnInit, HostListener,ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { DispatcherService } from 'src/app/dispatcher.service';
+import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
+import { ModalComponent } from 'src/app/modal/modal.component';
 
 @Component({
   selector: 'app-user-nav',  
@@ -8,8 +11,20 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class UserNavComponent implements OnInit {
-
-  constructor(private router: Router) { }
+  modalRef: MDBModalRef;
+  spaces;
+  model;
+  options = {
+    backdrop: true,
+    keyboard: true,
+    focus: true,
+    show: false,
+    ignoreBackdropClick: false,
+    class: 'modal-top',
+    containerClass: 'center',
+    animated: true
+  };
+  constructor(private router: Router,private dispatcher: DispatcherService,  private service: MDBModalService) { }
 
   ngOnInit() {
 
@@ -18,6 +33,15 @@ export class UserNavComponent implements OnInit {
   goto(e){   
     console.log(e)
     this.router.navigate(['space/' + e]);
+}
+  dashboard(e) {  
+  if (this.dispatcher.isLoggedIn()) {
+    this.router.navigate(['space/' + e]);
+  } else {
+   
+    this.modalRef = this.service.show(ModalComponent, this.options);
+
+  }
 }
 
 }

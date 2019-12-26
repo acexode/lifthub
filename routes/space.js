@@ -5,7 +5,7 @@ const router = express.Router();
 const Space = require("../model/space");
 const request = require("superagent");
 const helper = require('../helper/helper')
-
+const jwt = require("jsonwebtoken");
 const moment = require("moment");
 const momentTimezone = require("moment-timezone");
 
@@ -158,7 +158,28 @@ router.get("/space/:id", (req, res) => {
     }
   });
 });
-
+// Get user
+router.get("/user",(req,res)=>{
+    const token = helper.getToken(req.headers);  
+    console.log(token);   
+    jwt.verify(token,process.env.SECRET,(err,user)=>{ 
+      console.log(user)                    
+      Space.findOne({'bookings.user': user._id }, {}, (err, space) => {
+        if (err) {
+          res.json({ success: false, message: err });
+        } else {
+          if (!space) {
+            res.json({ success: false, message: "user has no booking" });
+          } else {
+            console.log('space')
+            console.log(space)
+            res.json({ success: true, space: space });
+          }
+        }
+      });
+    });   
+  
+});
 // Update space
 router.put("/:id", (req, res) => {
   const id = req.params.id;

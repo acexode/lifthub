@@ -1,0 +1,64 @@
+<!--Section: Features v.3-->
+<section>
+   
+    <!--Grid row-->
+    <div class="row pt-2">
+  
+      <!--Grid column-->
+      <div class="col-lg-5 text-center text-lg-left">
+       <!-- Card -->
+        <mdb-card>
+            <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+            <!-- Card img -->
+            <mdb-card-img src="assets/avater.jpeg" alt="Card image cap"></mdb-card-img>
+            <a>
+                <div class="mask"></div>
+            </a>
+            </div>
+            <!--Card content-->
+            <mdb-card-body>
+            <!--Title-->
+            <mdb-card-title>
+                <h4>{{user.username}}</h4>
+            </mdb-card-title>
+        
+            <!--Text-->
+            <mdb-card-text> 
+                {{user.email}}
+            </mdb-card-text>
+        
+            <a goto="()" mdbBtn color="warning" mdbWavesEffect>Log Out</a>
+            </mdb-card-body>
+        </mdb-card>
+  <!-- Card -->
+      </div>
+      <!--Grid column-->
+  
+      <!--Grid column-->
+      <div class="col-lg-7">
+  
+        <table mdbTable>
+            <thead class="black white-text">
+              <tr>
+                <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr mdbTableCol *ngFor="let el of elements">
+                <th scope="row">{{el.id}}</th>
+                <td>{{el.first}}</td>
+                <td>{{el.last}}</td>
+                <td>{{el.handle}}</td>
+              </tr>
+            </tbody>
+          </table>         
+         
+  
+      </div>
+      <!--Grid column-->
+  
+    </div>
+    <!--Grid row-->
+  
+  </section>
+  <!--Section: Features v.3-->

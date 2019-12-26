@@ -3,15 +3,12 @@ import { BedSpaceComponent } from './user_page/bed-space/bed-space.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserPageComponent } from './user_page/user-page/user-page.component';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component';
 import { OfficeSpaceComponent } from './user_page/office-space/office-space.component';
-import { ConferenceSpaceComponent } from './user_page/conference-space/conference-space.component';
-import { TrainingSpaceComponent } from './user_page/training-space/training-space.component';
 import { EventSpaceComponent } from './user_page/event-space/event-space.component';
 import { SearchResultComponent } from './search-result/search-result.component';
-
 import { FunplacesComponent } from './user_page/funplaces/funplaces.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 // import { AuthGuard } from './auth.guard';
 
 
@@ -28,6 +25,10 @@ const routes: Routes = [
       {
         path: 'booking',
         component: BookingComponent
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent
       },
       {
         path: '',

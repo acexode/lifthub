@@ -28,6 +28,7 @@ import { BookingComponent } from './booking/booking.component';
 import { FunplacesComponent } from './user_page/funplaces/funplaces.component';
 import { BookingformComponent } from './bookingform/bookingform.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
@@ -55,6 +56,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
    
     FunplacesComponent,
     BookingformComponent,
+    DashboardComponent,
     
   ],  
   imports: [
