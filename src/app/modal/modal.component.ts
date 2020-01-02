@@ -47,6 +47,8 @@ export class ModalComponent implements OnInit {
      console.log(res)
      this.data = res['token']
      localStorage.setItem('token', this.data);
+     let date = new Date()
+     localStorage.setItem('date', date.toDateString())
      this.modalRef.hide()
      this.router.navigate(['space'])
    },err => {

@@ -195,6 +195,26 @@ const routes: Routes = [
             component: EventSpaceComponent
           },
           {
+            path: 'birthdays',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'political gathering',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'social',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'weddings',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'parties',
+            component: EventSpaceComponent
+          },
+          {
             path: 'meetups',
             component: EventSpaceComponent
           },

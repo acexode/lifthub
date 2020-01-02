@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -68,7 +69,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpClientModule,
     FlashMessagesModule.forRoot(),
   ],
-  providers: [],
+  providers: [ { provide: LocationStrategy, useClass: HashLocationStrategy }],
   entryComponents: [LoginComponent,ModalComponent,SignupComponent,CheckAvailabilityComponent],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]

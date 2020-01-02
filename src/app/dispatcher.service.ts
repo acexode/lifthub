@@ -9,18 +9,22 @@ import * as moment from 'moment-timezone';
 export class DispatcherService {
    
   constructor(private http: HttpClient) { }
+
   // signup new user
   signup(user) {
     return this.http.post('/api/signup', user);
   }
+
   // login user
   login(user) {
     return this.http.post('/api/login', user);
   }
+
   // subscribe to newsletter
   subscribe(user) {
     return this.http.post('/api/subscribe', user);
   }
+
   // search for space based on location and spacetype
   search(type, location) {
     return this.http.get(`/api/space/search?space=${type}&location=${location}`);
@@ -29,10 +33,12 @@ export class DispatcherService {
   spaceType(space) {
     return this.http.get(`/api/space/type?spaceType=${space}`);
   }
+
   // get all space in a location
   getLocationData(lat, lng) {
     return this.http.get(`/api/space/locate?lat=${lat}&lng=${lng}`);
   }
+
   // get single space
   getSingle(id){
     return this.http.get(`/api/space/${id}`);
@@ -44,10 +50,25 @@ export class DispatcherService {
     };
     return this.http.get(`/api/user`,httpOptions);
   }
+  
+  //delete booking
+  deleteBooking(spaceId,bookingId){
+    const options = {
+      headers: new HttpHeaders({ 'Authorization': localStorage.getItem('token') }),      
+      body: {
+        spaceId,
+        bookingId       
+      },
+    };
+    
+      return this.http.delete("/api/space/"+ spaceId)
+  }
+
   // check if a space is available
   checkAvailability(msg) {
     return this.http.post('/api/email', msg);
   }
+
   // check if user is logged in
   isLoggedIn() {
     const token = localStorage.getItem('token');
@@ -57,6 +78,7 @@ export class DispatcherService {
       return false;
     }
   }
+
   // Function to receive booking data (WAT) and convert to JS Date object
  dateUTC = (dateString) => {
   // Ensure date data is saved in WAT and then converted to a Date object in UTC
@@ -64,6 +86,7 @@ export class DispatcherService {
     return moment.tz(dateString, "Africa/Lagos").toDate();
   
 }
+
 bookSpace(data, prevBooking) {
   const httpOptions = {
     headers: new HttpHeaders({ 'Authorization': localStorage.getItem('token') })
