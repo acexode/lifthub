@@ -1,9 +1,10 @@
 import { SampleData } from './../sample';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 
 import { DispatcherService } from '../dispatcher.service';
 import * as M from '../../assets/js/materialize.min.js';
+import { FlashMessagesService } from 'angular2-flash-messages';
 @Component({
   selector: 'app-bookingform',
   encapsulation: ViewEncapsulation.None,
@@ -11,8 +12,9 @@ import * as M from '../../assets/js/materialize.min.js';
   styleUrls: ['./bookingform.component.scss']
 })
 export class BookingformComponent implements OnInit {
-
+  @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
   spaceData = SampleData[0];
+  success = false;
   disabledSubmitButton = true;
   options = {
     minDate: new Date()
@@ -26,10 +28,11 @@ export class BookingformComponent implements OnInit {
     errMsg = false;
 
 
-  constructor(private dispatcher: DispatcherService, private route: ActivatedRoute) { }
+  constructor(private dispatcher: DispatcherService, private route: ActivatedRoute,private flashMessage: FlashMessagesService) { }
 
    ngOnInit() {
     const id = this.route.snapshot.paramMap.get('data');
+    setTimeout(()=> this.success = true,10000)
     this.dispatcher.getSingle(id).subscribe((data: any) => {
       this.spaceData = data.space;
       console.log(this.spaceData);
@@ -40,12 +43,17 @@ export class BookingformComponent implements OnInit {
       this.recurringDate = M.Datepicker.init(this.elem('#recurringDate'), {minDate: this.minDate(), format: 'yyyy-mm-dd'});
       this.checkInTime = M.Timepicker.init(this.elem('#checkInTime'), {});
       this.checkOutTime = M.Timepicker.init( this.elem('#checkOutTime'), {});
-      M.DatePicker.getInstance(this.elem('#checkInDate')).gotoDate(this.minDate());
-      M.DatePicker.getInstance(this.elem('#checkOutDate')).gotoDate(this.minDate());
-      M.DatePicker.getInstance(this.elem('#recurringDate')).gotoDate(this.minDate());
+      M.Datepicker.getInstance(this.elem('#checkIntDate'),{minDate: this.minDate()}).setDate(this.minDate());
+      M.Datepicker.getInstance(this.elem('#checkOutDate'),{minDate: this.minDate()}).gotoDate(this.minDate());
 
     })
 
+    // M.DatePicker.getInstance(this.elem('#checkOutDate')).gotoDate(this.minDate());
+    // M.DatePicker.getInstance(this.elem('#recurringDate')).gotoDate(this.minDate());
+    // M.Datepicker.getInstance(this.elem('#checkOutDate')).setDate(new Date("2020,12,19"));
+    // M.Datepicker.getInstance(this.elem('#checkInDate')).gotoDate(new Date("2020,12,17"));
+    console.log(this.checkInDate)
+    //console.log(M.DatePicker.getInstance(this.elem('#checkInDate')))
   }
 
   // return id of elements 
@@ -60,8 +68,7 @@ export class BookingformComponent implements OnInit {
     } else {
       // set date to last bookingEnd
       const lastItem = this.spaceData.bookings[this.spaceData.bookings.length - 1].bookingEnd;
-      console.log(lastItem)
-      console.log(console.log(lastItem))
+      console.log(lastItem)     
       return new Date(lastItem);
     }
   }
@@ -78,12 +85,12 @@ export class BookingformComponent implements OnInit {
         existingBookings
       ).then((space:any) => {
            // If the new booking is successfully saved to the database
-           console.log(space)
-           alert(`${space.spaceType} successfully booked.`);
+           this.onSuccess.emit(space.spaceType);               
       });
 
     } catch (err) {
       // If there is a booking clash and the booking could not be saved
+     
       alert(
         `Your booking could not be saved. Please ensure it does not clash with an existing booking
          and that it is a valid time in the future.`

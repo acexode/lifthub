@@ -3,22 +3,19 @@ import { BedSpaceComponent } from './user_page/bed-space/bed-space.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserPageComponent } from './user_page/user-page/user-page.component';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AllSpacesComponent } from './user_page/all-spaces/all-spaces.component';
 import { OfficeSpaceComponent } from './user_page/office-space/office-space.component';
-import { ConferenceSpaceComponent } from './user_page/conference-space/conference-space.component';
-import { TrainingSpaceComponent } from './user_page/training-space/training-space.component';
 import { EventSpaceComponent } from './user_page/event-space/event-space.component';
 import { SearchResultComponent } from './search-result/search-result.component';
-
 import { FunplacesComponent } from './user_page/funplaces/funplaces.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 // import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/space',
+    redirectTo: 'space',
     pathMatch: 'full'
   },
   {
@@ -28,6 +25,10 @@ const routes: Routes = [
       {
         path: 'booking',
         component: BookingComponent
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent
       },
       {
         path: '',
@@ -194,6 +195,26 @@ const routes: Routes = [
             component: EventSpaceComponent
           },
           {
+            path: 'birthdays',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'political gathering',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'social',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'weddings',
+            component: EventSpaceComponent
+          },
+          {
+            path: 'parties',
+            component: EventSpaceComponent
+          },
+          {
             path: 'meetups',
             component: EventSpaceComponent
           },
@@ -210,10 +231,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    scrollPositionRestoration: 'top',
-    onSameUrlNavigation: 'reload'
-  })],
+  imports: [RouterModule.forRoot(routes, { useHash: false })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

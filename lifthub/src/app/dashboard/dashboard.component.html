@@ -1,0 +1,68 @@
+<flash-messages></flash-messages>
+<!--Section: Features v.3-->
+<section>     
+    <!--Grid row-->
+    <div class="row pt-2">  
+      <!--Grid column-->
+      <div class="col-lg-5 text-center text-lg-left">      
+<mdb-card>
+  <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+    <!-- Card img -->
+    <mdb-card-img src="assets/avater.png" class="avater" style="height: fit-content;" alt="Card image cap"></mdb-card-img>
+    <a>
+      <div class="mask"></div>
+    </a>
+  </div>
+  <!--Card content-->
+  <mdb-card-body>
+    <!--Title-->
+    <mdb-card-title>
+      <h4>Welcome {{user.username | titlecase}}</h4>
+    </mdb-card-title>
+
+    <!--Text-->
+    <mdb-card-text> You can view your bookings and cancel if need  be
+    </mdb-card-text>
+
+    <a (click)="logOut()" mdbBtn color="warning" mdbWavesEffect>Log Out</a>
+  </mdb-card-body>
+</mdb-card>
+<!-- Card -->
+  
+  <!-- Card -->
+      </div>
+      <!--Grid column-->
+  
+      <!--Grid column-->
+      <div class="col-lg-7">
+  
+        <table mdbTable>
+            <thead class="black white-text">
+              <tr>
+                <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let space of spaces;let i=index">
+                <tr mdbTableCol  *ngFor="let booking of space.bookings">
+  
+                  <th scope="row">{{i + 1}}</th>
+                  <td>{{space.spaceType}}</td>
+                  <td>{{booking.bookingStart  | date :'short'}} </td>
+                  <td>{{booking.bookingEnd  | date :'short'}}</td>
+                  <td><a (click)="extendBooking(space._id,booking._id)" mdbBtn color="info" mdbWavesEffect>Extend</a></td>
+                  <td><a (click)="deleteBooking(space._id,booking._id)" mdbBtn color="danger" mdbWavesEffect>Cancel</a></td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>         
+         
+  
+      </div>
+      <!--Grid column-->
+  
+    </div>
+    <!--Grid row-->
+  
+  </section>
+  <!--Section: Features v.3-->

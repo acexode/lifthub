@@ -8,11 +8,12 @@ const express = require("express"),
   space = require("./routes/space"),
   dotenv = require('dotenv').config();
   
+
   mongoose.Promise = global.Promise;
 
 // uncomment to fill sample data into mongodb
 //const seed = require('./model/seed')
-
+console.log(process.env.MONGODBURI);
 // MIDDLEWARES
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}));
