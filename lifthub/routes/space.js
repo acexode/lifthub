@@ -5,7 +5,7 @@ const router = express.Router();
 const Space = require("../model/space");
 const request = require("superagent");
 const helper = require('../helper/helper')
-
+const jwt = require("jsonwebtoken");
 const moment = require("moment");
 const momentTimezone = require("moment-timezone");
 
@@ -158,7 +158,26 @@ router.get("/space/:id", (req, res) => {
     }
   });
 });
-
+// Get user
+router.get("/user",(req,res)=>{
+    const token = helper.getToken(req.headers);  
+    var ObjectId = require('mongoose').Types.ObjectId;    
+    jwt.verify(token,process.env.SECRET,(err,user)=>{ 
+            
+      Space.find({'bookings.user': user._id }, {}, (err, space) => {       
+        if (err) {
+          res.json({ success: false, message: err });
+        } else {
+          if (!space) {
+            res.json({ success: false, message: "user has no booking" });
+          } else {            
+            res.json({ success: true, space, user });
+          }
+        }
+      });
+    });   
+  
+});
 // Update space
 router.put("/:id", (req, res) => {
   const id = req.params.id;
@@ -191,8 +210,8 @@ router.put("/:id", (req, res) => {
 // make booking
 router.put("/book/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
     const { id } = req.params;
-    const token = helper.getToken(req.headers);      
-    console.log(req.user)
+    const token = helper.getToken(req.headers); 
+   
     if (token) {
       if (req.body.recurring.length === 0) {
         Space.findByIdAndUpdate(
@@ -321,25 +340,26 @@ router.put("/book/:id", passport.authenticate("jwt", { session: false }), (req, 
           });
       }
     } else {
-        res
-        .status(403)
-        .json({ success: false, message: "Please login or signup" });
+        res.status(403).json({ success: false, message: "Please login or signup" });
     }
   }
 );
 
 router.delete("/book/:id", (req, res) => {
+  console.log('req.body');
   console.log(req.body);
-  const { id, bookingId } = req.body;
-  console.log(id);
+  const {spaceId,bookingId } = req.body;
+  const params = req.params.id;
+  console.log(params);
   console.log(bookingId);
   Space.findByIdAndUpdate(
-    id,
+    spaceId,
     { $pull: { bookings: { _id: bookingId } } },
     { new: true }
   )
     .then(space => {
       console.log("deleted");
+      console.log(space)
       res.status(201).json(space);
     })
     .catch(error => {
@@ -398,33 +418,36 @@ router.post("/subscribe", (req, res) => {
 
 // post send availability message
 router.post("/email", (req, res) => {
-  const { name, email, phone, msg } = req.body;
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD
-    },
-    tls: {
-      rejectUnauthorized: false
-    }
-  });
-  const mailOptions = {
-    from: email,
-    to: process.env.EMAIL,
-    subject: msg,
-    text: `Hi my name is ${name}, i am interested in the space property, please call me on 
-        this number ${phone} or email me via ${email}`
-  };
-  transporter.sendMail(mailOptions, function(error, info) {
-    if (error) {
-      res.json({ success: false, msg: error.message });
-      console.log(error);
-      console.log(error.message);
-    } else {
-      res.json({ success: true, msg: info.response });
-    }
-  });
+  const { spaceId,bookingId, msg } = req.body;
+  const token = helper.getToken(req.headers);  
+ 
+  jwt.verify(token,process.env.SECRET,(err,user)=>{ 
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
+      },
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
+    const mailOptions = {
+      from: user.email,
+      to: process.env.EMAIL,
+      subject: msg,
+      text: `Requesting Booking extention for space with id ${spaceId} and booking id ${bookingId}`
+    };
+    transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+        res.json({ success: false, msg: error.message });
+        console.log(error);
+        console.log(error.message);
+      } else {
+        res.json({ success: true, msg: info.response });
+      }
+    })
+  })
 });
 
 

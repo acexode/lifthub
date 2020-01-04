@@ -1,8 +1,9 @@
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
-import {FormsModule,ReactiveFormsModule} from '@angular/forms'
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -27,6 +28,9 @@ import { BookingComponent } from './booking/booking.component';
 
 import { FunplacesComponent } from './user_page/funplaces/funplaces.component';
 import { BookingformComponent } from './bookingform/bookingform.component';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 
 
 
@@ -51,11 +55,10 @@ import { BookingformComponent } from './bookingform/bookingform.component';
     SearchResultComponent,
     CheckAvailabilityComponent,
     BookingComponent,
-   
     FunplacesComponent,
     BookingformComponent,
-    
-  ],  
+    DashboardComponent,
+  ],
   imports: [
     MDBBootstrapModule.forRoot(),
     BrowserModule,
@@ -63,9 +66,10 @@ import { BookingformComponent } from './bookingform/bookingform.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FlashMessagesModule.forRoot(),
   ],
-  providers: [],
-  entryComponents: [LoginComponent,ModalComponent,SignupComponent,CheckAvailabilityComponent],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  entryComponents: [LoginComponent, ModalComponent, SignupComponent, CheckAvailabilityComponent],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })

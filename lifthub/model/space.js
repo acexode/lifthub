@@ -65,7 +65,8 @@ const spaceSchema = Schema({
         img: {type: [String], required: true},
         location: {type: String, required: true},
         description: {type: String, required: true},
-        price: {type: String, required: true}        
+        price: {type: String, required: true},
+        capacity: {type: Number}        
     },
     assets: {
         wifi: { type: Boolean, default: false },        

@@ -12,7 +12,7 @@ import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  user = {email: '', password: ''};
+  user = {email: '', username:'', password: ''};
   errMsg;
   successMsg;
   data:any;
@@ -25,6 +25,7 @@ export class SignupComponent implements OnInit {
 
      this.validatingForm = new FormGroup({
        modalFormElegantEmail: new FormControl('', Validators.email),
+       modalFormElegantUsername: new FormControl('', Validators.required),
        modalFormElegantPassword: new FormControl('', Validators.required)
      });
    }
@@ -37,6 +38,9 @@ export class SignupComponent implements OnInit {
    get modalFormElegantEmail() {
      return this.validatingForm.get('modalFormElegantEmail');
    }
+   get modalFormElegantUsername() {
+     return this.validatingForm.get('modalFormElegantUsername');
+   }
 
    get modalFormElegantPassword() {
      return this.validatingForm.get('modalFormElegantPassword');
@@ -45,6 +49,7 @@ export class SignupComponent implements OnInit {
   signup(){
    
     this.user.email =  this.modalFormElegantEmail.value;
+    this.user.username =  this.modalFormElegantUsername.value;
     this.user.password =  this.modalFormElegantPassword.value;
     this.dispatch.signup(this.user).subscribe(res =>{
       console.log(res)
@@ -52,6 +57,8 @@ export class SignupComponent implements OnInit {
       this.dispatch.login(this.user).subscribe(token =>{
         this.data = token['token']
         localStorage.setItem('token', this.data);
+        let date = new Date()
+        localStorage.setItem('date', date.toDateString())
         this.modalRef.hide()
         this.router.navigate(['space']);
       });
