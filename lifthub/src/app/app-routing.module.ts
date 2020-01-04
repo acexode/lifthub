@@ -18,11 +18,11 @@ const routes: Routes = [
     redirectTo: 'space',
     pathMatch: 'full'
   },
-  {
+   {
     path: 'space',
     component: UserPageComponent,
     children : [
-      {
+     {
         path: 'booking',
         component: BookingComponent
       },

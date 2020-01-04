@@ -1,7 +1,7 @@
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
-import {FormsModule,ReactiveFormsModule} from '@angular/forms'
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
@@ -33,6 +33,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,12 +55,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SearchResultComponent,
     CheckAvailabilityComponent,
     BookingComponent,
-   
     FunplacesComponent,
     BookingformComponent,
     DashboardComponent,
-    
-  ],  
+  ],
   imports: [
     MDBBootstrapModule.forRoot(),
     BrowserModule,
@@ -70,7 +69,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FlashMessagesModule.forRoot(),
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
-  entryComponents: [LoginComponent,ModalComponent,SignupComponent,CheckAvailabilityComponent],
+  entryComponents: [LoginComponent, ModalComponent, SignupComponent, CheckAvailabilityComponent],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })
