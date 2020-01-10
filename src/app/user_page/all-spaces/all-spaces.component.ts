@@ -10,6 +10,12 @@ import { Router } from '@angular/router';
 export class AllSpacesComponent implements OnInit {
 
   // sample raw data
+  optionsSelect = [
+    { value: 'Work Spaces', label: 'Work Spaces' },
+    { value: 'Event Spaces', label: 'Event Spaces' },
+    { value: 'Fun Spaces', label: 'Fun Spaces' },
+    { value: 'Bed Spaces', label: 'Bed Spaces' },
+    ];
   spaces = [{
     name: 'Meeting Spaces',   
     sub: [{
@@ -21,7 +27,7 @@ export class AllSpacesComponent implements OnInit {
       link: 'group meeting',
       img: 'https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
     }, {
-      name: 'Boarding Meeting',
+      name: 'Board Meeting',
       link: 'board meeting',
       img: 'https://images.pexels.com/photos/1181431/pexels-photo-1181431.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
     }]

@@ -15,7 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/space',
+    redirectTo: 'space',
     pathMatch: 'full'
   },
   {
@@ -231,10 +231,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    scrollPositionRestoration: 'top',
-    onSameUrlNavigation: 'reload'
-  })],
+  imports: [RouterModule.forRoot(routes, { useHash: false })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

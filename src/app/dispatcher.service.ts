@@ -63,6 +63,16 @@ export class DispatcherService {
     
       return this.http.delete("/api/space/"+ spaceId)
   }
+  extendBooking(spaceId,bookingId){
+    const msg = {      
+        spaceId,
+        bookingId,
+        headers: new HttpHeaders({ 'Authorization': localStorage.getItem('token') }),
+        msg : "Requesting extension for booking"     
+      }
+    
+      return this.http.post("/api/email"+ spaceId, msg )
+  }
 
   // check if a space is available
   checkAvailability(msg) {

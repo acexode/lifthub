@@ -19,12 +19,17 @@
         
           <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="text-center" style="color: #757575;">
 
-            <div class="form-row">
+            <div class="form-row">              
               <div class="col">
                 <!-- Space -->
-                <div class="md-form">
-                  <input type="text" formControlName="space" id="materialSpace" class="form-control" mdbInput>
-                  <label for="materialSpace">Space type</label>
+                <div class="md-form">                 
+                  <select  formControlName="space"  class="capacity form-control" mdInput>
+                    <option *ngFor="let val of optionsSelect" [ngValue]="val.value">
+                      {{ val.value }}
+                    </option>
+                    
+                  </select>                
+                  <label for="materialLocation">Location</label>
                 </div>
               </div>
               <div class="col">

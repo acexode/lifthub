@@ -11,7 +11,7 @@ export class DashboardComponent implements OnInit {
   spaces
   user
   booked = false;
-  headElements = ['ID', 'Space', 'Date', 'Expires','Cancel'];
+  headElements = ['No', 'Space', 'Date', 'Expires','Extend Booking','Cancel'];
   constructor(private dispatcher: DispatcherService, private flashMessage: FlashMessagesService) { }
 
   ngOnInit() {
@@ -28,6 +28,14 @@ export class DashboardComponent implements OnInit {
       window.location.reload();
       this.flashMessage.show(`booking successfully deleted.`, { cssClass: 'alert-success', timeout: 20000 });
       
+    })
+    
+  }
+  extendBooking(spaceId,bookingId){   
+
+    this.dispatcher.extendBooking(spaceId, bookingId).subscribe(()=>{
+      window.location.reload();
+      this.flashMessage.show(`Extension Request Sent.`, { cssClass: 'alert-success', timeout: 20000 });      
     })
     
   }

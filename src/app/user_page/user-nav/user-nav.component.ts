@@ -33,7 +33,14 @@ export class UserNavComponent implements OnInit {
   goto(e){   
     console.log(e)
     this.router.navigate(['space/' + e]);
-}
+    
+
+  }
+  logOut(){
+    localStorage.removeItem('token')
+    localStorage.removeItem('date')
+    this.router.navigate(['space']);
+  }
   dashboard(e) {  
   if (this.dispatcher.isLoggedIn()) {
     this.router.navigate(['space/' + e]);

@@ -56,8 +56,10 @@ router.get("/space/search", (req, res) => {
   var space = new RegExp(req.query.space, "i");
   var location = new RegExp(req.query.location, "i");
   console.log(space);
+  console.log('location');
+  console.log(location);
   Space.find(
-    { spaceType: space, "details.location": location },
+    { 'spaceType': space, "details.location": location },
     {},
     (err, space) => {
       if (err) {
@@ -66,6 +68,7 @@ router.get("/space/search", (req, res) => {
         if (!space) {
           res.json({ success: false, message: "no space" });
         } else {
+         console.log(space.length);
           res.json({ success: true, space: space });
         }
       }
@@ -77,7 +80,7 @@ router.get("/space/search", (req, res) => {
 router.get("/space/type", (req, res) => {
   var space = new RegExp(req.query.spaceType, "i");
   console.log("spacetype: " + req.query.spaceType);
-  Space.find({ spaceType: space }, {}, (err, space) => {
+  Space.find({ "details.name": space }, {}, (err, space) => {
     if (err) {
       res.json({ success: false, message: err });
     } else {
@@ -418,33 +421,36 @@ router.post("/subscribe", (req, res) => {
 
 // post send availability message
 router.post("/email", (req, res) => {
-  const { name, email, phone, msg } = req.body;
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD
-    },
-    tls: {
-      rejectUnauthorized: false
-    }
-  });
-  const mailOptions = {
-    from: email,
-    to: process.env.EMAIL,
-    subject: msg,
-    text: `Hi my name is ${name}, i am interested in the space property, please call me on 
-        this number ${phone} or email me via ${email}`
-  };
-  transporter.sendMail(mailOptions, function(error, info) {
-    if (error) {
-      res.json({ success: false, msg: error.message });
-      console.log(error);
-      console.log(error.message);
-    } else {
-      res.json({ success: true, msg: info.response });
-    }
-  });
+  const { spaceId,bookingId, msg } = req.body;
+  const token = helper.getToken(req.headers);  
+ 
+  jwt.verify(token,process.env.SECRET,(err,user)=>{ 
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
+      },
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
+    const mailOptions = {
+      from: user.email,
+      to: process.env.EMAIL,
+      subject: msg,
+      text: `Requesting Booking extention for space with id ${spaceId} and booking id ${bookingId}`
+    };
+    transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+        res.json({ success: false, msg: error.message });
+        console.log(error);
+        console.log(error.message);
+      } else {
+        res.json({ success: true, msg: info.response });
+      }
+    })
+  })
 });
 
 

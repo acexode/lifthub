@@ -33,6 +33,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +59,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FunplacesComponent,
     BookingformComponent,
     DashboardComponent,
+
     
   ],  
   imports: [
@@ -69,7 +71,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpClientModule,
     FlashMessagesModule.forRoot(),
   ],
-  providers: [ { provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   entryComponents: [LoginComponent,ModalComponent,SignupComponent,CheckAvailabilityComponent],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]

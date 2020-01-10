@@ -8,7 +8,7 @@
 <mdb-card>
   <div class="view rgba-white-slight waves-light" mdbWavesEffect>
     <!-- Card img -->
-    <mdb-card-img src="assets/avater.jpg" style="height: 100px;" alt="Card image cap"></mdb-card-img>
+    <mdb-card-img src="assets/avater.png" class="avater" style="height: fit-content;" alt="Card image cap"></mdb-card-img>
     <a>
       <div class="mask"></div>
     </a>
@@ -50,6 +50,7 @@
                   <td>{{space.spaceType}}</td>
                   <td>{{booking.bookingStart  | date :'short'}} </td>
                   <td>{{booking.bookingEnd  | date :'short'}}</td>
+                  <td><a (click)="extendBooking(space._id,booking._id)" mdbBtn color="info" mdbWavesEffect>Extend</a></td>
                   <td><a (click)="deleteBooking(space._id,booking._id)" mdbBtn color="danger" mdbWavesEffect>Cancel</a></td>
                 </tr>
               </ng-container>
