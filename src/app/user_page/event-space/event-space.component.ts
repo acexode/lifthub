@@ -26,8 +26,8 @@ export class EventSpaceComponent implements OnInit {
     { cap:' 750-1000', name: 'capacity' }
   ];
   modalRef: MDBModalRef;
-  spaces = SampleData;
-  slides: any = [[]];
+  spaces;
+  unfiltered;
   options = {
     backdrop: true,
     keyboard: true,
@@ -45,37 +45,31 @@ capacityFilter = this.fb.group({
 });
 
 ngOnInit() {
-    // this.slides = this.chunk(this.spaces, 3);
+    
     const path = this.router.url;
     const index = path.lastIndexOf('/') + 1;
     const space = path.substring(index);
-    this.capacityFilter.valueChanges.subscribe(val =>{ 
-    this.spaces = SampleData;
-    this.loadData(space);
-    let arr = this.spaces.filter(filter =>{ 
-      if (val.capacity == 'All'){
-          return;
-      }else {
+    this.dispatcher.spaceType(space).subscribe((res: any) => {      
+      this.spaces = res.space;
+      this.unfiltered = res.space;
+      
+    }, error => {
+      console.log('Error', error);
+    });
+
+    this.capacityFilter.valueChanges.subscribe(val =>{     
+  
+    let arr = this.unfiltered.filter(filter =>{ 
+      if (val.capacity == 'All'){        
+        return this.unfiltered         
+      }else {      
        return filter.details.capacity == val.capacity
-      }
-
+      }  
   });
-
     this.spaces = arr;
-
-    this.loadData(space);
-
-
 })
 }
-loadData(space){
-  this.dispatcher.spaceType(space).subscribe((res: any) => {
-    console.log(res);
-    this.spaces = res.space;
-  }, error => {
-    console.log('Error', error);
-  });
-}
+
 gotoBook(index) {
   console.log(index);
   if (this.dispatcher.isLoggedIn()) {

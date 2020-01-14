@@ -30,6 +30,10 @@ import { FunplacesComponent } from './user_page/funplaces/funplaces.component';
 import { BookingformComponent } from './bookingform/bookingform.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AdminComponent } from './admin/admin.component';
+import { NavigationComponent } from './admin/navigation/navigation.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { CreateSpaceComponent } from './admin/create-space/create-space.component';
 
 
 
@@ -59,6 +63,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FunplacesComponent,
     BookingformComponent,
     DashboardComponent,
+    AdminComponent,
+    NavigationComponent,
+    AdminDashboardComponent,    
+    CreateSpaceComponent,
 
     
   ],  

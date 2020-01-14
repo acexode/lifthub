@@ -10,6 +10,10 @@ export class DispatcherService {
    
   constructor(private http: HttpClient) { }
 
+  // all Users
+  users() {
+    return this.http.get('/api/users');
+  }
   // signup new user
   signup(user) {
     return this.http.post('/api/signup', user);
@@ -50,7 +54,10 @@ export class DispatcherService {
     };
     return this.http.get(`/api/user`,httpOptions);
   }
-  
+   // all bookings
+   Bookings(){
+    return this.http.get(`/api/bookings`);
+  }
   //delete booking
   deleteBooking(spaceId,bookingId){
     const options = {

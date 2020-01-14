@@ -9,6 +9,19 @@ const User = require("../model/users");
 POST REQUEST
 SIGNUP, LOGIN & POST SPACE
 */
+router.get("/users", (req, res) => {
+  User.find((err, users) => {
+    if (err) {
+      return next(err);
+    } else {
+      if (!users) {
+        res.json({ success: false, message: "no user" });
+      } else {
+        res.json({ success: true, users });
+      }
+    }
+  });
+});
 router.post("/signup", (req, res) => {
   console.log(JSON.stringify(req.body.email));
   if (!req.body.email ||  !req.body.username || !req.body.password) {

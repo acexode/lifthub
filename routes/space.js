@@ -181,6 +181,25 @@ router.get("/user",(req,res)=>{
     });   
   
 });
+// Get Bookings
+router.get("/bookings",(req,res)=>{   
+            
+      Space.find({}, (err, spaces) => {       
+        if (err) {
+          res.json({ success: false, message: err });
+        } else {
+          if (!spaces) {
+            res.json({ success: false, message: "user has no booking" });
+          } else {
+              var bookings = spaces.filter(space => space.bookings.length != 0)
+              res.json({ success: true, bookings });
+                 
+          }
+        }
+      });
+ 
+  
+});
 // Update space
 router.put("/:id", (req, res) => {
   const id = req.params.id;
