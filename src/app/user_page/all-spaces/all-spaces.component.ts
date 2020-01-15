@@ -17,7 +17,7 @@ export class AllSpacesComponent implements OnInit {
     { value: 'Bed Spaces', label: 'Bed Spaces' },
     ];
   spaces = [{
-    name: 'Meeting Spaces',   
+    name: 'Meeting Spaces',
     sub: [{
       name: 'Private meeting',
       link: 'private meeting',
@@ -33,7 +33,7 @@ export class AllSpacesComponent implements OnInit {
     }]
   },
   {
-    name: 'Events & Training Spaces',   
+    name: 'Events & Training Spaces',
     sub: [{
       name: 'Seminars',
       link: 'seminars',
@@ -49,7 +49,7 @@ export class AllSpacesComponent implements OnInit {
     }]
   },
   {
-    name: 'Conference Spaces',  
+    name: 'Conference Spaces',
     sub: [{
       name: 'Business Conference',
       link: 'conference',
@@ -65,7 +65,7 @@ export class AllSpacesComponent implements OnInit {
     }]
   },
   {
-    name: 'Other Spaces',    
+    name: 'Other Spaces',
     sub: [{
       name: 'Birthdays',
       link: 'birthdays',
@@ -82,41 +82,41 @@ export class AllSpacesComponent implements OnInit {
   }];
   searchForm: FormGroup;
   search;
-  disabledSubmitButton: boolean = true;
-  constructor(private fb: FormBuilder, private dispatcher: DispatcherService, private router: Router) { 
+  disabledSubmitButton = true;
+  constructor(private fb: FormBuilder, private dispatcher: DispatcherService, private router: Router) {
     this.searchForm = fb.group({
-      'space': ['', Validators.required],
-      'location': ['', Validators.required],
+      space: ['', Validators.required],
+      location: ['', Validators.required],
       });
   }
 
   ngOnInit() {
-   const stored = localStorage.getItem("date")
-  const date1 : any = new Date(stored);
-  const date2 : any = new Date();
-  const diffTime = Math.abs(date2 - date1);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-  if( diffDays >= 1){
-    localStorage.removeItem('date')
+   const stored = localStorage.getItem('date');
+   const date1: any = new Date(stored);
+   const date2: any = new Date();
+   const diffTime = Math.abs(date2 - date1);
+   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+   if ( diffDays >= 1) {
+    localStorage.removeItem('date');
   }
-  console.log(diffDays);
-    console.log("entered");
-    if (navigator.geolocation) {
+   console.log(diffDays);
+   console.log('entered');
+   if (navigator.geolocation) {
       console.log(true);
-      navigator.geolocation.watchPosition(position =>{
+      navigator.geolocation.watchPosition(position => {
         console.log(position.coords.latitude);
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         this.dispatcher.getLocationData(lat, lng).subscribe((res: any) => {
           this.searchForm.setValue({
-            'space' : '',
-            'location': res.fullLocation.split(',')[0]
-          })
+            space : '',
+            location: res.fullLocation.split(',')[0]
+          });
           console.log(res);
-        })
+        });
       });
     } else {
-      console.log('Geolocation is not supported by this browser.')
+      console.log('Geolocation is not supported by this browser.');
     }
   }
   showPosition(position) {
@@ -132,8 +132,8 @@ export class AllSpacesComponent implements OnInit {
       this.disabledSubmitButton = false;
     }
   }
-  goto(e){   
-    console.log(e)
+  goto(e) {
+    console.log(e);
     const url = `space/events/${e}`;
     this.router.navigate([url]);
 }
