@@ -1,6 +1,6 @@
 import { DispatcherService } from 'src/app/dispatcher.service';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-create-space',
@@ -8,29 +8,42 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
   styleUrls: ['./create-space.component.scss']
 })
 export class CreateSpaceComponent implements OnInit {
-  SpaceForm: FormGroup;
+
+  SpaceForm: FormGroup;  
   selectSpaceType = [
     { value: 'Work Spaces', label: 'Work Spaces' },
     { value: 'Event Spaces', label: 'Event Spaces' },
     { value: 'Fun Spaces', label: 'Fun Spaces' },
     { value: 'Bed Spaces', label: 'Bed Spaces' },
     ];
-  constructor(private dispatcher: DispatcherService) {
+    disabledSubmitButton: boolean = true
+    @HostListener('input') oninput() {
 
-    this.SpaceForm = new FormGroup({
-      spaceType: new FormControl('', Validators.email),
-      name: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-      img: new FormControl('', Validators.required),
-      location: new FormControl('', Validators.required),
-      price: new FormControl('', Validators.required),
-      wifi: new FormControl('', Validators.required),
-      breakfast: new FormControl('', Validators.required),
-      whiteBoard: new FormControl('', Validators.required),
-      projector: new FormControl('', Validators.required),
-      tv: new FormControl('', Validators.required),
-    });
-
+      if (this.SpaceForm.valid) {
+        this.disabledSubmitButton = false;
+      }
+    }
+  constructor(private dispatcher: DispatcherService, private fb : FormBuilder) {
+   
+    this.SpaceForm = fb.group({
+      'spaceType': ['', Validators.required],      
+      'name': ['', Validators.required],
+      'description': ['', Validators.required],
+      'img': ['', Validators.required],
+      'price': ['', Validators.required],
+      'location': ['', Validators.required],
+      'tv': ['', Validators.requiredTrue],
+      'wifi': ['', Validators.requiredTrue],
+      'projector': ['', Validators.requiredTrue],
+      'whiteBoard': ['', Validators.requiredTrue],
+      'breakfast': ['', Validators.requiredTrue],
+      });
+    
+  }
+  onSubmit() {
+      console.log(this.SpaceForm.value)
+      this.disabledSubmitButton = true;
+   
   }
 
   ngOnInit() {
