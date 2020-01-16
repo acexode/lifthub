@@ -4,18 +4,22 @@
         <div class="col">         
           <div class="text-justify">
             <label class="text-justify">SpaceType</label>
-            <select  mdbInput mdbValidate formControlName="space"  class="capacity form-control" >
+            <select  mdbInput mdbValidate formControlName="SpaceType"  class="capacity form-control" >
               <option *ngFor="let val of selectSpaceType" [ngValue]="val.value">
                 {{ val.value }}
               </option>              
-            </select>              
+            </select> 
+            <mdb-error *ngIf="SpaceType.invalid && (SpaceType.dirty || SpaceType.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="SpaceType.valid && (SpaceType.dirty || SpaceType.touched)">Input valid</mdb-success>             
           </div>
         </div>
 
         <div class="col">
           <div class="text-justify">
             <label class="text-justify">Name</label>
-            <input type="text" id="name" class="form-control" mdbInput mdbValidate>            
+            <input type="text" id="name" class="form-control" mdbInput mdbValidate>  
+            <mdb-error *ngIf="name.invalid && (name.dirty || name.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="name.valid && (name.dirty || name.touched)">Input valid</mdb-success>        
           </div>
         </div>
       </div>
@@ -24,12 +28,16 @@
           <div class="md-form">
             <input type="text" id="location" class="form-control" mdbInput mdbValidate>
             <label for="location">Location</label>
+            <mdb-error *ngIf="location.invalid && (location.dirty || location.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="location.valid && (location.dirty || location.touched)">Input valid</mdb-success>
           </div>
         </div>
         <div class="col">
           <div class="md-form">
             <input type="text" id="price" class="form-control" mdbInput mdbValidate>
             <label for="price">Price</label>
+            <mdb-error *ngIf="price.invalid && (price.dirty || price.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="price.valid && (price.dirty || price.touched)">Input valid</mdb-success>
           </div>
         </div>
 
@@ -40,6 +48,8 @@
           <div class="md-form">
             <input type="text" id="img" class="form-control" mdbInput mdbValidate>
             <label for="img">Image List</label>
+            <mdb-error *ngIf="img.invalid && (img.dirty || img.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="img.valid && (img.dirty || img.touched)">Input valid</mdb-success>
           </div>
         </div>
 
@@ -50,24 +60,36 @@
           <div class="md-form">
             <textarea type="text" id="description" class="form-control md-textarea" mdbInput mdbValidate></textarea>
             <label for="description">Description</label>
+            <mdb-error *ngIf="description.invalid && (description.dirty || description.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="description.valid && (description.dirty || description.touched)">Input valid</mdb-success>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-2 mx-auto d-flex justify-content-center">
-          <mdb-checkbox>Wifi</mdb-checkbox>
+          <mdb-checkbox mdbValidate formControlName="wifi">Wifi</mdb-checkbox>
+          <mdb-error *ngIf="wifi.invalid && (wifi.dirty || wifi.touched)">Input invalid</mdb-error>
+          <mdb-success *ngIf="wifi.valid && (wifi.dirty || wifi.touched)">Input valid</mdb-success>
         </div>
         <div class="col-md-2 mx-auto d-flex justify-content-center">
-          <mdb-checkbox>Breakfast</mdb-checkbox>
+          <mdb-checkbox mdbValidate formControlName="breakfast">Breakfast</mdb-checkbox>
+          <mdb-error *ngIf="breakfast.invalid && (breakfast.dirty || breakfast.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="breakfast.valid && (breakfast.dirty || breakfast.touched)">Input valid</mdb-success>
         </div>
         <div class="col-md-2 mx-auto d-flex justify-content-center">
-          <mdb-checkbox>Projector</mdb-checkbox>
+          <mdb-checkbox mdbValidate formControlName="projector">Projector</mdb-checkbox>
+          <mdb-error *ngIf="projector.invalid && (projector.dirty || projector.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="projector.valid && (projector.dirty || projector.touched)">Input valid</mdb-success>
         </div>
         <div class="col-md-2 mx-auto d-flex justify-content-center">
-          <mdb-checkbox>Tv</mdb-checkbox>
+          <mdb-checkbox mdbValidate formControlName="tv">Tv</mdb-checkbox>
+          <mdb-error *ngIf="tv.invalid && (tv.dirty || tv.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="tv.valid && (tv.dirty || tv.touched)">Input valid</mdb-success>
         </div>
         <div class="col-md-2 mx-auto d-flex justify-content-center">
-          <mdb-checkbox>WhiteBoard</mdb-checkbox>
+          <mdb-checkbox mdbValidate formControlName="whiteBoard">WhiteBoard</mdb-checkbox>
+          <mdb-error *ngIf="whiteBoard.invalid && (whiteBoard.dirty || whiteBoard.touched)">Input invalid</mdb-error>
+            <mdb-success *ngIf="whiteBoard.valid && (whiteBoard.dirty || whiteBoard.touched)">Input valid</mdb-success>
         </div>
       </div>
     
