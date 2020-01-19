@@ -4,12 +4,21 @@ require("../config/auth")(passport);
 const router = express.Router();
 const Space = require("../model/space");
 const request = require("superagent");
-const helper = require('../helper/helper')
+const helper = require('../helper/helper');
 const jwt = require("jsonwebtoken");
 const moment = require("moment");
-const momentTimezone = require("moment-timezone");
-
-
+const momentTimezone = require("moment-timezone"),
+multer  = require('multer'),
+path   = require('path'),
+// storage = multer.diskStorage({
+//   destination: function (req, file, callback) {
+//     callback(null, './uploads')
+//   },
+//   filename: function (req, file, callback) {
+//     callback(null,  new Date().getTime().toString()+'-'+file.fieldname+path.extname(file.originalname));
+//   }
+// }),
+ upload = multer({ storage: helper.Spacestorage })
 // Get space based om location
 router.get("/space/locate", (req, res) => {
   console.log(process.env.GEOCODE);
@@ -436,7 +445,25 @@ router.post("/subscribe", (req, res) => {
     });
 });
 
-
+router.post('/upload', upload.array('images', 12), function (req, res, next) {
+  // req.files is array of `photos` files
+  // req.body will contain the text fields, if there were any
+  if(req.files){
+    // console.log(req.files);   
+    const imageInfo = req.files.map(data => {
+      const image = {}
+      image.secure_url =  data.secure_url, 
+      image.public_id = data.public_id, 
+     image.originalname = data.originalname
+     return image
+    } )
+    console.log(imageInfo);
+    res.json({ success: true, message: "uploaded sucessfully", imageInfo });
+   
+  }else{
+    res.json({ success: false, message: "upload failed" });
+  }
+})
 
 // post send availability message
 router.post("/email", (req, res) => {
