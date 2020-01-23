@@ -39,23 +39,25 @@ export class ModalComponent implements OnInit {
     return this.validatingForm.get('modalFormElegantPassword');
   }
 
- login(){
-   
-   this.user.username =  this.modalFormElegantUsername.value;
-   this.user.password =  this.modalFormElegantPassword.value;
-   this.dispatch.login(this.user).subscribe(res => {
-     console.log(res)
-     this.data = res['token']
-     localStorage.setItem('token', this.data);
-     let date = new Date()
-     localStorage.setItem('date', date.toDateString())
-     this.modalRef.hide()
-     this.router.navigate(['space'])
-   },err => {
-     console.log(err)
-     this.errMsg = err.error.message;
-   });
- }
+  login(){
+    
+    this.user.username =  this.modalFormElegantUsername.value;
+    this.user.password =  this.modalFormElegantPassword.value;
+    this.dispatch.login(this.user).subscribe(res => {
+      console.log(res)
+      this.data = res['token']
+      localStorage.setItem('token', this.data);      
+      let timeout = 1000 * 60 * 60  * 6
+      setTimeout(()=>{
+        localStorage.removeItem('token')
+      },timeout)
+      this.modalRef.hide()
+      this.router.navigate(['space'])
+    },err => {
+      console.log(err)
+      this.errMsg = err.error.message;
+    });
+  }
 
  openSignUp() {
 

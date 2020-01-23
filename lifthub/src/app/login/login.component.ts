@@ -46,9 +46,11 @@ export class LoginComponent implements OnInit {
     this.dispatch.login(this.user).subscribe(res => {
       console.log(res)
       this.data = res['token']
-      localStorage.setItem('token', this.data);
-      let date = new Date()
-      localStorage.setItem('date', date.toDateString())
+      localStorage.setItem('token', this.data);      
+      let timeout = 1000 * 60 * 60  * 6
+      setTimeout(()=>{
+        localStorage.removeItem('token')
+      },timeout)
       this.modalRef.hide()
       this.router.navigate(['space'])
     },err => {

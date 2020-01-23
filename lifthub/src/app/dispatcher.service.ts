@@ -7,9 +7,17 @@ import * as moment from 'moment-timezone';
   providedIn: 'root'
 })
 export class DispatcherService {
-   
-  constructor(private http: HttpClient) { }
+  httpOptions
+  constructor(private http: HttpClient) {
+    this.httpOptions = {
+      headers: new HttpHeaders({ 'Authorization': localStorage.getItem('token') })
+    };
+   }
 
+  // all Users
+  users() {
+    return this.http.get('/api/users');
+  }
   // signup new user
   signup(user) {
     return this.http.post('/api/signup', user);
@@ -28,6 +36,16 @@ export class DispatcherService {
   // search for space based on location and spacetype
   search(type, location) {
     return this.http.get(`/api/space/search?space=${type}&location=${location}`);
+  }
+  // add space
+  addSpace(space) {
+    
+    console.log(this.httpOptions)
+    return this.http.post(`/api/space/`, space, this.httpOptions);
+  }
+  uploadImage(formData) {    
+    console.log(this.httpOptions)
+    return this.http.post(`/api/upload`, formData);
   }
   // search based on spacetype
   spaceType(space) {
@@ -50,7 +68,10 @@ export class DispatcherService {
     };
     return this.http.get(`/api/user`,httpOptions);
   }
-  
+   // all bookings
+   Bookings(){
+    return this.http.get(`/api/bookings`);
+  }
   //delete booking
   deleteBooking(spaceId,bookingId){
     const options = {

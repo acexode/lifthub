@@ -9,6 +9,10 @@ import { EventSpaceComponent } from './user_page/event-space/event-space.compone
 import { SearchResultComponent } from './search-result/search-result.component';
 import { FunplacesComponent } from './user_page/funplaces/funplaces.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { CreateSpaceComponent } from './admin/create-space/create-space.component';
+
 // import { AuthGuard } from './auth.guard';
 
 
@@ -17,6 +21,20 @@ const routes: Routes = [
     path: '',
     redirectTo: 'space',
     pathMatch: 'full'
+  },
+  {
+    path: 'admin',    
+    component: AdminComponent,
+    children : [
+      {
+        path: 'dashboard',
+        component: AdminDashboardComponent
+      },
+      {
+        path: 'create_space',
+        component: CreateSpaceComponent
+      },
+    ]
   },
   {
     path: 'space',

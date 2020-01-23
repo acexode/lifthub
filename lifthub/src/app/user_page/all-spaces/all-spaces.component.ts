@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DispatcherService } from '../../dispatcher.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-all-spaces',
   templateUrl: './all-spaces.component.html',
@@ -10,6 +11,12 @@ import { Router } from '@angular/router';
 export class AllSpacesComponent implements OnInit {
 
   // sample raw data
+  optionsSelect = [
+    { value: 'Work Spaces', label: 'Work Spaces' },
+    { value: 'Event Spaces', label: 'Event Spaces' },
+    { value: 'Fun Spaces', label: 'Fun Spaces' },
+    { value: 'Bed Spaces', label: 'Bed Spaces' },
+    ];
   spaces = [{
     name: 'Meeting Spaces',   
     sub: [{
@@ -84,17 +91,8 @@ export class AllSpacesComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
-   const stored = localStorage.getItem("date")
-  const date1 : any = new Date(stored);
-  const date2 : any = new Date();
-  const diffTime = Math.abs(date2 - date1);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-  if( diffDays >= 1){
-    localStorage.removeItem('date')
-  }
-  console.log(diffDays);
-    console.log("entered");
+  ngOnInit() {    
+   
     if (navigator.geolocation) {
       console.log(true);
       navigator.geolocation.watchPosition(position =>{

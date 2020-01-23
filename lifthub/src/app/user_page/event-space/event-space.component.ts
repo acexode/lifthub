@@ -7,17 +7,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalComponent } from 'src/app/modal/modal.component';
 import { LoginComponent } from 'src/app/login/login.component';
 import { SignupComponent } from 'src/app/signup/signup.component';
-
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-event-space',
   templateUrl: './event-space.component.html',
   styleUrls: ['./event-space.component.scss']
 })
 export class EventSpaceComponent implements OnInit {
-
+  spaceCapcity = [
+    { cap: 'All', name: 'capacity' },
+    { cap: '1-5', name: 'capacity' },
+    { cap: '11-30', name: 'capacity' },
+    { cap: '31-50', name: 'capacity' },
+    { cap: '51-100', name: 'capacity' },
+    { cap: '101-250', name: 'capacity' },
+    { cap: '251-500', name: 'capacity' },
+    { cap: '500-750', name: 'capacity' },
+    { cap:' 750-1000', name: 'capacity' }
+  ];
   modalRef: MDBModalRef;
-  spaces; // = SampleData;
-  slides: any = [[]];
+  spaces;
+  unfiltered;
   options = {
     backdrop: true,
     keyboard: true,
@@ -28,29 +38,38 @@ export class EventSpaceComponent implements OnInit {
     containerClass: 'center',
     animated: true
   };
-constructor(private dispatcher: DispatcherService, private service: MDBModalService, private router: Router) { }
+constructor(private dispatcher: DispatcherService, private service: MDBModalService, private router: Router, public fb: FormBuilder) { }
 
-  // chunk(arr, chunkSize) {
-  //   let R = [];
-  //   for (let i = 0, len = arr.length; i < len; i += chunkSize) {
-  //     R.push(arr.slice(i, i + chunkSize));
-  //   }
-  //   return R;
-  // }
+capacityFilter = this.fb.group({
+  capacity: ['All']
+});
 
 ngOnInit() {
-  //this.slides = this.chunk(this.spaces, 3);
-  const path = this.router.url;
-  const index = path.lastIndexOf('/') + 1;
-  const space = path.substring(index);
-  console.log(space)
-  this.dispatcher.spaceType(space).subscribe((res:any) => {
-        console.log(res);
-        this.spaces = res.space;
-      }, error => {
-        console.log('Error', error);
-      });
+    
+    const path = this.router.url;
+    const index = path.lastIndexOf('/') + 1;
+    const space = path.substring(index);
+    this.dispatcher.spaceType(space).subscribe((res: any) => {      
+      this.spaces = res.space;
+      this.unfiltered = res.space;
+      
+    }, error => {
+      console.log('Error', error);
+    });
+
+    this.capacityFilter.valueChanges.subscribe(val =>{     
+  
+    let arr = this.unfiltered.filter(filter =>{ 
+      if (val.capacity == 'All'){        
+        return this.unfiltered         
+      }else {      
+       return filter.details.capacity == val.capacity
+      }  
+  });
+    this.spaces = arr;
+})
 }
+
 gotoBook(index) {
   console.log(index);
   if (this.dispatcher.isLoggedIn()) {
