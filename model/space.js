@@ -60,6 +60,8 @@ bookingSchema.path('bookingStart').validate(function(value) {
   // schema is empty for now
 const spaceSchema = Schema({
     spaceType: String,  // bed,conference,events etc.
+    category: String,
+    owner_id: {type: mongoose.Schema.Types.ObjectId, required: true,  ref: 'User' },
     details: {
         name: {type: String, required: true},
         capacity: {type: String},

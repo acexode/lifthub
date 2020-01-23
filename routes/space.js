@@ -120,10 +120,12 @@ router.get("/space", (req, res) => {
 
 // Post new space
 router.post("/space",passport.authenticate("jwt", { session: false }),(req, res) => {
-    const token = helper.getToken(req.header);
+    const token = helper.getToken(req.headers);
+    console.log(req.headers);
     if (token) {
       const newSpace = new Space({
         spaceType: req.body.type,
+        owner_id: req.user._id,
         details: {
           name: req.body.name,
           img: req.body.img,
@@ -138,8 +140,7 @@ router.post("/space",passport.authenticate("jwt", { session: false }),(req, res)
           breakfast: req.body.breakfast,
           whiteBoard: req.body.whiteBoard
         }
-      });
-      console.log(newSpace);
+      });    
       newSpace.save(err => {
         if (err) {
           res.json({ success: false, message: "failed to create new space" });
@@ -445,7 +446,7 @@ router.post("/subscribe", (req, res) => {
     });
 });
 
-router.post('/upload', upload.array('images', 12), function (req, res, next) {
+router.post('/upload', upload.array('uploads', 12), function (req, res, next) {
   // req.files is array of `photos` files
   // req.body will contain the text fields, if there were any
   if(req.files){

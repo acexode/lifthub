@@ -15,7 +15,16 @@ const userSchema = mongoose.Schema({
     password:{
         type: String,        
         required:true
-    }
+    },
+    role: {
+        type: String,
+        default: 'basic',
+        enum: ["basic", "admin"]
+    },
+    spaces: {
+        type: mongoose.Schema.Types.ObjectId,        
+        ref: "Space"
+    },
 })
 
 
