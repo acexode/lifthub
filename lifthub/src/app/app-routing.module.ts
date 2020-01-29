@@ -47,7 +47,7 @@ const routes: Routes = [
     path: 'space',
     component: UserPageComponent,
     children : [
-      {
+     {
         path: 'booking',
         component: BookingComponent
       },

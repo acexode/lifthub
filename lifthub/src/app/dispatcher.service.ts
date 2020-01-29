@@ -1,4 +1,4 @@
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment-timezone';
 
@@ -59,15 +59,12 @@ export class DispatcherService {
   }
 
   // get single space
-  getSingle(id){
+  getSingle(id) {
     return this.http.get(`/api/space/${id}`);
   }
   // get single space
-  getUserData(){
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Authorization': localStorage.getItem('token') })
-    };
-    return this.http.get(`/api/user`,httpOptions);
+  getUserData() {
+    return this.http.get(`/api/user`, this.httpOptions);
   }
    // all bookings
    Bookings(){
@@ -76,24 +73,22 @@ export class DispatcherService {
   //delete booking
   deleteBooking(spaceId,bookingId){
     const options = {
-      headers: new HttpHeaders({ 'Authorization': localStorage.getItem('token') }),      
+      headers: this.httpOptions.headers,
       body: {
         spaceId,
-        bookingId       
+        bookingId
       },
     };
-    
-      return this.http.delete("/api/space/"+ spaceId)
+    return this.http.delete('/api/space/' + spaceId);
   }
-  extendBooking(spaceId,bookingId){
-    const msg = {      
+  extendBooking(spaceId, bookingId) {
+    const msg = {
         spaceId,
         bookingId,
-        headers: new HttpHeaders({ 'Authorization': localStorage.getItem('token') }),
-        msg : "Requesting extension for booking"     
-      }
-    
-      return this.http.post("/api/email"+ spaceId, msg )
+        headers: this.httpOptions.headers,
+        msg : 'Requesting extension for booking'
+      };
+    return this.http.post('/api/email' + spaceId, msg );
   }
 
   // check if a space is available
@@ -115,25 +110,21 @@ export class DispatcherService {
  dateUTC = (dateString) => {
   // Ensure date data is saved in WAT and then converted to a Date object in UTC
   // momentTimezone.tz.names();
-    return moment.tz(dateString, "Africa/Lagos").toDate();
-  
+    return moment.tz(dateString, 'Africa/Lagos').toDate();
+
 }
 
 bookSpace(data, prevBooking) {
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Authorization': localStorage.getItem('token') })
-  };
-  console.log(httpOptions);
+
+  console.log(this.httpOptions);
   // convert to UTC Date Object
   const bookStart = this.dateUTC(data.startDate);
-  const bookEnd = this.dateUTC(data.endDate); 
-  console.log(bookStart)
-  console.log(bookEnd)
+  const bookEnd = this.dateUTC(data.endDate);
+
   // Convert booking Date objects into a number value
   const newBookingStart = bookStart.getTime();
-  const newBookingEnd = bookEnd.getTime(); 
-  console.log(newBookingStart);
-  console.log(newBookingEnd);
+  const newBookingEnd = bookEnd.getTime();
+
   // Check whether the new booking times overlap with any of the existing bookings
   let bookingClash = false;
   if (prevBooking.length > 0 ) {
@@ -154,9 +145,8 @@ bookSpace(data, prevBooking) {
   }
   // Ensure the new booking is valid (i.e. the start time is before the end time, and the booking cois for a future time)
   const validDate = newBookingStart < newBookingEnd && newBookingStart > new Date().getTime();
-  console.log(validDate)
   // If a recurring booking as been selected, ensure the end date is after the start date
-  const dateString = data.recurringData[0]
+  const dateString = data.recurringData[0];
 
   const validRecurring = (data.recurringData.length > 0) ?
     this.dateUTC(dateString).getTime() > newBookingEnd : true;
@@ -170,7 +160,7 @@ bookSpace(data, prevBooking) {
       spaceId: data.spaceId,
       recurring: data.recurringData
 
-    }, httpOptions).toPromise();
+    }, this.httpOptions).toPromise();
     //  .catch(err => alert(err.response.data.error.message.match(/error:.+/i)[0]))
   }
 

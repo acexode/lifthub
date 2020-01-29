@@ -1,7 +1,7 @@
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
-import {FormsModule,ReactiveFormsModule} from '@angular/forms'
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
@@ -38,6 +38,7 @@ import { CreateSpaceComponent } from './admin/create-space/create-space.componen
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +60,6 @@ import { CreateSpaceComponent } from './admin/create-space/create-space.componen
     SearchResultComponent,
     CheckAvailabilityComponent,
     BookingComponent,
-   
     FunplacesComponent,
     BookingformComponent,
     DashboardComponent,
@@ -80,7 +80,7 @@ import { CreateSpaceComponent } from './admin/create-space/create-space.componen
     FlashMessagesModule.forRoot(),
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
-  entryComponents: [LoginComponent,ModalComponent,SignupComponent,CheckAvailabilityComponent],
+  entryComponents: [LoginComponent, ModalComponent, SignupComponent, CheckAvailabilityComponent],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })
