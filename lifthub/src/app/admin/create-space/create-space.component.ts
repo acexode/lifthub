@@ -13,6 +13,11 @@ export class CreateSpaceComponent implements OnInit {
 
   SpaceForm: FormGroup;  
   selectSpaceType
+  categoryType
+  bedSpace
+  workSpace
+  eventSpace
+  funSpace
   disabledSubmitButton: boolean = true
   fileToUpload: File = null;
   docs: File;
@@ -27,6 +32,7 @@ export class CreateSpaceComponent implements OnInit {
     this.SpaceForm = fb.group({
       'spaceType': ['', Validators.required],      
       'name': ['', Validators.required],
+      'category': ['', Validators.required],
       'description': ['', Validators.required],
       'img': ['', Validators.required],
       'price': ['', Validators.required],
@@ -40,45 +46,68 @@ export class CreateSpaceComponent implements OnInit {
     
   }
   handleFileInput(event) {
-    console.log(event);
     this.uploadedFiles = event.target.files;
-        
-   
-}
+    console.log(event.target.files);
+  }
+  onChange(value) {
+    switch(this.spaceType.value) {
+      case this.selectSpaceType[0].value:
+        this.categoryType = this.workSpace       
+        break;
+      case this.selectSpaceType[1].value:
+        this.categoryType = this.eventSpace       
+        break;
+      case this.selectSpaceType[2].value:
+        this.categoryType = this.funSpace      
+        break;
+      case this.selectSpaceType[3].value:
+        this.categoryType = this.bedSpace        
+        break;      
+      default:
+        this.categoryType = this.workSpace
+    }    
+    //this.categoryType = value
+  }
   onSubmit() {
-    const formData = new FormData();
-    console.log(this.uploadedFiles)
-    console.log(this.uploadedFiles.length)
+    const formData = new FormData();   
     for (var i = 0; i < this.uploadedFiles.length; i++) {
         formData.append("uploads", this.uploadedFiles[i], this.uploadedFiles[i].name);
-    }  
-    console.log(formData.getAll('uploads'));
+    }    
+    
     this.dispatcher.uploadImage( formData)
-        .subscribe((res) => {
-            console.log(res);
-        })
-
-    //   console.log(this.SpaceForm.value)
-    //   const length : any = <File>event.target.files.length;
-    //   const formdata = new FormData();
-    //   for (let i = 0; i < length; i++) {
-    //     formdata.append('docs'+[i], this.docs[i], this.docs[i].name );
-    //     formdata.append('length', this.length)
-    // } 
-    // console.log(formdata);   
-    // console.log(this.docs.name)
-      // this.dispatcher.addSpace(this.SpaceForm.value).subscribe(res =>{
-      //   this.successMsg()
-      //   this.SpaceForm.reset()
-      //   this.disabledSubmitButton = true;
-      // },error =>{
-      //   console.log(error.error)
-      //   this.errMsg(error)
-      // })
+        .subscribe((res : any) => {          
+          console.log(res.images);
+            let  form  = {
+              'spaceType': this.SpaceForm.value.spaceType,      
+              'name': this.SpaceForm.value.name,
+              'category': this.SpaceForm.value.category,
+              'description': this.SpaceForm.value.description,
+              'img': res.images,
+              'price':this.SpaceForm.value.price,
+              'location': this.SpaceForm.value.location,
+              'tv': this.SpaceForm.value.tv,
+              'wifi': this.SpaceForm.value.wifi,
+              'projector': this.SpaceForm.value.projector,
+              'whiteBoard': this.SpaceForm.value.whiteBoard,
+              'breakfast': this.SpaceForm.value.breakfast,
+              }
+              console.log(form);
+            this.dispatcher.addSpace(form).subscribe(res =>{
+              this.successMsg()
+              console.log(res)
+              this.SpaceForm.reset()
+            }, error =>{
+              this.errMsg(error)
+              console.log(res)
+            })
+        })   
    
   }
   get spaceType() {
     return this.SpaceForm.get('spaceType');
+  }
+  get category() {
+    return this.SpaceForm.get('category');
   }
   get name() {
     return this.SpaceForm.get('name');
@@ -114,12 +143,57 @@ export class CreateSpaceComponent implements OnInit {
  
 
   ngOnInit() {
-    this.selectSpaceType = [
+      this.selectSpaceType = [
       { value: 'Work Spaces', label: 'Work Spaces' },
       { value: 'Event Spaces', label: 'Event Spaces' },
       { value: 'Fun Spaces', label: 'Fun Spaces' },
       { value: 'Bed Spaces', label: 'Bed Spaces' },
       ];
+      
+      this.bedSpace = [      
+      { value: 'Single bedrooms with one bed', label: 'Single bedrooms with one bed' },
+      { value: 'Single bedrooms with double beds', label: 'Single bedrooms with double beds' },
+      { value: 'Executive bedrooms', label: 'Executive bedrooms' },
+      { value: 'Executive suites', label: 'Executive suites' },
+      { value: 'Luxury suite', label: 'Luxury suite' },
+      { value: 'Apartments', label: 'Apartments' },
+      ];
+      this.workSpace = [       
+        { value: 'Private offices', label: 'Private offices' },
+        { value: 'Shared offices', label: 'Shared offices' },
+        { value: 'Co-working spaces', label: 'Co-working spaces' },
+        { value: 'Open workspaces', label: 'Open workspaces' },
+        ];
+      this.eventSpace = [      
+        { value: 'Picnics', label: 'Picnics' },
+        { value: 'Meetings', label: 'Meetings' },
+        { value: 'Private meeting', label: 'Private meeting' },
+        { value: 'Board meeting', label: 'Board meeting' },
+        { value: 'Group meeting', label: 'Group meeting' },
+        { value: 'Receptions', label: 'Receptions' },
+        { value: 'Conference spaces', label: 'Conference spaces' },
+        { value: 'Trainings', label: 'Trainings' },
+        { value: 'Seminars', label: 'Seminars' },
+        { value: 'Meetups', label: 'Meetups' },
+        { value: 'Lectures', label: 'Lectures' }
+        ];
+      this.funSpace = [      
+        { value: 'Restaurant', label: 'Restaurant' },
+        { value: 'Pub', label: 'Pub' },
+        { value: 'Bar', label: 'Bar' },
+        { value: 'Coffee shop', label: 'Coffee shop' },
+        { value: 'Library', label: 'Library' },
+        { value: 'Movies', label: 'Movies' },
+        { value: 'Concerts', label: 'Concerts' },
+        { value: 'Boat ride', label: 'Boat ride' },
+        { value: 'Book a club', label: 'Book a club' },
+        { value: 'Book a table at a club', label: 'Book a table at a club' },
+        { value: 'Bonfire night', label: 'Bonfire night' },
+        { value: 'Barbecue party', label: 'Barbecue party' },
+        { value: 'Stargazing', label: 'Stargazing' },
+      ]
+      this.categoryType = this.workSpace
+
   }
   successMsg():void {
     this.flashMessage.show(`New space successfully added.`, { cssClass: 'alert-success', timeout: 20000 });

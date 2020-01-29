@@ -55,7 +55,7 @@ const event = ['Picnics','Meetings', 'Trainings', 'Private meeting', 'Board meet
   return spaces 
 
 })
-const bed = ['Single bedrooms with one (1) bed', 'Single bedrooms with double beds', 'Executive bedrooms', 'Executive suite', 'Luxury suite' ,'Apartments' ].map(cat =>{
+const bed = ['Single bedrooms with one bed', 'Single bedrooms with double beds', 'Executive bedrooms', 'Executive suite', 'Luxury suite' ,'Apartments' ].map(cat =>{
         
   let spaces = []
   for(var i=0; i<= 5; i++){

@@ -13,8 +13,9 @@ export class DispatcherService {
       headers: new HttpHeaders({ 'Authorization': localStorage.getItem('token') })
     };
    }
-
-  // all Users
+   check() {    
+    return this.http.get(`/api/check`, this.httpOptions);
+  }
   users() {
     return this.http.get('/api/users');
   }

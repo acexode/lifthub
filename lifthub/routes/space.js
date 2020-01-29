@@ -20,6 +20,9 @@ path   = require('path'),
 // }),
  upload = multer({ storage: helper.Spacestorage })
 // Get space based om location
+
+console.log("hello")
+
 router.get("/space/locate", (req, res) => {
   console.log(process.env.GEOCODE);
   const lat = req.query.lat;
@@ -60,6 +63,7 @@ router.get("/space/locate", (req, res) => {
   );
 });
 
+
 // Get by location & spaceType
 router.get("/space/search", (req, res) => {
   var space = new RegExp(req.query.space, "i");
@@ -84,6 +88,7 @@ router.get("/space/search", (req, res) => {
     }
   );
 });
+
 
 // Get by spaceType
 router.get("/space/type", (req, res) => {
@@ -117,7 +122,27 @@ router.get("/space", (req, res) => {
   });
 });
 
+router.get("/check",(req, res) => {
+  const token = helper.getToken(req.headers);  
+  var ObjectId = require('mongoose').Types.ObjectId;    
+  jwt.verify(token,process.env.SECRET,(err,user)=>{ 
+    let expired
+    console.log(user)
+    console.log(user.exp)
+    const curr = Math.round(new Date().getTime()/1000);
+    console.log(curr)
+  
+    if(curr >= user.exp){
+      expired = true
+    }else{
+      expired = false
+    }
 
+    res.json({  expired });
+
+  })
+
+})
 // Post new space
 router.post("/space",passport.authenticate("jwt", { session: false }),(req, res) => {
     const token = helper.getToken(req.headers);
@@ -125,6 +150,7 @@ router.post("/space",passport.authenticate("jwt", { session: false }),(req, res)
     if (token) {
       const newSpace = new Space({
         spaceType: req.body.type,
+        category : req.body.category,
         owner_id: req.user._id,
         details: {
           name: req.body.name,
@@ -143,6 +169,7 @@ router.post("/space",passport.authenticate("jwt", { session: false }),(req, res)
       });    
       newSpace.save(err => {
         if (err) {
+          console.log(err)
           res.json({ success: false, message: "failed to create new space" });
         } else {
           res.json({ success: true, message: "New space created" });
@@ -193,7 +220,7 @@ router.get("/user",(req,res)=>{
 });
 // Get Bookings
 router.get("/bookings",(req,res)=>{   
-            
+      console.log(req.user) 
       Space.find({}, (err, spaces) => {       
         if (err) {
           res.json({ success: false, message: err });
@@ -451,15 +478,9 @@ router.post('/upload', upload.array('uploads', 12), function (req, res, next) {
   // req.body will contain the text fields, if there were any
   if(req.files){
     // console.log(req.files);   
-    const imageInfo = req.files.map(data => {
-      const image = {}
-      image.secure_url =  data.secure_url, 
-      image.public_id = data.public_id, 
-     image.originalname = data.originalname
-     return image
-    } )
-    console.log(imageInfo);
-    res.json({ success: true, message: "uploaded sucessfully", imageInfo });
+    const images = req.files.map(data => data.secure_url )
+    console.log(images);
+    res.json({ success: true, message: "uploaded sucessfully", images });
    
   }else{
     res.json({ success: false, message: "upload failed" });

@@ -74,5 +74,8 @@ export class SignupComponent implements OnInit {
     this.modalRef.hide();
     this.service.show(LoginComponent);
   }
+  googleLogin(){
+    
+  }
 
 }
