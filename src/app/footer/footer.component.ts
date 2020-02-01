@@ -15,7 +15,7 @@ import { SignupComponent } from '../signup/signup.component';
 export class FooterComponent implements OnInit {
   date = new Date();
   year;
-  company = ["Our Missions","Careers","Newsroom"] 
+  Company = ["Our Missions","Careers","Newsroom"] 
   qLink = ["Take a tour","Opportunities","Community"] 
   gInfo = ["Blog","Forum","Businesses"] 
   modalRef: MDBModalRef;

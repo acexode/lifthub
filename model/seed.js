@@ -1,7 +1,7 @@
 const Space = require('./space')
-// Space.remove({}).then(() =>{
-//   console.log("all item removed")
-// });
+Space.remove({}).then(() =>{
+  console.log("all item removed")
+});
 owners = ['5e0762abf083a90e70f6abae','5e2026421e232121bc17fbfe','5e29cf02120e43514cc5c31e', '5e29cff9b3e4e6548057c6a2']
 const details =  {
   name: 'Single bedrooms with one bed ' ,
@@ -55,7 +55,7 @@ const event = ['Picnics','Meetings', 'Trainings', 'Private meeting', 'Board meet
   return spaces 
 
 })
-const bed = ['Single bedrooms with one (1) bed', 'Single bedrooms with double beds', 'Executive bedrooms', 'Executive suite', 'Luxury suite' ,'Apartments' ].map(cat =>{
+const bed = ['Single bedrooms with one bed', 'Single bedrooms with double beds', 'Executive bedrooms', 'Executive suite', 'Luxury suite' ,'Apartments' ].map(cat =>{
         
   let spaces = []
   for(var i=0; i<= 5; i++){

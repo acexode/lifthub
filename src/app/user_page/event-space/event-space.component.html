@@ -1,20 +1,27 @@
 <div class="container mt-5">  
   <div class="row">
-    <div class="col-md-2 mt-5">   
-      <h6>Space Capacity</h6>   
-        <form [formGroup]="capacityFilter">
-          <!-- Gender -->
-          <div *ngFor="let cap of spaceCapcity">
-            <label>
-             <input type="radio" class="with-gap" value="{{cap.cap}}" name="{{cap.name}}" formControlName="{{cap.name}}">
-              <span>{{cap.cap}}</span>
-            </label>
-          </div>          
-       </form>
+    <div class="col-md-3 mt-5 ">     
+      <mdb-card p-5>
+        <mdb-card-body>
+          <mdb-card-title>
+            <h6>Space Capacity</h6>
+          </mdb-card-title>
+          <form [formGroup]="capacityFilter">
+            <!-- Gender -->
+            <div *ngFor="let cap of spaceCapcity">
+              <label>
+               
+                <input type="radio" class="with-gap" value="{{cap.cap}}" name="{{cap.name}}" formControlName="{{cap.name}}">
+                <span>{{cap.cap}}</span>
+              </label>
+            </div>          
+         </form>
 
+        </mdb-card-body>
 
+      </mdb-card>  
     </div>
-    <div class="col-md-10 ">
+    <div class="col-md-9 ">
 
       <div  class="row mt-5">
         <div *ngFor="let space of spaces;let i =index" class="col-lg-4 col-md-6 mb-3 ">

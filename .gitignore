@@ -47,6 +47,3 @@ Thumbs.db
 
 # environment variables
 .env
-
-# image test uploads
-uploads

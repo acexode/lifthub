@@ -57,8 +57,10 @@ export class SignupComponent implements OnInit {
       this.dispatch.login(this.user).subscribe(token =>{
         this.data = token['token']
         localStorage.setItem('token', this.data);
-        let date = new Date()
-        localStorage.setItem('date', date.toDateString())
+        let timeout = 1000 * 60 * 60  * 6
+        setTimeout(()=>{
+          localStorage.removeItem('token')
+        },timeout)
         this.modalRef.hide()
         this.router.navigate(['space']);
       });
@@ -71,6 +73,9 @@ export class SignupComponent implements OnInit {
   openLogin() {
     this.modalRef.hide();
     this.service.show(LoginComponent);
+  }
+  googleLogin(){
+    
   }
 
 }

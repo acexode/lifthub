@@ -12,6 +12,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { CreateSpaceComponent } from './admin/create-space/create-space.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
+import { HomeComponent } from './admin/home/home.component';
 
 // import { AuthGuard } from './auth.guard';
 
@@ -23,9 +26,23 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'login',
+    component: LoginComponent    
+  },
+  {
     path: 'admin',    
-    component: AdminComponent,
-    children : [
+    component: HomeComponent,    
+    canActivate: [AuthGuard],
+    children : [      
+      {
+        path: '',
+        redirectTo: 'listings',
+        pathMatch: 'full'
+      },
+      {
+        path: 'listings',
+        component: AdminComponent
+      },
       {
         path: 'dashboard',
         component: AdminDashboardComponent
@@ -40,7 +57,7 @@ const routes: Routes = [
     path: 'space',
     component: UserPageComponent,
     children : [
-      {
+     {
         path: 'booking',
         component: BookingComponent
       },
