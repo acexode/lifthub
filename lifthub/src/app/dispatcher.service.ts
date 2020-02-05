@@ -7,11 +7,18 @@ import * as moment from 'moment-timezone';
   providedIn: 'root'
 })
 export class DispatcherService {
-    httpOptions = {
-      headers: new HttpHeaders({ Authorization: localStorage.getItem('token') })
+  httpOptions
+  constructor(private http: HttpClient) {
+    this.httpOptions = {
+      headers: new HttpHeaders({ 'Authorization': localStorage.getItem('token') })
     };
-  constructor(private http: HttpClient) { }
-
+   }
+   check() {    
+    return this.http.get(`/api/check`, this.httpOptions);
+  }
+  users() {
+    return this.http.get('/api/users');
+  }
   // signup new user
   signup(user) {
     return this.http.post('/api/signup', user);
@@ -31,6 +38,16 @@ export class DispatcherService {
   search(type, location) {
     return this.http.get(`/api/space/search?space=${type}&location=${location}`);
   }
+  // add space
+  addSpace(space) {
+    
+    console.log(this.httpOptions)
+    return this.http.post(`/api/space/`, space, this.httpOptions);
+  }
+  uploadImage(formData) {    
+    console.log(this.httpOptions)
+    return this.http.post(`/api/upload`, formData);
+  }
   // search based on spacetype
   spaceType(space) {
     return this.http.get(`/api/space/type?spaceType=${space}`);
@@ -49,9 +66,12 @@ export class DispatcherService {
   getUserData() {
     return this.http.get(`/api/user`, this.httpOptions);
   }
-
-  // delete booking
-  deleteBooking(spaceId, bookingId) {
+   // all bookings
+   Bookings(){
+    return this.http.get(`/api/bookings`);
+  }
+  //delete booking
+  deleteBooking(spaceId,bookingId){
     const options = {
       headers: this.httpOptions.headers,
       body: {

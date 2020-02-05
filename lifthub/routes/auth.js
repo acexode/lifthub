@@ -9,6 +9,19 @@ const User = require("../model/users");
 POST REQUEST
 SIGNUP, LOGIN & POST SPACE
 */
+router.get("/users", (req, res) => {
+  User.find((err, users) => {
+    if (err) {
+      return next(err);
+    } else {
+      if (!users) {
+        res.json({ success: false, message: "no user" });
+      } else {
+        res.json({ success: true, users });
+      }
+    }
+  });
+});
 router.post("/signup", (req, res) => {
   console.log(JSON.stringify(req.body.email));
   if (!req.body.email ||  !req.body.username || !req.body.password) {
@@ -20,7 +33,35 @@ router.post("/signup", (req, res) => {
     const newUser = new User({
       email: req.body.email,
       username: req.body.username,
-      password: req.body.password
+      password: req.body.password,
+      role: "basic"
+    });
+    newUser.save(err => {
+      if (err) {
+        return res
+          .status(401)
+          .json({ success: false, message: "Email already exist!!" });
+      }
+      res.json({
+        success: true,
+        message: "User created!!"
+      });
+    });
+  }
+});
+router.post("/registerAdmin", (req, res) => {
+  console.log(JSON.stringify(req.body.email));
+  if (!req.body.email ||  !req.body.username || !req.body.password) {
+    res.json({
+      success: false,
+      message: "Email, username, and password are required!!"
+    });
+  } else {
+    const newUser = new User({
+      email: req.body.email,
+      username: req.body.username,
+      password: req.body.password,
+      role: "admin"
     });
     newUser.save(err => {
       if (err) {
@@ -38,7 +79,7 @@ router.post("/signup", (req, res) => {
 
 //LOGIN
 router.post("/login", (req, res) => {
-  const username = { email: req.body.username };
+  const username = { username: req.body.username };
   const pwd = req.body.password;
   User.findOne({ username: req.body.username }, function(err, user) {
     if (err) {

@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DispatcherService } from '../dispatcher.service';
 import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
 import { CheckAvailabilityComponent } from '../check-availability/check-availability.component';
+import { LoginComponent } from '../login/login.component';
+import { SignupComponent } from '../signup/signup.component';
+import { ModalComponent } from '../modal/modal.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-search-result',
@@ -13,70 +17,52 @@ import { CheckAvailabilityComponent } from '../check-availability/check-availabi
 })
 export class SearchResultComponent implements OnInit {
   modalRef: MDBModalRef;
-  spaces = [
-    {
-    spaceType: "Bed Space",
-    details : {
-      name: "Single bed space",
-      img: "https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      location: "Central Business District, Abuja",
-      description: "Beautifully furnished bed space with smart room gadgets",
-      price: "1,000,000",
-      availability: true
-    },    
-  
-  },
-  {  
-    spaceType: "Bed Space",
-    details : {
-      name: "Cottage",
-      img: "https://images.pexels.com/photos/271743/pexels-photo-271743.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      location: "IBB Way, Abuja",
-      description: "Beautifully furnished office with electronic gadgets",
-      price: "1,500,000",
-      availability: true
-    },    
-  
-  },
-  {  
-    spaceType: "Bed Space",
-    details : {
-      name: "Double bed space",
-      img: "https://images.pexels.com/photos/237371/pexels-photo-237371.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      location: "Central Business District, Abuja",
-      description: "Beautifully furnished double bed space with smart room gadgets",
-      price: "1,200,000",
-      availability: true
-    },    
-  
-  },
-];
-  constructor(private route: ActivatedRoute, private dispatcher: DispatcherService, private service: MDBModalService) { }
+  spaces;
+  model;
+  options = {
+    backdrop: true,
+    keyboard: true,
+    focus: true,
+    show: false,
+    ignoreBackdropClick: false,
+    class: 'modal-top',
+    containerClass: 'center',
+    animated: true
+  };
+  // tslint:disable-next-line: max-line-length
+  constructor(private dispatcher: DispatcherService, private service: MDBModalService, private router: Router, private route: ActivatedRoute, private form: FormsModule) { }
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      const {space, location} = params;
-      console.log(params);
-      this.dispatcher.search(space, location).subscribe((res) => {
-          console.log(res);
+  ngOnInit() {    
+    this.route
+    .queryParams
+    .subscribe(obj => {        
+      const {space, location} = obj 
+        this.dispatcher.search(space, location).subscribe((res: any) => {         
+          this.spaces = res.space;
         }, error => {
           console.log('Error', error);
         });
 
-      });
+    }).unsubscribe()
+
   }
-  CheckAvailability(){
-    console.log("clicked")
-    this.modalRef = this.service.show(CheckAvailabilityComponent, {
-      backdrop: true,
-      keyboard: true,
-      focus: true,
-      show: false,
-      ignoreBackdropClick: false,
-      class: ' modal-top',
-      containerClass: 'center',
-      animated: true
-  });
+
+  gotoBook(index) {
+    console.log(index);
+    if (this.dispatcher.isLoggedIn()) {
+      this.router.navigate(['space/booking', { data: index }]);
+    } else {
+     
+      this.modalRef = this.service.show(ModalComponent, this.options);
+
+    }
+  }
+  openLogin() {
+    this.modalRef = this.service.show(LoginComponent, this.options);
+  }
+  openSignUp() {
+    this.modalRef.hide();
+    this.modalRef = this.service.show(SignupComponent, this.options);
   }
 
 }

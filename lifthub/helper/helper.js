@@ -1,6 +1,8 @@
 const moment = require("moment");
 const momentTimezone = require("moment-timezone");
 const nodemailer = require("nodemailer");
+const cloudinary = require("cloudinary");
+const cloudinaryStorage = require("multer-storage-cloudinary");
 const googleMapsClient = require("@google/maps").createClient({
   key: process.env.GEOCODE
 });
@@ -82,12 +84,23 @@ function reminder(email,space,bookingStart,bookingEnd){
   const location = (lat,lng) => {
 
   }
-
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+    });
+    const Spacestorage = cloudinaryStorage({
+    cloudinary: cloudinary,
+    folder: "space",
+    allowedFormats: ["jpg", "png"],
+    transformation: [{ width: 500, height: 500, crop: "limit" }]
+    });
   module.exports = {
       reminder,
       dateWAT,
       durationHours,
       getToken,
-      googleMapsClient
+      googleMapsClient,
+      Spacestorage
   }
   

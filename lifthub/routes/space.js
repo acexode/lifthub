@@ -4,13 +4,25 @@ require("../config/auth")(passport);
 const router = express.Router();
 const Space = require("../model/space");
 const request = require("superagent");
-const helper = require('../helper/helper')
+const helper = require('../helper/helper');
 const jwt = require("jsonwebtoken");
 const moment = require("moment");
-const momentTimezone = require("moment-timezone");
-
-
+const momentTimezone = require("moment-timezone"),
+multer  = require('multer'),
+path   = require('path'),
+// storage = multer.diskStorage({
+//   destination: function (req, file, callback) {
+//     callback(null, './uploads')
+//   },
+//   filename: function (req, file, callback) {
+//     callback(null,  new Date().getTime().toString()+'-'+file.fieldname+path.extname(file.originalname));
+//   }
+// }),
+ upload = multer({ storage: helper.Spacestorage })
 // Get space based om location
+
+console.log("hello")
+
 router.get("/space/locate", (req, res) => {
   console.log(process.env.GEOCODE);
   const lat = req.query.lat;
@@ -51,13 +63,16 @@ router.get("/space/locate", (req, res) => {
   );
 });
 
+
 // Get by location & spaceType
 router.get("/space/search", (req, res) => {
   var space = new RegExp(req.query.space, "i");
   var location = new RegExp(req.query.location, "i");
   console.log(space);
+  console.log('location');
+  console.log(location);
   Space.find(
-    { spaceType: space, "details.location": location },
+    { 'spaceType': space, "details.location": location },
     {},
     (err, space) => {
       if (err) {
@@ -66,6 +81,7 @@ router.get("/space/search", (req, res) => {
         if (!space) {
           res.json({ success: false, message: "no space" });
         } else {
+         console.log(space.length);
           res.json({ success: true, space: space });
         }
       }
@@ -73,11 +89,12 @@ router.get("/space/search", (req, res) => {
   );
 });
 
+
 // Get by spaceType
 router.get("/space/type", (req, res) => {
   var space = new RegExp(req.query.spaceType, "i");
   console.log("spacetype: " + req.query.spaceType);
-  Space.find({ spaceType: space }, {}, (err, space) => {
+  Space.find({ "details.name": space }, {}, (err, space) => {
     if (err) {
       res.json({ success: false, message: err });
     } else {
@@ -105,13 +122,36 @@ router.get("/space", (req, res) => {
   });
 });
 
+router.get("/check",(req, res) => {
+  const token = helper.getToken(req.headers);  
+  var ObjectId = require('mongoose').Types.ObjectId;    
+  jwt.verify(token,process.env.SECRET,(err,user)=>{ 
+    let expired
+    console.log(user)
+    console.log(user.exp)
+    const curr = Math.round(new Date().getTime()/1000);
+    console.log(curr)
+  
+    if(curr >= user.exp){
+      expired = true
+    }else{
+      expired = false
+    }
 
+    res.json({  expired });
+
+  })
+
+})
 // Post new space
 router.post("/space",passport.authenticate("jwt", { session: false }),(req, res) => {
-    const token = helper.getToken(req.header);
+    const token = helper.getToken(req.headers);
+    console.log(req.headers);
     if (token) {
       const newSpace = new Space({
         spaceType: req.body.type,
+        category : req.body.category,
+        owner_id: req.user._id,
         details: {
           name: req.body.name,
           img: req.body.img,
@@ -126,10 +166,10 @@ router.post("/space",passport.authenticate("jwt", { session: false }),(req, res)
           breakfast: req.body.breakfast,
           whiteBoard: req.body.whiteBoard
         }
-      });
-      console.log(newSpace);
+      });    
       newSpace.save(err => {
         if (err) {
+          console.log(err)
           res.json({ success: false, message: "failed to create new space" });
         } else {
           res.json({ success: true, message: "New space created" });
@@ -176,6 +216,25 @@ router.get("/user",(req,res)=>{
         }
       });
     });   
+  
+});
+// Get Bookings
+router.get("/bookings",(req,res)=>{   
+      console.log(req.user) 
+      Space.find({}, (err, spaces) => {       
+        if (err) {
+          res.json({ success: false, message: err });
+        } else {
+          if (!spaces) {
+            res.json({ success: false, message: "user has no booking" });
+          } else {
+              var bookings = spaces.filter(space => space.bookings.length != 0)
+              res.json({ success: true, bookings });
+                 
+          }
+        }
+      });
+ 
   
 });
 // Update space
@@ -414,7 +473,19 @@ router.post("/subscribe", (req, res) => {
     });
 });
 
-
+router.post('/upload', upload.array('uploads', 12), function (req, res, next) {
+  // req.files is array of `photos` files
+  // req.body will contain the text fields, if there were any
+  if(req.files){
+    // console.log(req.files);   
+    const images = req.files.map(data => data.secure_url )
+    console.log(images);
+    res.json({ success: true, message: "uploaded sucessfully", images });
+   
+  }else{
+    res.json({ success: false, message: "upload failed" });
+  }
+})
 
 // post send availability message
 router.post("/email", (req, res) => {
