@@ -1,7 +1,7 @@
 const Space = require('./space')
-// Space.remove({}).then(() =>{
-//   console.log("all item removed")
-// });
+Space.remove({}).then(() =>{
+  console.log("all item removed")
+});
 owners = ['5e0762abf083a90e70f6abae','5e2026421e232121bc17fbfe','5e29cf02120e43514cc5c31e', '5e29cff9b3e4e6548057c6a2']
 const details =  {
   name: 'Single bedrooms with one bed ' ,

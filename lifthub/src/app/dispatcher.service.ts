@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import * as moment from 'moment-timezone';
+
 
 
 @Injectable({
@@ -61,6 +62,10 @@ export class DispatcherService {
   // get single space
   getSingle(id) {
     return this.http.get(`/api/space/${id}`);
+  }
+  // get spaces owned by current admin
+  ownerSpaces() {
+    return this.http.get(`/api/ownerSpaces`, this.httpOptions);
   }
   // get single space
   getUserData() {

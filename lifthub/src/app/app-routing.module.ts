@@ -14,6 +14,7 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { CreateSpaceComponent } from './admin/create-space/create-space.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
+import { HomeComponent } from './admin/home/home.component';
 
 // import { AuthGuard } from './auth.guard';
 
@@ -30,9 +31,18 @@ const routes: Routes = [
   },
   {
     path: 'admin',    
-    component: AdminComponent,
+    component: HomeComponent,    
     canActivate: [AuthGuard],
     children : [      
+      {
+        path: '',
+        redirectTo: 'listings',
+        pathMatch: 'full'
+      },
+      {
+        path: 'listings',
+        component: AdminComponent
+      },
       {
         path: 'dashboard',
         component: AdminDashboardComponent

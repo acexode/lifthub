@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-navigation',
@@ -13,8 +14,7 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
   }
 
-  logOut(){
-    
+  logOut(){    
     localStorage.removeItem('token')   
     this.router.navigate(['space']);
   }

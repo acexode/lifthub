@@ -3,8 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 
 import { DispatcherService } from '../dispatcher.service';
-import * as M from '../../assets/js/materialize.min.js';
 import { FlashMessagesService } from 'angular2-flash-messages';
+
+declare const M:any
+declare const payWithRave: any
+
 @Component({
   selector: 'app-bookingform',
   encapsulation: ViewEncapsulation.None,
@@ -85,7 +88,12 @@ export class BookingformComponent implements OnInit {
         existingBookings
       ).then((space:any) => {
            // If the new booking is successfully saved to the database
-           this.onSuccess.emit(space.spaceType);               
+           if(space){
+             alert('hey')
+               payWithRave()
+              // console.log(payWithRave());
+              this.onSuccess.emit(space.spaceType);               
+           }
       });
 
     } catch (err) {
@@ -139,6 +147,7 @@ export class BookingformComponent implements OnInit {
      }
 
   }
+  
 
 }
 

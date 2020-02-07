@@ -94,7 +94,7 @@ router.get("/space/search", (req, res) => {
 router.get("/space/type", (req, res) => {
   var space = new RegExp(req.query.spaceType, "i");
   console.log("spacetype: " + req.query.spaceType);
-  Space.find({ "details.name": space }, {}, (err, space) => {
+  Space.find({ "category": space }, {}, (err, space) => {
     if (err) {
       res.json({ success: false, message: err });
     } else {
@@ -123,23 +123,34 @@ router.get("/space", (req, res) => {
 });
 
 router.get("/check",(req, res) => {
-  const token = helper.getToken(req.headers);  
-  var ObjectId = require('mongoose').Types.ObjectId;    
-  jwt.verify(token,process.env.SECRET,(err,user)=>{ 
-    let expired
-    console.log(user)
-    console.log(user.exp)
-    const curr = Math.round(new Date().getTime()/1000);
-    console.log(curr)
-  
-    if(curr >= user.exp){
-      expired = true
-    }else{
-      expired = false
+  const token = helper.getToken(req.headers);      
+  jwt.verify(token,process.env.SECRET,(err,user)=>{     
+    console.log(user);
+    if(user){     
+      res.json({  expired : true });
+    }else{    
+      res.json({  expired : false });
     }
+  })
 
-    res.json({  expired });
-
+})
+router.get("/ownerSpaces",(req, res) => {
+  const token = helper.getToken(req.headers);    
+  jwt.verify(token,process.env.SECRET,(err,user)=>{ 
+    console.log('user')
+    console.log(user)
+    Space.find({'owner_id': user._id}, (err, spaces) => {
+      if (err) {
+        res.json({ success: false, message: err });
+      } else {
+        if (!spaces) {
+          res.json({ success: false, message: "no space" });
+        } else {
+          console.log(spaces[0]);
+          res.json({ success: true, spaces: spaces });
+        }
+      }
+    });
   })
 
 })
@@ -200,10 +211,8 @@ router.get("/space/:id", (req, res) => {
 });
 // Get user
 router.get("/user",(req,res)=>{
-    const token = helper.getToken(req.headers);  
-    var ObjectId = require('mongoose').Types.ObjectId;    
-    jwt.verify(token,process.env.SECRET,(err,user)=>{ 
-            
+    const token = helper.getToken(req.headers);       
+    jwt.verify(token,process.env.SECRET,(err,user)=>{             
       Space.find({'bookings.user': user._id }, {}, (err, space) => {       
         if (err) {
           res.json({ success: false, message: err });

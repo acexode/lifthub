@@ -1,9 +1,10 @@
-import { Component, OnInit,HostListener } from '@angular/core';
+import { Component, OnInit,HostListener, Inject } from '@angular/core';
 import { DispatcherService } from '../dispatcher.service';
 import {Router} from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
 import { SignupComponent } from '../signup/signup.component';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   data;
   disabledSubmitButton = true;
   // tslint:disable-next-line: max-line-length
-  constructor( private router: Router, private dispatch: DispatcherService, public modalRef: MDBModalRef, private service: MDBModalService) {
+  constructor(private router: Router, private dispatch: DispatcherService, public modalRef: MDBModalRef, private service: MDBModalService) {
    }
    validatingForm: FormGroup;
    ngOnInit() {
