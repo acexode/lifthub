@@ -1,8 +1,9 @@
-import { Component, OnInit, HostListener,ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, HostListener,ViewEncapsulation, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DispatcherService } from 'src/app/dispatcher.service';
 import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
 import { ModalComponent } from 'src/app/modal/modal.component';
+
 
 @Component({
   selector: 'app-user-nav',  

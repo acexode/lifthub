@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DispatcherService } from 'src/app/dispatcher.service';
 
+declare const payWithRave: any
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
@@ -11,12 +12,16 @@ export class UserPageComponent implements OnInit {
   constructor(private dispatcher: DispatcherService) { }
 
   ngOnInit() {
-    this.dispatcher.check().subscribe((decode:any) =>{
-      console.log(decode)
-      if(decode.expired){
-        localStorage.removeItem('token')
+    console.log('decode');
+   
+    this.dispatcher.check().subscribe((data:any) =>{
+      console.log('decode')
+      console.log(data.expired)
+      if(data.expired){
+        console.log('all good');       
       }else{
-        console.log('all good');
+        localStorage.removeItem('token')
+        console.log('removed token');
       }
     })
   }

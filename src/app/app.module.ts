@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -32,9 +32,11 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminComponent } from './admin/admin.component';
 import { NavigationComponent } from './admin/navigation/navigation.component';
+import { AdminFooterComponent } from './admin/footer/footer.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { CreateSpaceComponent } from './admin/create-space/create-space.component';
 import { HomeComponent } from './admin/home/home.component';
+
 
 
 
@@ -68,17 +70,21 @@ import { HomeComponent } from './admin/home/home.component';
     NavigationComponent,
     AdminDashboardComponent,    
     CreateSpaceComponent, HomeComponent,
+    AdminFooterComponent
 
     
   ],  
   imports: [
     MDBBootstrapModule.forRoot(),
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     FlashMessagesModule.forRoot(),
+    CommonModule
+  
+    
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   entryComponents: [LoginComponent, ModalComponent, SignupComponent, CheckAvailabilityComponent],
