@@ -1,5 +1,5 @@
 import { SampleData } from './../sample';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 
 import { DispatcherService } from '../dispatcher.service';
@@ -29,8 +29,10 @@ export class BookingformComponent implements OnInit {
     recurringDate;
     recurringOption;
     errMsg = false;
-    spacePrice 
+    spacePrice  = 1000
+    paymentSuccessful = false
     services = 0
+    user
     serviceObject = {
       wifi : false,
       projector: false,
@@ -39,14 +41,16 @@ export class BookingformComponent implements OnInit {
       whiteboard : false
 
     }
-  constructor(private dispatcher: DispatcherService, private route: ActivatedRoute, private flashMessage: FlashMessagesService) { }
+  constructor(private dispatcher: DispatcherService, private route: ActivatedRoute, private flashMessage: FlashMessagesService, private router: Router) { }
 
    ngOnInit() {
     const id = this.route.snapshot.paramMap.get('data');
     setTimeout(() => this.success = true, 10000);
     this.dispatcher.getSingle(id).subscribe((data: any) => {
       this.spaceData = data.space;
-      console.log(this.spaceData);
+      this.spacePrice = data.space.details.price
+      console.log(data.space);
+      console.log(this.spacePrice);
       console.log(this.minDate());
       // init form
       this.checkInDate = M.Datepicker.init(this.elem('#checkInDate'), {minDate: this.minDate(), format: 'yyyy-mm-dd'});
@@ -58,6 +62,10 @@ export class BookingformComponent implements OnInit {
       M.Datepicker.getInstance(this.elem('#checkOutDate'), {minDate: this.minDate()}).gotoDate(this.minDate());
 
     });
+    this.dispatcher.getUserData().subscribe((data:any) => {
+      console.log(data);
+      this.user = data.user
+    })
 
     // M.DatePicker.getInstance(this.elem('#checkOutDate')).gotoDate(this.minDate());
     // M.DatePicker.getInstance(this.elem('#recurringDate')).gotoDate(this.minDate());
@@ -70,6 +78,7 @@ export class BookingformComponent implements OnInit {
   // return id of elements 
   elem(elm) {
     return document.querySelector(elm);
+   
   }
 
   // return last item in booking array of space
@@ -85,14 +94,14 @@ export class BookingformComponent implements OnInit {
   }
 
 
-  bookSpace = ({ startDate, endDate, spaceId, recurringData }) => {
+  bookSpace = ({ startDate, endDate, spaceId, recurringData, price }) => {
     const existingBookings = this.spaceData.bookings ;
     console.log(existingBookings);
 
     // Check if there is a clash and, if not, save the new booking to the database
     try {
       this.dispatcher.bookSpace(
-        { startDate, endDate, spaceId, recurringData },
+        { startDate, endDate, spaceId, recurringData, price },
         existingBookings
       ).then((space: any) => {
            // If the new booking is successfully saved to the database
@@ -135,34 +144,55 @@ export class BookingformComponent implements OnInit {
     console.log('initialize payment');
     let lastBooking = space.bookings[space.bookings.length - 1];
     console.log(lastBooking);
+    console.log('current space');
+    console.log(space);
+
     const x = getpaidSetup({
         PBFPubKey: 'FLWPUBK-73f9f2047d8df29124adc6d43aa6134a-X',
         // PBFPubKey: 'FLWPUBK-e2f49a592820916c1f1c939c171b645a-X',
-        customer_email: 'abudawud92@gmail.com',
-        amount: 2000,
-        customer_phone: '2347056855607',
-        currency: 'NGN',
+        customer_email: this.user.email,
+        amount: this.services + this.spacePrice,
+       // customer_phone: '2347056855607',
+        currency: 'NGN',        
         txref: 'rave-123456',
         meta: [{
             metaname: 'flightID',
             metavalue: 'AP1234'
         }],
-        onclose : () => {
+        onclose : (response) => {
 
-            this.dispatcher.deleteBooking(lastBooking.spaceId, lastBooking._id).subscribe(() => {
-              alert('booking failed');
-            });
+            if(this.paymentSuccessful){
+              alert('payment successful');
+            }else{
+              this.dispatcher.deleteBooking(lastBooking.spaceId, lastBooking._id).subscribe(() => {
+                alert('booking failed');
+              });
+            }
         },
         callback : (response) => {
             let txref = response.tx.txRef; // collect txRef returned and pass to a 					server page to complete status check.
-            console.log('This is the response returned after a charge', response);
-            if (
-                response.tx.chargeResponseCode === '00' ||
-                response.tx.chargeResponseCode === '0'
-            ) {
+            console.log(response);
+            if (response.tx.chargeResponseCode === '00' ||  response.tx.chargeResponseCode === '0' ) {
                 // redirect to a success page
-                alert('payment successful');
-                this.onSuccess.emit(space.spaceType);
+                console.log(response);
+                const details = {
+                  amount: response.tx.amount,
+                  spaceId:  lastBooking.spaceId,
+                  customer: lastBooking.user,
+                  name : space.details.name,
+                  bookingStart : lastBooking.bookingStart,
+                  bookingEnd : lastBooking.bookingEnd,
+                  owner : space.owner_id,
+                  txref : response.txref
+                }
+                this.paymentSuccessful = true
+                console.log('details');
+                console.log(details);
+                // alert('payment successful');              
+                this.dispatcher.transaction(details).subscribe(data =>{
+                  this.onSuccess.emit(space.spaceType);
+                  this.router.navigate(['/space/dashboard']);
+                })
             } else {
                 // redirect to a failure page.
                 this.dispatcher.deleteBooking(lastBooking.spaceId, lastBooking._id).subscribe(() => {
@@ -175,26 +205,27 @@ export class BookingformComponent implements OnInit {
     });
 }
   FieldsChange(event:any){
-  console.log(event.element);
-  if(event.element.checked){
-        this.serviceObject[event.element.id] = true
-        this.services  += parseInt(event.element.value);
+  console.log(event.currentTarget.id);
+  if(event.currentTarget.checked){
+        this.serviceObject[event.currentTarget.id] = true
+        this.services  += parseInt(event.currentTarget.value);
   }else{
-    this.serviceObject[event.element.id] = false
-    this.services -= parseInt(event.element.value);
+    this.serviceObject[event.currentTarget.id] = false
+    this.services -= parseInt(event.currentTarget.value);
   }
   
       
-    }
+  }
   onSubmit() {
     console.log(this.checkInDate);
-    console.log(this.services)
+    console.log(this.services + this.spacePrice)
     console.log(this.serviceObject)
     const startDate = this.checkInDate.toString() + ' ' + this.checkInTime.time + ' ' + this.checkInTime.amOrPm;
     const endDate = this.checkOutDate.toString() + ' ' + this.checkOutTime.time + ' ' + this.checkInTime.amOrPm;
     const recurringType = this.elem('#recurringOption').value;
     const recurringDate = this.recurringDate.toString();
     const recurringData = this.handleRecurringData(recurringType, recurringDate);
+   
     if (this.checkInDate.toString() === '' || this.checkInDate.toString() === '') {
        this.errMsg = true;
      } else {
@@ -203,6 +234,7 @@ export class BookingformComponent implements OnInit {
         startDate,
         endDate,
         spaceId:  this.spaceData._id,
+        price : this.services + this.spacePrice,
         recurringData
       };
       console.log(data);

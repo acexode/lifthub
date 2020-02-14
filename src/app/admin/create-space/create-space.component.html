@@ -84,7 +84,53 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="form-row">
+    <div class="col">
+      <div class="md-form">
+        <input type="number" id="wifi" class="form-control" formControlName="wifi" mdbInput mdbValidate>
+        <label for="wifi">Wifi</label>
+        <mdb-error *ngIf="wifi.invalid && (wifi.dirty || wifi.touched)">Input invalid</mdb-error>
+        <mdb-success *ngIf="wifi.valid && (wifi.dirty || wifi.touched)">Input valid</mdb-success>
+      </div>
+    </div>
+    <div class="col">
+      <div class="md-form">
+        <input type="number" id="tv" class="form-control" formControlName="tv" mdbInput mdbValidate>
+        <label for="tv">TV</label>
+        <mdb-error *ngIf="tv.invalid && (tv.dirty || tv.touched)">Input invalid</mdb-error>
+        <mdb-success *ngIf="tv.valid && (tv.dirty || tv.touched)">Input valid</mdb-success>
+      </div>
+    </div>
+    <div class="col">
+      <div class="md-form">
+        <input type="number" id="breakfast" class="form-control" formControlName="breakfast" mdbInput mdbValidate>
+        <label for="breakfast">Breakfast</label>
+        <mdb-error *ngIf="breakfast.invalid && (breakfast.dirty || breakfast.touched)">Input invalid</mdb-error>
+        <mdb-success *ngIf="breakfast.valid && (breakfast.dirty || breakfast.touched)">Input valid</mdb-success>
+      </div>
+    </div>
+    </div> 
+  <div class="form-row">    
+    <div class="col-md-4">
+      <div class="md-form">
+        <input type="number" id="projector" class="form-control" formControlName="projector" mdbInput mdbValidate>
+        <label for="projector">Projector</label>
+        <mdb-error *ngIf="projector.invalid && (projector.dirty || projector.touched)">Input invalid</mdb-error>
+        <mdb-success *ngIf="projector.valid && (projector.dirty || projector.touched)">Input valid</mdb-success>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="md-form">
+        <input type="number" id="whiteboard" class="form-control" formControlName="whiteboard" mdbInput mdbValidate>
+        <label for="whiteboard">WhiteBoard</label>
+        <mdb-error *ngIf="whiteBoard.invalid && (whiteBoard.dirty || whiteBoard.touched)">Input invalid</mdb-error>
+        <mdb-success *ngIf="whiteBoard.valid && (whiteBoard.dirty || whiteBoard.touched)">Input valid</mdb-success>
+      </div>
+    </div>
+  </div> 
+    
+  
+  <!-- <div class="row">
     <div class="col-md-2 mx-auto d-flex justify-content-center">
       <mdb-checkbox mdbValidate formControlName="wifi">Wifi</mdb-checkbox>
       <mdb-error *ngIf="wifi.invalid && (wifi.dirty || wifi.touched)">Input invalid</mdb-error>
@@ -110,7 +156,7 @@
       <mdb-error *ngIf="whiteBoard.invalid && (whiteBoard.dirty || whiteBoard.touched)">Input invalid</mdb-error>
         <mdb-success *ngIf="whiteBoard.valid && (whiteBoard.dirty || whiteBoard.touched)">Input valid</mdb-success>
     </div>
-  </div>
+  </div> -->
 
  
 

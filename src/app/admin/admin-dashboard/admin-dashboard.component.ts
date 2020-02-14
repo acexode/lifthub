@@ -10,6 +10,7 @@ export class AdminDashboardComponent implements OnInit {
   users
   spaces
   bookings
+  payments
   constructor(private dispatcher: DispatcherService) { }
 
   ngOnInit() {
@@ -17,11 +18,10 @@ export class AdminDashboardComponent implements OnInit {
       console.log(res)
       this.users = res.users
     })
-    this.dispatcher.Bookings().subscribe((res:any) => {        
-      this.spaces = res.bookings
-      const arr = this.spaces.map(book =>  book.bookings )
-      this.bookings = arr.flat(Infinity)     
-      
+  
+    this.dispatcher.payments().subscribe((res:any) =>{
+      this.payments = res.payments
+      console.log(this.payments);
     })
   }
   public getUser(id){   

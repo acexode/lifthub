@@ -1,15 +1,7 @@
 const mongoose = require("mongoose");
 const bycrypt = require("bcrypt-nodejs");
 
-const walletSchema = mongoose.Schema({
-    amount: Number,      
-    user: { type: mongoose.Schema.ObjectId, ref: 'User' },
-})
-const paymentSchema = mongoose.Schema({
-    amount: Number,
-    spaceId:  { type: mongoose.Schema.ObjectId, ref: 'Space' },
-    user: { type: mongoose.Schema.ObjectId, ref: 'User' },
-})
+
 const userSchema = mongoose.Schema({
     email:{
         type: String,
@@ -69,5 +61,6 @@ userSchema.methods.comparePassword = function(pwd,next){
     })
 };
 module.exports = mongoose.model("User",userSchema)
+
 
 

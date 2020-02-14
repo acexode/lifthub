@@ -1,6 +1,101 @@
 
-<div class="container mt-5">
-   
+<div class="row mt-3">
+  <div class="col-lg-4 col-md-6 mt-3">
+    <!--Card-->
+    <mdb-card cascade="true">
+
+      <!--Card image-->
+      <div class="view view-cascade gradient-card-header purple-gradient text-white">
+        <h2 class="card-header-title">{{50}}</h2>
+        <p>Total Number of Spaces</p>
+      </div>
+      <!--/Card image-->
+
+      <mdb-card-body cascade="true" class="text-center">
+        <!--Card content-->
+      </mdb-card-body>
+      <!--/.Card content-->
+
+    </mdb-card>
+    <!--/.Card-->
+  </div>
+  <div class="col-lg-4 col-md-6 mt-3">
+    <!--Card-->
+    <mdb-card cascade="true">
+
+      <!--Card image-->
+      <div class="view view-cascade gradient-card-header peach-gradient text-white">
+        <h2 class="card-header-title">50</h2>
+        <p>Total Number of Bookings</p>
+      </div>
+      <!--/Card image-->
+
+      <mdb-card-body cascade="true" class="text-center">
+        <!--Card content-->
+      </mdb-card-body>
+      <!--/.Card content-->
+
+    </mdb-card>
+    <!--/.Card-->
+  </div>
+  <div class="col-lg-4 col-md-6 mt-3">
+    <!--Card-->
+    <mdb-card cascade="true">
+
+      <!--Card image-->
+      <div class="view view-cascade gradient-card-header blue-gradient text-white">
+        <h2 class="card-header-title">20</h2>
+        <p>Total Number of Transactions</p>
+      </div>
+      <!--/Card image-->
+
+      <mdb-card-body cascade="true" class="text-center">
+        <!--Card content-->
+      </mdb-card-body>
+      <!--/.Card content-->
+
+    </mdb-card>
+    <!--/.Card-->
+  </div>
+</div>
+
+<div class="row mt-1">
+  <div class="col-md-12">   
+      <h4 class="h4-responsive text-white py-3 text-center">Bookings </h4>   
+      <table mdbTable #tableEl="mdbTable" class="z-depth-1">
+          <!--Table head-->
+          <thead class="view gradient-card-header blue darken-2">
+          <tr>
+              <th *ngFor="let head of headElements; let i = index" scope="col">{{head}}
+              </th>
+          </tr>
+          </thead>       
+          <tbody>                    
+            <tr *ngFor="let el of elements; let i = index">
+              <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                  scope="row">{{i + 1}}</th>
+              <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.spaceType}}</td>
+              <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.details.name}}</td>
+              <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.bookings.length}}</td>
+            </tr>
+              
+          </tbody>
+          <!--Table body-->
+          <tfoot class="grey lighten-5 w-100">
+            <tr>
+              <td colspan="4">
+                <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="elements"></mdb-table-pagination>
+              </td>
+            </tr>
+            </tfoot>
+      </table>
+  </div>
+</div>
+
+
+<!-- <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-12"> 
         <table mdbTable #tableEl="mdbTable" class="z-depth-1">
           <thead>
           <tr>
@@ -25,6 +120,7 @@
           </tr>
           </tfoot>
         </table>
-      
-   
-</div>
+      </div>
+    </div>
+       
+</div> -->

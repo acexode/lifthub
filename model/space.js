@@ -10,7 +10,8 @@ const bookingSchema =  Schema({
     bookingEnd: Date,
     startHour: Number,
     duration: Number,
-    recurring: [],    
+    recurring: [], 
+    price : Number,   
     spaceId: { type: Schema.ObjectId, ref: 'Space' }
   });
   // Validation to ensure a space cannot be double-booked
@@ -68,17 +69,18 @@ const spaceSchema = Schema({
         img: {type: [String], required: true},
         location: {type: String, required: true},
         description: {type: String, required: true},
-        price: {type: String, required: true},
+        price: {type: Number, required: true},
         capacity: {type: Number}        
     },
     assets: {
-        wifi: { type: Boolean, default: false },        
-        projector: { type: Boolean, default: false },
-        tv: { type: Boolean, default: false },       
-        breakfast: { type: Boolean, default: false },
-        whiteBoard: { type: Boolean, default: false }
+        wifi: {type: Number, required: true},        
+        projector: {type: Number, required: true},
+        tv: {type: Number, required: true},       
+        breakfast: {type: Number, required: true},
+        whiteBoard:{type: Number, required: true}
       },
-      bookings: [bookingSchema]
+      bookings: [bookingSchema],
+     
 
 });
 

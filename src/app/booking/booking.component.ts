@@ -4,7 +4,7 @@ import { DispatcherService } from '../dispatcher.service';
 import { SampleData } from '../sample';
 import { BookingformComponent } from '../bookingform/bookingform.component';
 import { FlashMessagesService } from 'angular2-flash-messages';
-declare const payWithRave: any
+
 @Component({
   selector: 'app-booking',
   encapsulation: ViewEncapsulation.None,
@@ -30,8 +30,6 @@ export class BookingComponent implements OnInit {
   }
   successMsg(space: any):void {
     this.flashMessage.show(`${space} successfully booked.`, { cssClass: 'alert-success', timeout: 20000 });
-    payWithRave() 
-    console.log(payWithRave);
     console.log('Picked date: ', space);
 }
 

@@ -138,7 +138,7 @@ router.get("/ownerSpaces",(req, res) => {
   const token = helper.getToken(req.headers);    
   jwt.verify(token,process.env.SECRET,(err,user)=>{ 
     console.log('user')
-    console.log(user)
+    console.log(user._id)
     Space.find({'owner_id': user._id}, (err, spaces) => {
       if (err) {
         res.json({ success: false, message: err });
@@ -228,21 +228,27 @@ router.get("/user",(req,res)=>{
   
 });
 // Get Bookings
-router.get("/bookings",(req,res)=>{   
-      console.log(req.user) 
-      Space.find({}, (err, spaces) => {       
+router.get("/bookings",(req,res)=>{  
+  const token = helper.getToken(req.headers);       
+  jwt.verify(token,process.env.SECRET,(err,user)=>{ 
+      console.log(user) 
+      Space.find({'owner_id': user._id}, (err, spaces) => {       
         if (err) {
           res.json({ success: false, message: err });
         } else {
           if (!spaces) {
             res.json({ success: false, message: "user has no booking" });
           } else {
+              // console.log(spaces);
               var bookings = spaces.filter(space => space.bookings.length != 0)
-              res.json({ success: true, bookings });
-                 
+              console.log('user bookings');
+              console.log(bookings);
+              res.json({ success: true, bookings });                 
           }
         }
       });
+
+    })   
  
   
 });
@@ -278,8 +284,9 @@ router.put("/:id", (req, res) => {
 // make booking
 router.put("/book/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
     const { id } = req.params;
-    const token = helper.getToken(req.headers); 
-   
+    const token = helper.getToken(req.headers);   
+    console.log('price');
+    console.log(req.body.price);
     if (token) {
       if (req.body.recurring.length === 0) {
         Space.findByIdAndUpdate(
@@ -295,6 +302,7 @@ router.put("/book/:id", passport.authenticate("jwt", { session: false }), (req, 
                   req.body.bookingStart,
                   req.body.bookingEnd
                 ),
+                price : req.body.price,
                 // Spread operator for remaining attributes
                 ...req.body
               }
@@ -482,6 +490,7 @@ router.post("/subscribe", (req, res) => {
     });
 });
 
+
 router.post('/upload', upload.array('uploads', 12), function (req, res, next) {
   // req.files is array of `photos` files
   // req.body will contain the text fields, if there were any
@@ -529,6 +538,7 @@ router.post("/email", (req, res) => {
     })
   })
 });
+
 
 
 module.exports = router;

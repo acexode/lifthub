@@ -8,14 +8,14 @@ const details =  {
   img: ['assets/deluxe.jpg','assets/small.jpg','assets/king.jpg'],
   location: 'Central Business District, Abuja',
   description: 'Beautifully furnished bed spaces with smart room gadgets',
-  price: '1,000,000',
+  price: 50000
   }
 const assets =  {
-  wifi: true,
-  projector: false,
-  tv: true,
-  breakfast: true,
-  whiteBoard: false
+  wifi: 6000,
+  projector: 8000,
+  tv: 7000,
+  breakfast: 12000,
+  whiteBoard: 3000
 }
 const booking = [] 
 const spaces = []

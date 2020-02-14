@@ -3,7 +3,7 @@
 class="text-center border border-light p-5 bookings"
 >
 
-<p class="h4 mb-2">Book</p>
+<p class="h4 mb-1">Book</p>
 <p *ngIf="errMsg" color="red" class="h6 alert-danger">CheckIn and Checkout cannot be empty</p>
 
 
@@ -92,45 +92,50 @@ class="text-center border border-light p-5 bookings"
     </div>
   </div>
 </div>
-
-<div class="row">
-  <p class="text-center">Services</p>
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><mdb-checkbox (change)="FieldsChange($event)" value="500" id ="wifi"></mdb-checkbox></span>            
-    </div>
-    <p class="form-control">Wifi</p>
+<div class="row text-center">
+  <p class="text-center">Serivces</p>
+</div>
+<div class="flex-container">
+ 
+  <div class=" mb-3">    
+    <label>
+      <input (change)="FieldsChange($event)" value="500" id ="wifi" type="checkbox" mdInput />
+      <span>Wifi</span>
+    </label>
+  </div>
+  <div class="mb-3">   
+    <label>
+      <input (change)="FieldsChange($event)" value="500" id ="breakfast" type="checkbox" mdInput />
+      <span>Breakfast</span>
+    </label>
+  </div>
+  <div class="input-group mb-3 ">   
+    <label>
+      <input (change)="FieldsChange($event)" value="500" id ="tv" type="checkbox" mdInput />
+      <span>TV</span>
+    </label>
+  </div> 
+</div>
+<div class="flex-container">
+  <div class="input-group mb-3">  
+    <label>
+      <input (change)="FieldsChange($event)" value="500" id ="projector" type="checkbox" mdInput />
+      <span>Projector</span>
+    </label>
   </div>
   <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><mdb-checkbox (change)="FieldsChange($event)" value="500" id ="breakfast"></mdb-checkbox></span>            
-    </div>
-    <p class="form-control">Breakfast </p>
-  </div>
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><mdb-checkbox (change)="FieldsChange($event)" value="500" id ="tv"></mdb-checkbox></span>            
-    </div>
-    <p class="form-control">TV</p>
-  </div>
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><mdb-checkbox (change)="FieldsChange($event)" value="500" id ="projector"></mdb-checkbox></span>            
-    </div>
-    <p class="form-control">Projector</p>
-  </div>
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><mdb-checkbox (change)="FieldsChange($event)" value="500" id ="whiteboard"></mdb-checkbox></span>            
-    </div>
-    <p class="form-control">Whiteboard</p>
+    <label>
+      <input (change)="FieldsChange($event)" value="500" id ="whiteboard" type="checkbox" mdInput />
+      <span>Whiteboard</span>
+    </label>    
   </div>
 </div>
 <!-- Booki button -->
 <div class="row">
+   
     <div class="col-lg-12">
         <button mdbBtn color="warning" block="true" type="submit">
-          Book
+          ₦{{spacePrice + services}} Book Space
         </button>
 
     </div>

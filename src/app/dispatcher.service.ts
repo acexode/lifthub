@@ -49,6 +49,10 @@ export class DispatcherService {
     console.log(this.httpOptions)
     return this.http.post(`/api/upload`, formData);
   }
+  transaction(details) {    
+    console.log(this.httpOptions)
+    return this.http.post(`/api/transactions`, details);
+  }
   // search based on spacetype
   spaceType(space) {
     return this.http.get(`/api/space/type?spaceType=${space}`);
@@ -67,13 +71,16 @@ export class DispatcherService {
   ownerSpaces() {
     return this.http.get(`/api/ownerSpaces`, this.httpOptions);
   }
+  payments() {
+    return this.http.get(`/api/payments`, this.httpOptions);
+  }
   // get single space
   getUserData() {
     return this.http.get(`/api/user`, this.httpOptions);
   }
    // all bookings
    Bookings(){
-    return this.http.get(`/api/bookings`);
+    return this.http.get(`/api/bookings`, this.httpOptions);
   }
   //delete booking
   deleteBooking(spaceId,bookingId){
@@ -120,7 +127,8 @@ export class DispatcherService {
 }
 
 bookSpace(data, prevBooking) {
-
+  console.log(data);
+  console.log(data.price);
   console.log(this.httpOptions);
   // convert to UTC Date Object
   const bookStart = this.dateUTC(data.startDate);
@@ -163,7 +171,8 @@ bookSpace(data, prevBooking) {
       bookingStart: bookStart,
       bookingEnd: bookEnd,
       spaceId: data.spaceId,
-      recurring: data.recurringData
+      recurring: data.recurringData,
+      price : data.price
 
     }, this.httpOptions).toPromise();
     //  .catch(err => alert(err.response.data.error.message.match(/error:.+/i)[0]))
