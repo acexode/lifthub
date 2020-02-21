@@ -1,106 +1,144 @@
-     <form        
-        (ngSubmit)="onSubmit()"
-        class="text-center border border-light p-5 bookings"
-        >
-       
-        <p class="h4 mb-2">Book</p>
-        <p *ngIf="errMsg" color="red" class="h6 alert-danger">CheckIn and Checkout cannot be empty</p>
-        
-        
-        <div class="form-row">
-          <div class="col-6">
-            
-            <div class="md-form">
-              <input
-                required
-                type="text"               
-                id="checkInDate"
-                class="datepicker form-control"
-                mdbInput
-              />
-              <label for="checkInDate">Check In</label>
-            </div>
-          </div>
-          <div class="col-6">
-            
-            <div class="md-form">
-              <input
-                required
-                type="text"                
-                id="checkInTime"
-                class="timepicker form-control"
-                mdbInput
-              />
-              <label for="checkInTime">Time</label>
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="col-6">
-            
-            <div class="md-form">
-              <input
-                required
-                type="text"                
-                id="checkOutDate"
-                class="datepicker form-control"
-                mdbInput
-              />
-              <label for="checkOutDate">Check Out</label>
-            </div>
-          </div>
-          <div class="col-6">
-            
-            <div class="md-form">
-              <input
-                required
-                type="text"               
-                id="checkOutTime"
-                class="timepicker form-control"
-                mdbInput
-              />
-              <label for="checkOutTime">Time</label>
-            </div>
-          </div>
-        </div>
-        <div class="form-row">          
-         <div class="col-12 text-center">
-           <span class="text-center">Recurring Date</span>
-         </div>
-          <div class="col-6 ">     
-            <div class="md-form input-field">              
-                <select class="sel"  id="recurringOption" required>
-                  <option value="none" disabled selected>Type</option>                 
-                    <option  value="none" >None</option>
-                    <option value="daily">Daily</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>                  
-                </select>                
-            </div>    
-            
-          </div>
-          <div class="col-6">            
-            <div class="md-form">
-              <input
-                required
-                type="text"               
-                id="recurringDate"
-                class="datepicker form-control"
-                mdbInput
-              />
-              <label for="recurringDate">Date</label>
-            </div>
-          </div>
-        </div>
-        <!-- Booki button -->
-        <div class="row">
-            <div class="col-lg-12">
-                <button mdbBtn color="warning" block="true" type="submit">
-                  Book
-                </button>
+<form        
+(ngSubmit)="onSubmit()"
+class="text-center border border-light p-5 bookings"
+>
 
-            </div>
-        </div>
-        </form>
+<p class="h4 mb-1">Book</p>
+<p *ngIf="errMsg" color="red" class="h6 alert-danger">CheckIn and Checkout cannot be empty</p>
 
-        
+
+<div class="form-row">
+  <div class="col-6">
+    
+    <div class="md-form">
+      <input
+        required
+        type="text"               
+        id="checkInDate"
+        class="datepicker form-control"
+        mdbInput
+      />
+      <label for="checkInDate">Check In</label>
+    </div>
+  </div>
+  <div class="col-6">
+    
+    <div class="md-form">
+      <input
+        required
+        type="text"                
+        id="checkInTime"
+        class="timepicker form-control"
+        mdbInput
+      />
+      <label for="checkInTime">Time</label>
+    </div>
+  </div>
+</div>
+<div class="form-row">
+  <div class="col-6">
+    
+    <div class="md-form">
+      <input
+        required
+        type="text"                
+        id="checkOutDate"
+        class="datepicker form-control"
+        mdbInput
+      />
+      <label for="checkOutDate">Check Out</label>
+    </div>
+  </div>
+  <div class="col-6">
+    
+    <div class="md-form">
+      <input
+        required
+        type="text"               
+        id="checkOutTime"
+        class="timepicker form-control"
+        mdbInput
+      />
+      <label for="checkOutTime">Time</label>
+    </div>
+  </div>
+</div>
+<div class="form-row">          
+ <div class="col-12 text-center">
+   <span class="text-center">Recurring Date (Optional)</span>
+ </div>
+  <div class="col-6 ">     
+    <div class="md-form input-field">              
+        <select class="sel"  id="recurringOption" required>
+          <option value="none" disabled selected>Type</option>                 
+            <option  value="none" >None</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>                  
+        </select>                
+    </div>    
+    
+  </div>
+  <div class="col-6">            
+    <div class="md-form">
+      <input
+        required
+        type="text"               
+        id="recurringDate"
+        class="datepicker form-control"
+        mdbInput
+      />
+      <label for="recurringDate">Date</label>
+    </div>
+  </div>
+</div>
+<div class="row text-center">
+  <p class="text-center">Select Serivces</p>
+</div>
+<div class="flex-container">
+ 
+  <div class=" mb-3">    
+    <label>
+      <input (change)="FieldsChange($event)" value="500" id ="wifi" type="checkbox" mdInput />
+      <span>Wifi</span>
+    </label>
+  </div>
+  <div class="mb-3">   
+    <label>
+      <input (change)="FieldsChange($event)" value="500" id ="breakfast" type="checkbox" mdInput />
+      <span>Breakfast</span>
+    </label>
+  </div>
+  <div class="input-group mb-3 ">   
+    <label>
+      <input (change)="FieldsChange($event)" value="500" id ="tv" type="checkbox" mdInput />
+      <span>TV</span>
+    </label>
+  </div> 
+</div>
+<div class="flex-container">
+  <div class="input-group mb-3">  
+    <label>
+      <input (change)="FieldsChange($event)" value="500" id ="projector" type="checkbox" mdInput />
+      <span>Projector</span>
+    </label>
+  </div>
+  <div class="input-group mb-3">
+    <label>
+      <input (change)="FieldsChange($event)" value="500" id ="whiteboard" type="checkbox" mdInput />
+      <span>Whiteboard</span>
+    </label>    
+  </div>
+</div>
+<!-- Booki button -->
+<div class="row">
+   
+    <div class="col-lg-12">
+        <button mdbBtn color="warning" block="true" type="submit">
+          ₦{{spacePrice + services}} Book Space
+        </button>
+
+    </div>
+</div>
+</form>
+

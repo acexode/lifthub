@@ -37,11 +37,11 @@ export class CreateSpaceComponent implements OnInit {
       'img': ['', Validators.required],
       'price': ['', Validators.required],
       'location': ['', Validators.required],
-      'tv': false,
-      'wifi': false,
-      'projector': false,
-      'whiteBoard': false,
-      'breakfast': false,
+      'tv':  ['', Validators.required],
+      'wifi':  ['', Validators.required],
+      'projector':  ['', Validators.required],
+      'whiteBoard':  ['', Validators.required],
+      'breakfast':  ['', Validators.required],
       });
     
   }

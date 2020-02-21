@@ -1,15 +1,7 @@
 const mongoose = require("mongoose");
 const bycrypt = require("bcrypt-nodejs");
 
-const walletSchema = mongoose.Schema({
-    amount: Number,      
-    user: { type: mongoose.Schema.ObjectId, ref: 'User' },
-})
-const paymentSchema = mongoose.Schema({
-    amount: Number,
-    spaceId:  { type: mongoose.Schema.ObjectId, ref: 'Space' },
-    user: { type: mongoose.Schema.ObjectId, ref: 'User' },
-})
+
 const userSchema = mongoose.Schema({
     email:{
         type: String,
@@ -25,6 +17,12 @@ const userSchema = mongoose.Schema({
         type: String,        
         required:true
     },
+    reset_password_token: {
+        type: String
+      },
+      reset_password_expires: {
+        type: Date
+      },
     role: {
         type: String,
         default: 'basic',
@@ -60,8 +58,10 @@ userSchema.pre("save", function(next){
     }
 });
 
-userSchema.methods.comparePassword = function(pwd,next){    
+userSchema.methods.comparePassword = function(pwd,next){  
     bycrypt.compare(pwd,this.password,function(err,result){        
+        console.log(pwd)  
+        console.log(this.password)  
         if(err){
             return next(err)
         }
@@ -69,5 +69,6 @@ userSchema.methods.comparePassword = function(pwd,next){
     })
 };
 module.exports = mongoose.model("User",userSchema)
+
 
 

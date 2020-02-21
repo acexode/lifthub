@@ -47,7 +47,7 @@
               Input valid
             </mdb-success>
             <p class="font-small blue-text d-flex justify-content-end">Forgot
-              <a href="#" class="blue-text ml-1"> Password?</a>
+              <a (click)="forget()" class="blue-text ml-1"> Password?</a>
             </p>
           </div>
   
@@ -57,16 +57,16 @@
             </button>
           </div>
         </form>
-        <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign In
+        <!-- <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign In
           with:</p>
 
         <div class=" mx-1 row  d-flex justify-content-center">        
-          <!--Google +-->
+         
           <button (click)="googleLogin()" type="submit" mdbBtn color="white" block="true"  rounded="true" class="z-depth-1a waves-light"
           mdbWavesEffect><mdb-icon fab icon="google"></mdb-icon>
         </button>
           
-        </div>
+        </div> -->
       </div>
       <!--Footer-->
       <div class="modal-footer mx-3 pt-2 mt-3">

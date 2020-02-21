@@ -6,17 +6,18 @@ const express = require("express"),
   app = express(),    
   auth = require("./routes/auth"),
   space = require("./routes/space"),
+  payment = require("./routes/payments"),
   dotenv = require('dotenv').config();
   
 
   mongoose.Promise = global.Promise;
 
 // uncomment to fill sample data into mongodb
-  // const seed = require('./model/seed')
+  //  const seed = require('./model/seed')
 console.log(process.env.MONGODBURI);
 // MIDDLEWARES
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({extended:true})); 
 
 //Not yet connected to mongodb mlab
 mongoose.connect(process.env.MONGODBURI, {useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
@@ -33,6 +34,7 @@ mongoose.connect(process.env.MONGODBURI, {useNewUrlParser:true,useUnifiedTopolog
   app.use(passport.initialize())
   app.use("/api", auth);
   app.use("/api", space);
+  app.use("/api", payment);
   
   
  

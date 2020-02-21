@@ -14,7 +14,7 @@ export class AdminComponent implements OnInit {
   elements: any = [];
   previous: any = [];
   headElements = ['№', 'SpaceType', 'Names', 'Bookings'];
-
+  payments
   constructor(private router : Router, private dispatcher : DispatcherService, private cdRef: ChangeDetectorRef) {
     // this.router.navigate(['admin/dashboard'])
    }
@@ -23,11 +23,16 @@ export class AdminComponent implements OnInit {
     // this.router.navigate(['admin/dashboard'])
     this.dispatcher.ownerSpaces().subscribe((res:any) =>{
       console.log(res)
-      this.elements = res.spaces
+      this.elements = res.spaces;
+      
       this.mdbTable.setDataSource(this.elements);
       this.elements = this.mdbTable.getDataSource();
       this.previous = this.mdbTable.getDataSource();
     });
+    this.dispatcher.payments().subscribe((res:any) =>{
+        this.payments = res.payments.length
+        console.log(this.payments); 
+    })
   }
 
   ngAfterViewInit() {

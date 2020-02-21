@@ -19,7 +19,7 @@
         
           <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="text-center" style="color: #757575;">
 
-            <div class="form-row">              
+            <div class="form-row mobile">              
               <div class="col">
                 <!-- Space -->
                 <div class="md-form"> 
@@ -32,16 +32,16 @@
                
                 </div>
               </div>
-              <div class="col">
+              <div class="col pt-1 mobile-col">
                 <!-- location -->
                 <div class="md-form">
                   <input type="text" formControlName="location" id="materialLocation" class="form-control" mdbInput>
                   <label for="materialLocation">Location</label>
                 </div>
               </div>
-              <div class="col">
+              <div class="col  mobile-col mt-1">
                 <!-- submit-->
-                <div class="md-form">
+                <div class="md-form ">
                    <!-- Submit button -->
             <button mdbBtn color="warning" outline="true" rounded="true" [disabled]="disabledSubmitButton" block="true" class="my-4 waves-effect z-depth-0" mdbWavesEffect
             type="submit">Search</button>

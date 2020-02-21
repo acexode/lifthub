@@ -36,6 +36,8 @@ import { AdminFooterComponent } from './admin/footer/footer.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { CreateSpaceComponent } from './admin/create-space/create-space.component';
 import { HomeComponent } from './admin/home/home.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 
@@ -70,7 +72,9 @@ import { HomeComponent } from './admin/home/home.component';
     NavigationComponent,
     AdminDashboardComponent,    
     CreateSpaceComponent, HomeComponent,
-    AdminFooterComponent
+    AdminFooterComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
 
     
   ],  

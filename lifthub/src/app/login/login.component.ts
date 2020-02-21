@@ -59,7 +59,9 @@ export class LoginComponent implements OnInit {
       this.errMsg = err.error.message;
     });
   }
-
+  forget(){
+    this.router.navigate(['forgot-password'])
+  }
   openSignUp() {
 
     this.modalRef.hide();

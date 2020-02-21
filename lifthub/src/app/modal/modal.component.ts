@@ -58,7 +58,9 @@ export class ModalComponent implements OnInit {
       this.errMsg = err.error.message;
     });
   }
-
+  forgot(){
+    this.router.navigate(['forgot-password'])
+  }
  openSignUp() {
 
    this.modalRef.hide();
