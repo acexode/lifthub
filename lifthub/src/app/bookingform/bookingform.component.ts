@@ -225,7 +225,8 @@ export class BookingformComponent implements OnInit {
     const recurringType = this.elem('#recurringOption').value;
     const recurringDate = this.recurringDate.toString();
     const recurringData = this.handleRecurringData(recurringType, recurringDate);
-   
+    console.log(startDate)
+    console.log(endDate)
     if (this.checkInDate.toString() === '' || this.checkInDate.toString() === '') {
        this.errMsg = true;
      } else {

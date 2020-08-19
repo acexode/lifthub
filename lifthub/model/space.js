@@ -10,23 +10,23 @@ const bookingSchema =  Schema({
     bookingEnd: Date,
     startHour: Number,
     duration: Number,
-    recurring: [], 
-    price : Number,   
+    recurring: [],
+    price : Number,
     spaceId: { type: Schema.ObjectId, ref: 'Space' }
   });
   // Validation to ensure a space cannot be double-booked
 bookingSchema.path('bookingStart').validate(function(value) {
-  
-    // Extract the Space Id from the query object   
+
+    // Extract the Space Id from the query object
     let spaceId = this.spaceId
-    
+
     // Convert booking Date objects into a number value
     let newBookingStart = value.getTime()
-    let newBookingEnd = this.bookingEnd.getTime()   
-   
+    let newBookingEnd = this.bookingEnd.getTime()
+
     // Function to check for booking clash
     let clashesWithExisting = (existingBookingStart, existingBookingEnd, newBookingStart, newBookingEnd) => {
-      if (newBookingStart >= existingBookingStart && newBookingStart < existingBookingEnd || 
+      if (newBookingStart >= existingBookingStart && newBookingStart < existingBookingEnd ||
         existingBookingStart >= newBookingStart && existingBookingStart < newBookingEnd) {
         console.log("clash")
         throw new Error(
@@ -36,51 +36,65 @@ bookingSchema.path('bookingStart').validate(function(value) {
       console.log("no clash")
       return false
     }
-    
-    // Locate the space document containing the bookings   
+
+    // Locate the space document containing the bookings
     return Space.findById(spaceId)
       .then(space => {
-        
+
         //Loop through each existing booking and return false if there is a clash
         return space.bookings.every(booking => {
-          
+
           // Convert existing booking Date objects into number values
           let existingBookingStart = new Date(booking.bookingStart).getTime()
-          let existingBookingEnd = new Date(booking.bookingEnd).getTime()          
+          let existingBookingEnd = new Date(booking.bookingEnd).getTime()
           // Check whether there is a clash between the new booking and the existing booking
           return !clashesWithExisting(
-            existingBookingStart, 
-            existingBookingEnd, 
-            newBookingStart, 
+            existingBookingStart,
+            existingBookingEnd,
+            newBookingStart,
             newBookingEnd
           )
         })
       })
   }, ` Booking {VALUE} already exist`)
-  
+
   // schema is empty for now
 const spaceSchema = Schema({
     spaceType: String,  // bed,conference,events etc.
     category: String,
     owner_id: {type: mongoose.Schema.Types.ObjectId, required: true,  ref: 'User' },
     details: {
-        name: {type: String, required: true},
-        capacity: {type: String},
+        title: {type: String, required: true},
         img: {type: [String], required: true},
-        location: {type: String, required: true},
+        state: {type: String, required: true},
+        city: {type: String, required: true},
+        address: {type: String, required: true},
         description: {type: String, required: true},
         price: {type: Number, required: true},
-        capacity: {type: Number}        
+        discount: {type: Number},
+        size: {type: Number},
+        capacity: {type: String}
     },
     assets: {
-        wifi: {type: Number, required: true},        
-        projector: {type: Number, required: true},
-        tv: {type: Number, required: true},       
-        breakfast: {type: Number, required: true},
-        whiteBoard:{type: Number, required: true}
+        air_condition: {type: Boolean },
+        refrigerator: {type: Boolean },
+        projector: {type: Boolean },
+        sound_system: {type: Boolean },
+        tv: {type: Boolean },
+        whiteBoard:{type: Boolean},
+        gym:{type: Boolean}
       },
+      services: {
+          wifi: {type: Number },
+          breakfast: {type: Number},
+          lunch:{type: Number},
+          dinner: {type: Number },
+          external_catering:{type: Number},
+          snacks_drinks:{type: Number},
+          airport_transfer:{type: Number}
+        },
       bookings: [bookingSchema],
-     
+
 
 });
 

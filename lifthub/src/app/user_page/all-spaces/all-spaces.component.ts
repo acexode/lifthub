@@ -120,6 +120,7 @@ export class AllSpacesComponent implements OnInit {
    });
   }
   @HostListener('input') oninput() {
+    console.log(this.searchForm)
     if (this.searchForm.valid) {
       this.disabledSubmitButton = false;
     }

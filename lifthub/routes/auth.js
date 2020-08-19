@@ -6,7 +6,8 @@ const router = express.Router();
 const User = require("../model/users");
 const bcrypt = require("bcrypt-nodejs");
 const crypto = require('crypto')
-const google = require('./google'),
+const google = require('./google')
+const helper = require('../helper/helper'),
 nodemailer = require('nodemailer');
 
 /*
@@ -14,23 +15,23 @@ POST REQUEST
 SIGNUP, LOGIN & POST SPACE
 */
 async function mail(token, user, path){
- 
+
   var smtpTransport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'abudawud92@gmail.com',
-      pass: 'tayibat92'
+      pass: ''
     }
   });
   var data = {
     to: user.email,
-    from: 'abudawud92@gmail.com',             
+    from: 'abudawud92@gmail.com',
     subject: 'Password help has arrived!',
     context: {
       url: path+'/reset_password?token=' + token,
       name: user.username
     }
-  };      
+  };
   smtpTransport.sendMail(data, function(err, info) {
     if (!err) {
       console.log(info.response)
@@ -74,6 +75,10 @@ router.post("/signup", (req, res) => {
       email: req.body.email,
       username: req.body.username,
       password: req.body.password,
+      address: '',
+      city: '',
+      state:'',
+      phone:'',
       role: "basic"
     });
     newUser.save(err => {
@@ -92,8 +97,8 @@ router.post("/signup", (req, res) => {
 router.post('/reset_password', (req,res)=>{
   console.log(req.body.password)
   User.findOne({reset_password_token: req.body.token, reset_password_expires: {$gt: Date.now()}}, (err, user)=>{
-    if(user){     
-      if(req.body.password){         
+    if(user){
+      if(req.body.password){
         bcrypt.genSalt(10,function(err,salt){
           if(err){
               return err
@@ -101,7 +106,7 @@ router.post('/reset_password', (req,res)=>{
           bcrypt.hash(req.body.password,salt,null,(err,hash)=>{
               if(err){
                   return next(err)
-              }             
+              }
               User.findByIdAndUpdate({_id: user._id}, {password: hash, reset_password_token: null, reset_password_expires: null }, {upsert: true, new:true},(err, doc) =>{
                 if (err) {
                   console.log(err)
@@ -109,9 +114,9 @@ router.post('/reset_password', (req,res)=>{
                 }
                 console.log(doc)
                 res.json({ success: true, message: "Password updated !!"});
-              })            
+              })
           })
-        })        
+        })
       }else{
         res.json({
           success: false,
@@ -151,15 +156,58 @@ router.post("/forgot_password", (req,res)=>{
             User.findByIdAndUpdate({_id: user._id}, {reset_password_token: token, reset_password_expires: Date.now() + 86400000 }, {upsert: true, new:true},(err, doc) =>{
               console.log(req.body.path+'/reset-password?token=' + token)
               mail(token, user, req.body.path).catch(console.error);
-            
+
             })
           })
-        
+
       }
   })
 
   }
 })
+router.put("/update-profile",(req,res)=>{
+  const token = helper.getToken(req.headers);
+  console.log(token);
+  jwt.verify(token,process.env.SECRET,(err,user)=>{
+    console.log(req.body)
+
+    User.findByIdAndUpdate({_id: user._id}, req.body,{new: true}, (err, user) => {
+      if (err) {
+        res.json({ success: false, message: err });
+      } else {
+        if (!user) {
+          res.json({ success: false, message: "user not found" });
+        } else {
+          console.log(user)
+          res.json({ success: true, user, message:'user sucessfully updated' });
+        }
+      }
+    });
+  });
+
+});
+router.get("/user-profile",(req,res)=>{
+  const token = helper.getToken(req.headers);
+  console.log(token);
+  var ObjectId = require('mongoose').Types.ObjectId;
+  jwt.verify(token,process.env.SECRET,(err,user)=>{
+    console.log(user)
+
+    User.find({_id: user._id}, {}).exec((err, user) => {
+      if (err) {
+        res.json({ success: false, message: err });
+      } else {
+        if (!user) {
+          res.json({ success: false, message: "user not found" });
+        } else {
+          console.log(user)
+          res.json({ success: true, user });
+        }
+      }
+    });
+  });
+
+});
 router.post("/registerAdmin", (req, res) => {
   console.log(JSON.stringify(req.body.email));
   if (!req.body.email ||  !req.body.username || !req.body.password) {
@@ -172,7 +220,12 @@ router.post("/registerAdmin", (req, res) => {
       email: req.body.email,
       username: req.body.username,
       password: req.body.password,
-      role: "admin"
+      address: '',
+      city: '',
+      state:'',
+      phone:'',
+      role: "admin",
+
     });
     newUser.save(err => {
       if (err) {

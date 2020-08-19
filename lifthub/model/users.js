@@ -13,8 +13,24 @@ const userSchema = mongoose.Schema({
         unique:true,
         required:true
     },
+    address:{
+        type: String,
+        unique:true,
+    },
     password:{
-        type: String,        
+        type: String,
+        required:true
+    },
+    state:{
+        type: String,
+        required:true
+    },
+    city:{
+        type: String,
+        required:true
+    },
+    phone:{
+        type: String,
         required:true
     },
     reset_password_token: {
@@ -29,7 +45,7 @@ const userSchema = mongoose.Schema({
         enum: ["basic", "admin"]
     },
     spaces: {
-        type: mongoose.Schema.Types.ObjectId,        
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Space"
     },
     walletBalance: String
@@ -38,7 +54,7 @@ const userSchema = mongoose.Schema({
 
 
 userSchema.pre("save", function(next){
-    
+
     const user = this;
     if(this.isModified("password") ||this.isNew ){
         bycrypt.genSalt(10,function(err,salt){
@@ -58,10 +74,10 @@ userSchema.pre("save", function(next){
     }
 });
 
-userSchema.methods.comparePassword = function(pwd,next){  
-    bycrypt.compare(pwd,this.password,function(err,result){        
-        console.log(pwd)  
-        console.log(this.password)  
+userSchema.methods.comparePassword = function(pwd,next){
+    bycrypt.compare(pwd,this.password,function(err,result){
+        console.log(pwd)
+        console.log(this.password)
         if(err){
             return next(err)
         }
@@ -69,6 +85,3 @@ userSchema.methods.comparePassword = function(pwd,next){
     })
 };
 module.exports = mongoose.model("User",userSchema)
-
-
-

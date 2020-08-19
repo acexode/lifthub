@@ -4,10 +4,13 @@ const router = express.Router();
 const helper = require('../helper/helper');
 const jwt = require("jsonwebtoken");
 router.post('/transactions', function (req, res, next) {
+  const token = helper.getToken(req.headers);  
+  jwt.verify(token,process.env.SECRET,(err,user)=>{
+    console.log(user);
     const payments = new Payment({
         amount: req.body.amount,
         spaceId:  req.body.spaceId,
-        customer: req.body.customer,
+        customer: user._id,
         name: req.body.name,
         bookingStart : req.body.bookingStart,
         bookingEnd : req.body.bookingEnd,
@@ -23,7 +26,7 @@ router.post('/transactions', function (req, res, next) {
           res.json({ success: true, message: "Transaction saved" });
         }
       });
-     
+    })
 });
 
 router.get('/payments', function(req,res,next){

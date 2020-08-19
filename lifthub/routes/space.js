@@ -3,10 +3,12 @@ const passport = require("passport");
 require("../config/auth")(passport);
 const router = express.Router();
 const Space = require("../model/space");
+const User = require("../model/users");
 const request = require("superagent");
 const helper = require('../helper/helper');
 const jwt = require("jsonwebtoken");
 const moment = require("moment");
+const { Mongoose } = require("mongoose");
 const momentTimezone = require("moment-timezone"),
 multer  = require('multer'),
 path   = require('path'),
@@ -68,9 +70,9 @@ router.get("/space/locate", (req, res) => {
 router.get("/space/search", (req, res) => {
   var space = new RegExp(req.query.space, "i");
   var location = new RegExp(req.query.location, "i");
+  var capacity = new RegExp(req.query.capacity, "i");
   console.log(space);
   console.log('location');
-  console.log(location);
   Space.find(
     { 'spaceType': space, "details.location": location },
     {},
@@ -108,35 +110,76 @@ router.get("/space/type", (req, res) => {
 });
 
 // Get all space
-router.get("/space", (req, res) => {
-  Space.find((err, space) => {
-    if (err) {
-      return next(err);
-    } else {
-      if (!space) {
-        res.json({ success: false, message: "no space" });
+router.get("/spaces", (req, res) => {
+  const token = helper.getToken(req.headers);
+  jwt.verify(token,process.env.SECRET,(err,user)=>{
+    Space.find({owner_id: user._id},(err, spaces) => {
+      if (err) {
+        return next(err);
       } else {
-        res.json({ success: true, space: space });
+        if (!spaces) {
+          res.json({ success: false, message: "no space" });
+        } else {
+          res.json({ success: true, spaces: spaces });
+        }
       }
-    }
-  });
-});
+    });
 
+  })
+});
+// Get all space
+router.get("/occupants", (req, res) => {
+  const token = helper.getToken(req.headers);
+  jwt.verify(token,process.env.SECRET,(err,user)=>{
+    Space.find({"owner_id": user._id, bookings:{$exists:true,$ne: []}, "bookings.bookingEnd" : { $gte : new Date() }}).exec(function(err,space) {
+      if (err) {
+        return next(err)
+      } else {
+        if (!space) {
+          res.json({ success: false, message: "no space" });
+        } else {
+          console.log(space)
+           space.map(e =>{
+            let obj;
+            console.log('length=>', e.bookings.length)
+              e.bookings.forEach((item, i) => {
+                User.findById({_id: item.user}, (err, user)=>{
+                  obj = {
+                    spaceId: e._id,
+                    category: e.category,
+                    occupant : user.username,
+                    spaceDetails:e.details
+                  }
+                  // console.log(obj)
+                  res.json({ success: true, data: obj,space });
+                })
+              });
+
+        })
+
+
+        }
+      }
+    });
+
+  })
+
+});
 router.get("/check",(req, res) => {
-  const token = helper.getToken(req.headers);      
-  jwt.verify(token,process.env.SECRET,(err,user)=>{     
-    console.log(user);
-    if(user){     
+  const token = helper.getToken(req.headers);
+  jwt.verify(token,process.env.SECRET,(err,user)=>{
+    // console.log(user);
+    if(user){
       res.json({  expired : true });
-    }else{    
+    }else{
       res.json({  expired : false });
     }
   })
 
 })
 router.get("/ownerSpaces",(req, res) => {
-  const token = helper.getToken(req.headers);    
-  jwt.verify(token,process.env.SECRET,(err,user)=>{ 
+  const token = helper.getToken(req.headers);
+  jwt.verify(token,process.env.SECRET,(err,user)=>{
     console.log('user')
     console.log(user._id)
     Space.find({'owner_id': user._id}, (err, spaces) => {
@@ -154,35 +197,74 @@ router.get("/ownerSpaces",(req, res) => {
   })
 
 })
+router.get("/booked-spaces",(req, res) => {
+  const token = helper.getToken(req.headers);
+  jwt.verify(token,process.env.SECRET,(err,user)=>{
+    console.log('user')
+    console.log(user._id)
+    Space.find({"owner_id": user._id, bookings:{$exists:true,$ne: []}, "bookings.bookingEnd" : { $lte : new Date() }}).exec(function(err,spaces) {
+      if (err) {
+        res.json({ success: false, message: err });
+      } else {
+        if (!spaces) {
+          res.json({ success: false, message: "no space" });
+        } else {
+          console.log(spaces[0]);
+          res.json({ success: true, spaces: spaces });
+        }
+      }
+    });
+  })
+
+})
 // Post new space
 router.post("/space",passport.authenticate("jwt", { session: false }),(req, res) => {
     const token = helper.getToken(req.headers);
-    console.log(req.headers);
+    // console.log(req.headers);
     if (token) {
+      console.log(req)
       const newSpace = new Space({
-        spaceType: req.body.type,
-        category : req.body.category,
+        spaceType : req.body.type,
         owner_id: req.user._id,
-        details: {
-          name: req.body.name,
-          img: req.body.img,
-          location: req.body.location,
+        category: req.body.category,
+        details:  {
+          title: req.body.title ,
+          capacity: req.body.capacity,
+          img: req.body.images,
+          state: req.body.state,
+          city: req.body.city,
+          address: req.body.address,
           description: req.body.description,
-          price: req.body.price
+          price: req.body.price,
+          discount: req.body.price,
+          size: req.body.price
         },
-        assets: {
+        services : {
           wifi: req.body.wifi,
-          projector: req.body.projector,
-          tv: req.body.tv,
-          breakfast: req.body.breakfast,
-          whiteBoard: req.body.whiteBoard
-        }
-      });    
+          breakfast:  req.body.breakfast,
+          lunch: req.body.lunch,
+          dinner: req.body.dinner,
+          external_catering:req.body.external_catering,
+          snacks_drinks:req.body.snacks_drinks,
+          airport_transfer:req.body.airport_transfer
+        },
+          assets : {
+            air_condition: req.body.air_condition,
+            refrigerator: req.body.refrigerator,
+            projector: req.body.projector,
+            sound_system: req.body.sound_system,
+            tv: req.body.tv,
+            whiteBoard:req.body.whiteBoard,
+            gym:req.body.gym
+          }
+      })
+      console.log(newSpace)
       newSpace.save(err => {
         if (err) {
-          console.log(err)
+          // console.log(err)
           res.json({ success: false, message: "failed to create new space" });
         } else {
+          console.log('created successfully')
           res.json({ success: true, message: "New space created" });
         }
       });
@@ -204,6 +286,7 @@ router.get("/space/:id", (req, res) => {
       if (!space) {
         res.json({ success: false, message: "no space" });
       } else {
+        console.log(space)
         res.json({ success: true, space: space });
       }
     }
@@ -211,28 +294,32 @@ router.get("/space/:id", (req, res) => {
 });
 // Get user
 router.get("/user",(req,res)=>{
-    const token = helper.getToken(req.headers);       
-    jwt.verify(token,process.env.SECRET,(err,user)=>{             
-      Space.find({'bookings.user': user._id }, {}, (err, space) => {       
+    const token = helper.getToken(req.headers);
+    console.log(token);
+    var ObjectId = require('mongoose').Types.ObjectId;
+    jwt.verify(token,process.env.SECRET,(err,user)=>{
+      console.log(user)
+
+      Space.find({'bookings.user': user._id}, {}).exec((err, space) => {
         if (err) {
           res.json({ success: false, message: err });
         } else {
           if (!space) {
             res.json({ success: false, message: "user has no booking" });
-          } else {            
+          } else {
             res.json({ success: true, space, user });
           }
         }
       });
-    });   
-  
+    });
+
 });
 // Get Bookings
-router.get("/bookings",(req,res)=>{  
-  const token = helper.getToken(req.headers);       
-  jwt.verify(token,process.env.SECRET,(err,user)=>{ 
-      console.log(user) 
-      Space.find({'owner_id': user._id}, (err, spaces) => {       
+router.get("/bookings",(req,res)=>{
+  const token = helper.getToken(req.headers);
+  jwt.verify(token,process.env.SECRET,(err,user)=>{
+      console.log(user)
+      Space.find({'owner_id': user._id}, (err, spaces) => {
         if (err) {
           res.json({ success: false, message: err });
         } else {
@@ -243,14 +330,14 @@ router.get("/bookings",(req,res)=>{
               var bookings = spaces.filter(space => space.bookings.length != 0)
               console.log('user bookings');
               console.log(bookings);
-              res.json({ success: true, bookings });                 
+              res.json({ success: true, bookings });
           }
         }
       });
 
-    })   
- 
-  
+    })
+
+
 });
 // Update space
 router.put("/:id", (req, res) => {
@@ -282,139 +369,141 @@ router.put("/:id", (req, res) => {
 
 
 // make booking
-router.put("/book/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
+router.put("/book/:id",  (req, res) => {
     const { id } = req.params;
-    const token = helper.getToken(req.headers);   
-    console.log('price');
-    console.log(req.body.price);
+    const token = helper.getToken(req.headers);
+
     if (token) {
-      if (req.body.recurring.length === 0) {
-        Space.findByIdAndUpdate(
-          id,
-          {
-            $addToSet: {
-              bookings: {
-                user: req.user._id,
-                // The hour on which the booking starts, calculated from 12:00AM as time = 0
-                startHour: helper.dateWAT(req.body.bookingStart),
-                // The duration of the booking in decimal format
-                duration: helper.durationHours(
-                  req.body.bookingStart,
-                  req.body.bookingEnd
-                ),
-                price : req.body.price,
-                // Spread operator for remaining attributes
-                ...req.body
+      jwt.verify(token,process.env.SECRET,(err,user)=>{
+        if (req.body.recurring.length === 0) {
+          Space.findByIdAndUpdate(
+            id,
+            {
+              $addToSet: {
+                bookings: {
+                  user: user._id,
+                  // The hour on which the booking starts, calculated from 12:00AM as time = 0
+                  startHour: helper.dateWAT(req.body.bookingStart),
+                  // The duration of the booking in decimal format
+                  duration: helper.durationHours(
+                    req.body.bookingStart,
+                    req.body.bookingEnd
+                  ),
+                  price : req.body.price,
+                  // Spread operator for remaining attributes
+                  ...req.body
+                }
               }
-            }
-          },
-          { new: true, runValidators: true, context: "query" }
-        )
-          .then(space => {
-            // send a reminder email
-            helper.reminder(req.user.email,space.spaceType, helper.dateWAT(req.body.bookingStart),req.body.bookingEnd)
-            res.status(201).json(space);
-          })
-          .catch(error => {
-            res.status(400).json({ error });
-          });
-        // booking is recurring
-      } else {
-        // The first booking in the recurring booking range
-        let firstBooking = req.body;
-        firstBooking.user = req.user._id;
-        firstBooking.startHour = helper.dateWAT(req.body.bookingStart);
+            },
+            { new: true, runValidators: true, context: "query" }
+          )
+            .then(space => {
+              // send a reminder email
+              helper.reminder(user.email,space.spaceType, helper.dateWAT(req.body.bookingStart),req.body.bookingEnd)
+              res.status(201).json(space);
+            })
+            .catch(error => {
+              res.status(400).json({ error });
+            });
+          // booking is recurring
+        } else {
+          // The first booking in the recurring booking range
+          let firstBooking = req.body;
+          firstBooking.user = user._id;
+          firstBooking.startHour = helper.dateWAT(req.body.bookingStart);
 
-        firstBooking.duration =  helper.durationHours(
-          req.body.bookingStart,
-          req.body.bookingEnd
-        );
+          firstBooking.duration =  helper.durationHours(
+            req.body.bookingStart,
+            req.body.bookingEnd
+          );
 
-        // An array containing the first booking, to which all additional bookings in the recurring range will be added
-        let recurringBookings = [firstBooking];
+          // An array containing the first booking, to which all additional bookings in the recurring range will be added
+          let recurringBookings = [firstBooking];
 
-        // A Moment.js object to track each date in the recurring range, initialised with the first date
-        let bookingDateTracker = momentTimezone(firstBooking.bookingStart).tz(
-          "Africa/Lagos"
-        );
+          // A Moment.js object to track each date in the recurring range, initialised with the first date
+          let bookingDateTracker = momentTimezone(firstBooking.bookingStart).tz(
+            "Africa/Lagos"
+          );
 
-        // A Moment.js date object for the final booking date in the recurring booking range - set to one hour ahead of the first booking - to calculate the number of days/weeks/months between the first and last bookings when rounded down
-        let lastBookingDate = momentTimezone(firstBooking.recurring[0]).tz(
-          "Africa/Lagos"
-        );
-        lastBookingDate.hour(bookingDateTracker.hour() + 1);
+          // A Moment.js date object for the final booking date in the recurring booking range - set to one hour ahead of the first booking - to calculate the number of days/weeks/months between the first and last bookings when rounded down
+          let lastBookingDate = momentTimezone(firstBooking.recurring[0]).tz(
+            "Africa/Lagos"
+          );
+          lastBookingDate.hour(bookingDateTracker.hour() + 1);
 
-        // The number of subsequent bookings in the recurring booking date range
-        let bookingsInRange =
-          req.body.recurring[1] === "daily"
-            ? Math.floor(lastBookingDate.diff(bookingDateTracker, "days", true))
-            : req.body.recurring[1] === "weekly"
-            ? Math.floor(
-                lastBookingDate.diff(bookingDateTracker, "weeks", true)
-              )
-            : Math.floor(
-                lastBookingDate.diff(bookingDateTracker, "months", true)
+          // The number of subsequent bookings in the recurring booking date range
+          let bookingsInRange =
+            req.body.recurring[1] === "daily"
+              ? Math.floor(lastBookingDate.diff(bookingDateTracker, "days", true))
+              : req.body.recurring[1] === "weekly"
+              ? Math.floor(
+                  lastBookingDate.diff(bookingDateTracker, "weeks", true)
+                )
+              : Math.floor(
+                  lastBookingDate.diff(bookingDateTracker, "months", true)
+                );
+
+          // Set the units which will be added to the bookingDateTracker - days, weeks or months
+          let units =
+            req.body.recurring[1] === "daily"
+              ? "d"
+              : req.body.recurring[1] === "weekly"
+              ? "w"
+              : "M";
+
+          // Each loop will represent a potential booking in this range
+          for (let i = 0; i < bookingsInRange; i++) {
+            // Add one unit to the booking tracker to get the date of the potential booking
+            let proposedBookingDateStart = bookingDateTracker.add(1, units);
+
+            // Check whether this day is a Sunday (no bookings on Sundays)
+            if (proposedBookingDateStart.day() !== 0) {
+              // Create a new booking object based on the first booking
+              let newBooking = Object.assign({}, firstBooking);
+
+              // Calculate the end date/time of the new booking by adding the number of units to the first booking's end date/time
+              let firstBookingEndDate = moment(firstBooking.bookingEnd).tz(
+                "Africa/Lagos"
               );
+              let proposedBookingDateEnd = firstBookingEndDate.add(i + 1, units);
 
-        // Set the units which will be added to the bookingDateTracker - days, weeks or months
-        let units =
-          req.body.recurring[1] === "daily"
-            ? "d"
-            : req.body.recurring[1] === "weekly"
-            ? "w"
-            : "M";
+              // Update the new booking object's start and end dates
+              newBooking.bookingStart = proposedBookingDateStart.toDate();
+              newBooking.bookingEnd = proposedBookingDateEnd.toDate();
 
-        // Each loop will represent a potential booking in this range
-        for (let i = 0; i < bookingsInRange; i++) {
-          // Add one unit to the booking tracker to get the date of the potential booking
-          let proposedBookingDateStart = bookingDateTracker.add(1, units);
-
-          // Check whether this day is a Sunday (no bookings on Sundays)
-          if (proposedBookingDateStart.day() !== 0) {
-            // Create a new booking object based on the first booking
-            let newBooking = Object.assign({}, firstBooking);
-
-            // Calculate the end date/time of the new booking by adding the number of units to the first booking's end date/time
-            let firstBookingEndDate = moment(firstBooking.bookingEnd).tz(
-              "Africa/Lagos"
-            );
-            let proposedBookingDateEnd = firstBookingEndDate.add(i + 1, units);
-
-            // Update the new booking object's start and end dates
-            newBooking.bookingStart = proposedBookingDateStart.toDate();
-            newBooking.bookingEnd = proposedBookingDateEnd.toDate();
-
-            // Add the new booking to the recurring booking array
-            recurringBookings.push(newBooking);
+              // Add the new booking to the recurring booking array
+              recurringBookings.push(newBooking);
+            }
           }
-        } 
 
-        // Find the relevant space and save the bookings
-        Space.findByIdAndUpdate(
-          id,
-          {
-            $push: {
-              bookings: {
-                $each: recurringBookings
+          // Find the relevant space and save the bookings
+          Space.findByIdAndUpdate(
+            id,
+            {
+              $push: {
+                bookings: {
+                  $each: recurringBookings
+                }
               }
-            }
-          },
-          { new: true, runValidators: true, context: "query" }
-        )
-          .then(space => {
-            // send a reminder email
-            helper.reminder(req.user.email,space.spaceType, helper.dateWAT(req.body.bookingStart),req.body.bookingEnd)
-            res.status(201).json(space);
-          })
-          .catch(error => {
-            console.log(error.errors.bookings.errors.bookingStart.message)
-            if(error.errors.bookings.errors.bookingStart.message){
-              res.status(400).json({ error: error.errors.bookings.errors.bookingStart.message });
+            },
+            { new: true, runValidators: true, context: "query" }
+          )
+            .then(space => {
+              // send a reminder email
+              helper.reminder(user.email,space.spaceType, helper.dateWAT(req.body.bookingStart),req.body.bookingEnd)
+              res.status(201).json(space);
+            })
+            .catch(error => {
+              console.log(error.errors.bookings.errors.bookingStart.message)
+              if(error.errors.bookings.errors.bookingStart.message){
+                res.status(400).json({ error: error.errors.bookings.errors.bookingStart.message });
 
-            }
-            res.status(400).json({ error });
-          });
-      }
+              }
+              res.status(400).json({ error });
+            });
+        }
+
+      })
     } else {
         res.status(403).json({ success: false, message: "Please login or signup" });
     }
@@ -495,11 +584,11 @@ router.post('/upload', upload.array('uploads', 12), function (req, res, next) {
   // req.files is array of `photos` files
   // req.body will contain the text fields, if there were any
   if(req.files){
-    // console.log(req.files);   
+    // console.log(req.files);
     const images = req.files.map(data => data.secure_url )
-    console.log(images);
+    console.log('images', images);
     res.json({ success: true, message: "uploaded sucessfully", images });
-   
+
   }else{
     res.json({ success: false, message: "upload failed" });
   }
@@ -508,9 +597,9 @@ router.post('/upload', upload.array('uploads', 12), function (req, res, next) {
 // post send availability message
 router.post("/email", (req, res) => {
   const { spaceId,bookingId, msg } = req.body;
-  const token = helper.getToken(req.headers);  
- 
-  jwt.verify(token,process.env.SECRET,(err,user)=>{ 
+  const token = helper.getToken(req.headers);
+
+  jwt.verify(token,process.env.SECRET,(err,user)=>{
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
